@@ -1558,3 +1558,240 @@ function lockFoundWord42(word, coords) {
 document.addEventListener('DOMContentLoaded', () => {
   initWordSearch42();
 });
+
+/* ==========================================================================
+   EVALUACIÓN INTERACTIVA TALLER CUARTO GRADO ÁREA 3: BENEFICIOS Y MÉTODOS
+   ========================================================================== */
+function checkCuartoArea3Quiz(qNum, selectedOption, btnElem) {
+  const correctAnswers = {
+    1: 'B', // Reducir los costos en la compra de hortalizas para el comedor escolar
+    2: 'A', // Porque integra a docentes, alumnos y padres en jornadas colaborativas de siembra
+    3: 'A', // En perforar pequeños hoyos manuales en el suelo sin removerlo para depositar semillas
+    4: 'B', // Minerales como el potasio que enriquecen la primera cosecha
+    5: 'A'  // Porque representan el saber cultural ancestral de nuestras comunidades campesinas e indigenas
+  };
+
+  const ansDiv = document.getElementById(`cuarto-area3-ans-${qNum}`);
+  if (!ansDiv) return;
+
+  const parent = btnElem.parentElement;
+  parent.querySelectorAll('button').forEach(b => {
+    b.style.background = 'white';
+    b.style.color = 'black';
+    b.style.borderColor = 'var(--border-color)';
+  });
+
+  if (selectedOption === correctAnswers[qNum]) {
+    btnElem.style.background = '#2e7d32';
+    btnElem.style.color = 'white';
+    btnElem.style.borderColor = '#2e7d32';
+    ansDiv.innerHTML = `<span style="color: #2e7d32;"><i class="fa-solid fa-circle-check"></i> ¡Correcto! Excelente comprensión de los beneficios y tradiciones.</span>`;
+  } else {
+    btnElem.style.background = '#c62828';
+    btnElem.style.color = 'white';
+    btnElem.style.borderColor = '#c62828';
+    ansDiv.innerHTML = `<span style="color: #c62828;"><i class="fa-solid fa-circle-xmark"></i> Incorrecto. Inténtalo de nuevo.</span>`;
+  }
+}
+
+/* ==========================================================================
+   SOPA DE LETRAS INTERACTIVA - CUARTO GRADO ÁREA 3 (BENEFICIOS Y MÉTODOS)
+   ========================================================================== */
+const WS43_MATRIX = [
+  ['B','E','N','E','F','I','C','I','O','X','Y','Z'],
+  ['E','C','O','N','O','M','I','C','O','A','B','C'],
+  ['N','U','T','R','I','T','I','V','O','D','E','F'],
+  ['C','O','M','U','N','I','D','A','D','G','H','I'],
+  ['T','R','A','D','I','C','I','O','N','A','L','J'],
+  ['C','H','U','Z','O','K','L','M','N','O','P','Q'],
+  ['C','O','R','T','A','R','S','T','U','V','W','X'],
+  ['Q','U','E','M','A','Y','Z','A','B','C','D','E'],
+  ['B','A','R','B','E','C','H','O','F','G','H','I'],
+  ['C','O','S','E','C','H','A','J','K','L','M','N'],
+  ['A','B','C','D','E','F','G','H','I','J','K','L'],
+  ['M','N','O','P','Q','R','S','T','U','V','W','X']
+];
+
+const WS43_TARGET_WORDS = {
+  'BENEFICIO': [[0,0],[0,1],[0,2],[0,3],[0,4],[0,5],[0,6],[0,7],[0,8]],
+  'ECONOMICO': [[1,0],[1,1],[1,2],[1,3],[1,4],[1,5],[1,6],[1,7],[1,8]],
+  'NUTRITIVO': [[2,0],[2,1],[2,2],[2,3],[2,4],[2,5],[2,6],[2,7],[2,8]],
+  'COMUNIDAD': [[3,0],[3,1],[3,2],[3,3],[3,4],[3,5],[3,6],[3,7],[3,8]],
+  'TRADICIONAL': [[4,0],[4,1],[4,2],[4,3],[4,4],[4,5],[4,6],[4,7],[4,8],[4,9],[4,10]],
+  'CHUZO': [[5,0],[5,1],[5,2],[5,3],[5,4]],
+  'CORTA': [[6,0],[6,1],[6,2],[6,3],[6,4]],
+  'QUEMA': [[7,0],[7,1],[7,2],[7,3],[7,4]],
+  'BARBECHO': [[8,0],[8,1],[8,2],[8,3],[8,4],[8,5],[8,6],[8,7]],
+  'COSECHA': [[9,0],[9,1],[9,2],[9,3],[9,4],[9,5],[9,6]]
+};
+
+const WS43_WORD_COLORS = {
+  'BENEFICIO': '#2e7d32',
+  'ECONOMICO': '#1565c0',
+  'NUTRITIVO': '#e65100',
+  'COMUNIDAD': '#6a1b9a',
+  'TRADICIONAL': '#4e342e',
+  'CHUZO': '#00838f',
+  'CORTA': '#d84315',
+  'QUEMA': '#c62828',
+  'BARBECHO': '#00695c',
+  'COSECHA': '#ad1457'
+};
+
+let selectedCoords43 = [];
+let foundWords43 = new Set();
+let ws43TimerInterval = null;
+let ws43Seconds = 0;
+let ws43TimerRunning = false;
+
+function resetWS43Timer() {
+  if (ws43TimerInterval) clearInterval(ws43TimerInterval);
+  ws43TimerInterval = null;
+  ws43Seconds = 0;
+  ws43TimerRunning = false;
+  const timerElem = document.getElementById('ws43-timer');
+  if (timerElem) timerElem.textContent = '00:00';
+}
+
+function startWS43Timer() {
+  if (ws43TimerRunning) return;
+  ws43TimerRunning = true;
+  ws43Seconds = 0;
+  ws43TimerInterval = setInterval(() => {
+    ws43Seconds++;
+    const mins = Math.floor(ws43Seconds / 60).toString().padStart(2, '0');
+    const secs = (ws43Seconds % 60).toString().padStart(2, '0');
+    const timerElem = document.getElementById('ws43-timer');
+    if (timerElem) timerElem.textContent = `${mins}:${secs}`;
+  }, 1000);
+}
+
+function stopWS43Timer() {
+  if (ws43TimerInterval) {
+    clearInterval(ws43TimerInterval);
+    ws43TimerInterval = null;
+  }
+  ws43TimerRunning = false;
+}
+
+function initWordSearch43() {
+  const gridContainer = document.getElementById('wordsearch43-grid');
+  const counter = document.getElementById('ws43-counter');
+  if (!gridContainer) return;
+
+  gridContainer.innerHTML = '';
+  selectedCoords43 = [];
+  foundWords43.clear();
+  resetWS43Timer();
+
+  if (counter) counter.textContent = `0 / 10`;
+
+  document.querySelectorAll('#ws43-word-list div').forEach(item => {
+    if (!item.getAttribute('data-orig-text')) {
+      item.setAttribute('data-orig-text', item.textContent);
+    }
+    item.textContent = item.getAttribute('data-orig-text');
+    item.style.textDecoration = 'none';
+    item.style.opacity = '1';
+    item.style.color = 'var(--text-main)';
+    item.style.fontWeight = '600';
+  });
+
+  for (let r = 0; r < 12; r++) {
+    for (let c = 0; c < 12; c++) {
+      const cell = document.createElement('div');
+      cell.classList.add('ws43-cell');
+      cell.setAttribute('data-r', r);
+      cell.setAttribute('data-c', c);
+      cell.textContent = WS43_MATRIX[r][c];
+
+      cell.style.aspectRatio = '1';
+      cell.style.display = 'flex';
+      cell.style.alignItems = 'center';
+      cell.style.justifyContent = 'center';
+      cell.style.background = '#ffffff';
+      cell.style.border = '1px solid var(--border-color)';
+      cell.style.borderRadius = '4px';
+      cell.style.fontWeight = '700';
+      cell.style.fontSize = '0.9rem';
+      cell.style.cursor = 'pointer';
+      cell.style.transition = 'all 0.15s ease';
+
+      cell.addEventListener('click', () => handleCellClick43(r, c, cell));
+      gridContainer.appendChild(cell);
+    }
+  }
+}
+
+function handleCellClick43(r, c, cellElem) {
+  startWS43Timer();
+
+  const index = selectedCoords43.findIndex(item => item.r === r && item.c === c);
+  if (index >= 0) {
+    selectedCoords43.splice(index, 1);
+    cellElem.style.background = '#ffffff';
+    cellElem.style.color = '#000000';
+  } else {
+    selectedCoords43.push({ r, c, char: WS43_MATRIX[r][c] });
+    cellElem.style.background = 'var(--gold)';
+    cellElem.style.color = 'var(--primary-dark)';
+  }
+
+  checkSelectedWord43();
+}
+
+function checkSelectedWord43() {
+  const currentChars = selectedCoords43.map(item => item.char).join('');
+  const currentCharsRev = selectedCoords43.map(item => item.char).reverse().join('');
+
+  for (const [word, coords] of Object.entries(WS43_TARGET_WORDS)) {
+    if (foundWords43.has(word)) continue;
+
+    if (currentChars === word || currentCharsRev === word) {
+      foundWords43.add(word);
+      lockFoundWord43(word, coords);
+      selectedCoords43 = [];
+      break;
+    }
+  }
+}
+
+function lockFoundWord43(word, coords) {
+  const wordColor = WS43_WORD_COLORS[word] || 'var(--primary)';
+
+  coords.forEach(([r, c]) => {
+    const cell = document.querySelector(`.ws43-cell[data-r="${r}"][data-c="${c}"]`);
+    if (cell) {
+      cell.style.background = wordColor;
+      cell.style.color = '#ffffff';
+      cell.style.boxShadow = `0 0 6px ${wordColor}88`;
+    }
+  });
+
+  const wordItem = document.querySelector(`#ws43-word-list div[data-word="${word}"]`);
+  if (wordItem) {
+    const origText = wordItem.getAttribute('data-orig-text') || wordItem.textContent;
+    wordItem.innerHTML = `<span style="color: ${wordColor}; font-weight: 900; margin-right: 4px;">✓</span> ${origText}`;
+    wordItem.style.color = wordColor;
+    wordItem.style.fontWeight = '700';
+  }
+
+  const counter = document.getElementById('ws43-counter');
+  if (counter) {
+    counter.textContent = `${foundWords43.size} / 10`;
+  }
+
+  if (foundWords43.size === 10) {
+    stopWS43Timer();
+    const mins = Math.floor(ws43Seconds / 60).toString().padStart(2, '0');
+    const secs = (ws43Seconds % 60).toString().padStart(2, '0');
+    setTimeout(() => {
+      alert(`🎉 ¡FELICITACIONES! Has completado la Sopa de Letras de Beneficios y Tradiciones (Cuarto Grado) en ${mins}:${secs}. ¡Eres un Promotor de la Soberanía Alimentaria!`);
+    }, 200);
+  }
+}
+
+// Auto init WS43 on load
+document.addEventListener('DOMContentLoaded', () => {
+  initWordSearch43();
+});
