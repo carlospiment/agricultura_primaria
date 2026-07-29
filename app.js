@@ -847,3 +847,240 @@ function lockFoundWord3(word, coords) {
 document.addEventListener('DOMContentLoaded', () => {
   initWordSearch3();
 });
+
+/* ==========================================================================
+   EVALUACIÓN INTERACTIVA TALLER ÁREA 4: AMBIENTE Y AGRICULTURA SOSTENIBLE
+   ========================================================================== */
+function checkArea4Quiz(qNum, selectedOption, btnElem) {
+  const correctAnswers = {
+    1: 'B', // Cultivar alimentos cuidando el suelo, agua y biodiversidad
+    2: 'A', // Transportan el polen y permiten frutos y semillas
+    3: 'B', // Agua, aire y seres vivos
+    4: 'B', // Airear el terreno y transformar materia orgánica en humus
+    5: 'A'  // Evitando tóxicos sintéticos y aplicando abonos orgánicos como compost
+  };
+
+  const ansDiv = document.getElementById(`area4-ans-${qNum}`);
+  if (!ansDiv) return;
+
+  const parent = btnElem.parentElement;
+  parent.querySelectorAll('button').forEach(b => {
+    b.style.background = 'white';
+    b.style.color = 'black';
+    b.style.borderColor = 'var(--border-color)';
+  });
+
+  if (selectedOption === correctAnswers[qNum]) {
+    btnElem.style.background = '#2e7d32';
+    btnElem.style.color = 'white';
+    btnElem.style.borderColor = '#2e7d32';
+    ansDiv.innerHTML = `<span style="color: #2e7d32;"><i class="fa-solid fa-circle-check"></i> ¡Correcto! Excelente guardián del medio ambiente y del suelo.</span>`;
+  } else {
+    btnElem.style.background = '#c62828';
+    btnElem.style.color = 'white';
+    btnElem.style.borderColor = '#c62828';
+    ansDiv.innerHTML = `<span style="color: #c62828;"><i class="fa-solid fa-circle-xmark"></i> Incorrecto. Inténtalo de nuevo.</span>`;
+  }
+}
+
+/* ==========================================================================
+   SOPA DE LETRAS INTERACTIVA - ÁREA 4 (SOSTENIBILIDAD Y SUELO)
+   ========================================================================== */
+const WS4_MATRIX = [
+  ['S','O','S','T','E','N','I','B','L','E','X','Y'],
+  ['A','M','B','I','E','N','T','E','Z','A','B','C'],
+  ['F','L','O','R','A','D','E','F','G','H','I','J'],
+  ['F','A','U','N','A','K','L','M','N','O','P','Q'],
+  ['S','U','E','L','O','R','S','T','U','V','W','X'],
+  ['A','G','U','A','Y','Z','A','B','C','D','E','F'],
+  ['A','I','R','E','G','H','I','J','K','L','M','N'],
+  ['L','O','M','B','R','I','Z','O','P','Q','R','S'],
+  ['H','U','M','U','S','T','U','V','W','X','Y','Z'],
+  ['A','B','O','N','O','A','B','C','D','E','F','G'],
+  ['A','B','C','D','E','F','G','H','I','J','K','L'],
+  ['M','N','O','P','Q','R','S','T','U','V','W','X']
+];
+
+const WS4_TARGET_WORDS = {
+  'SOSTENIBLE': [[0,0],[0,1],[0,2],[0,3],[0,4],[0,5],[0,6],[0,7],[0,8],[0,9]],
+  'AMBIENTE': [[1,0],[1,1],[1,2],[1,3],[1,4],[1,5],[1,6],[1,7]],
+  'FLORA': [[2,0],[2,1],[2,2],[2,3],[2,4]],
+  'FAUNA': [[3,0],[3,1],[3,2],[3,3],[3,4]],
+  'SUELO': [[4,0],[4,1],[4,2],[4,3],[4,4]],
+  'AGUA': [[5,0],[5,1],[5,2],[5,3]],
+  'AIRE': [[6,0],[6,1],[6,2],[6,3]],
+  'LOMBRIZ': [[7,0],[7,1],[7,2],[7,3],[7,4],[7,5],[7,6]],
+  'HUMUS': [[8,0],[8,1],[8,2],[8,3],[8,4]],
+  'ABONO': [[9,0],[9,1],[9,2],[9,3],[9,4]]
+};
+
+const WS4_WORD_COLORS = {
+  'SOSTENIBLE': '#2e7d32',
+  'AMBIENTE': '#e65100',
+  'FLORA': '#1565c0',
+  'FAUNA': '#6a1b9a',
+  'SUELO': '#4e342e',
+  'AGUA': '#00838f',
+  'AIRE': '#d84315',
+  'LOMBRIZ': '#00695c',
+  'HUMUS': '#c62828',
+  'ABONO': '#ad1457'
+};
+
+let selectedCoords4 = [];
+let foundWords4 = new Set();
+let ws4TimerInterval = null;
+let ws4Seconds = 0;
+let ws4TimerRunning = false;
+
+function resetWS4Timer() {
+  if (ws4TimerInterval) clearInterval(ws4TimerInterval);
+  ws4TimerInterval = null;
+  ws4Seconds = 0;
+  ws4TimerRunning = false;
+  const timerElem = document.getElementById('ws4-timer');
+  if (timerElem) timerElem.textContent = '00:00';
+}
+
+function startWS4Timer() {
+  if (ws4TimerRunning) return;
+  ws4TimerRunning = true;
+  ws4Seconds = 0;
+  ws4TimerInterval = setInterval(() => {
+    ws4Seconds++;
+    const mins = Math.floor(ws4Seconds / 60).toString().padStart(2, '0');
+    const secs = (ws4Seconds % 60).toString().padStart(2, '0');
+    const timerElem = document.getElementById('ws4-timer');
+    if (timerElem) timerElem.textContent = `${mins}:${secs}`;
+  }, 1000);
+}
+
+function stopWS4Timer() {
+  if (ws4TimerInterval) {
+    clearInterval(ws4TimerInterval);
+    ws4TimerInterval = null;
+  }
+  ws4TimerRunning = false;
+}
+
+function initWordSearch4() {
+  const gridContainer = document.getElementById('wordsearch4-grid');
+  const counter = document.getElementById('ws4-counter');
+  if (!gridContainer) return;
+
+  gridContainer.innerHTML = '';
+  selectedCoords4 = [];
+  foundWords4.clear();
+  resetWS4Timer();
+
+  if (counter) counter.textContent = `0 / 10`;
+
+  document.querySelectorAll('#ws4-word-list div').forEach(item => {
+    if (!item.getAttribute('data-orig-text')) {
+      item.setAttribute('data-orig-text', item.textContent);
+    }
+    item.textContent = item.getAttribute('data-orig-text');
+    item.style.textDecoration = 'none';
+    item.style.opacity = '1';
+    item.style.color = 'var(--text-main)';
+    item.style.fontWeight = '600';
+  });
+
+  for (let r = 0; r < 12; r++) {
+    for (let c = 0; c < 12; c++) {
+      const cell = document.createElement('div');
+      cell.classList.add('ws4-cell');
+      cell.setAttribute('data-r', r);
+      cell.setAttribute('data-c', c);
+      cell.textContent = WS4_MATRIX[r][c];
+
+      cell.style.aspectRatio = '1';
+      cell.style.display = 'flex';
+      cell.style.alignItems = 'center';
+      cell.style.justifyContent = 'center';
+      cell.style.background = '#ffffff';
+      cell.style.border = '1px solid var(--border-color)';
+      cell.style.borderRadius = '4px';
+      cell.style.fontWeight = '700';
+      cell.style.fontSize = '0.9rem';
+      cell.style.cursor = 'pointer';
+      cell.style.transition = 'all 0.15s ease';
+
+      cell.addEventListener('click', () => handleCellClick4(r, c, cell));
+      gridContainer.appendChild(cell);
+    }
+  }
+}
+
+function handleCellClick4(r, c, cellElem) {
+  startWS4Timer();
+
+  const index = selectedCoords4.findIndex(item => item.r === r && item.c === c);
+  if (index >= 0) {
+    selectedCoords4.splice(index, 1);
+    cellElem.style.background = '#ffffff';
+    cellElem.style.color = '#000000';
+  } else {
+    selectedCoords4.push({ r, c, char: WS4_MATRIX[r][c] });
+    cellElem.style.background = 'var(--gold)';
+    cellElem.style.color = 'var(--primary-dark)';
+  }
+
+  checkSelectedWord4();
+}
+
+function checkSelectedWord4() {
+  const currentChars = selectedCoords4.map(item => item.char).join('');
+  const currentCharsRev = selectedCoords4.map(item => item.char).reverse().join('');
+
+  for (const [word, coords] of Object.entries(WS4_TARGET_WORDS)) {
+    if (foundWords4.has(word)) continue;
+
+    if (currentChars === word || currentCharsRev === word) {
+      foundWords4.add(word);
+      lockFoundWord4(word, coords);
+      selectedCoords4 = [];
+      break;
+    }
+  }
+}
+
+function lockFoundWord4(word, coords) {
+  const wordColor = WS4_WORD_COLORS[word] || 'var(--primary)';
+
+  coords.forEach(([r, c]) => {
+    const cell = document.querySelector(`.ws4-cell[data-r="${r}"][data-c="${c}"]`);
+    if (cell) {
+      cell.style.background = wordColor;
+      cell.style.color = '#ffffff';
+      cell.style.boxShadow = `0 0 6px ${wordColor}88`;
+    }
+  });
+
+  const wordItem = document.querySelector(`#ws4-word-list div[data-word="${word}"]`);
+  if (wordItem) {
+    const origText = wordItem.getAttribute('data-orig-text') || wordItem.textContent;
+    wordItem.innerHTML = `<span style="color: ${wordColor}; font-weight: 900; margin-right: 4px;">✓</span> ${origText}`;
+    wordItem.style.color = wordColor;
+    wordItem.style.fontWeight = '700';
+  }
+
+  const counter = document.getElementById('ws4-counter');
+  if (counter) {
+    counter.textContent = `${foundWords4.size} / 10`;
+  }
+
+  if (foundWords4.size === 10) {
+    stopWS4Timer();
+    const mins = Math.floor(ws4Seconds / 60).toString().padStart(2, '0');
+    const secs = (ws4Seconds % 60).toString().padStart(2, '0');
+    setTimeout(() => {
+      alert(`🎉 ¡MAGNÍFICO TRABAJO! Has encontrado las 10 palabras de Ambiente y Agricultura Sostenible en ${mins}:${secs}. ¡Eres un Protector Oficial de la Madre Tierra!`);
+    }, 200);
+  }
+}
+
+// Auto init WS4 on load
+document.addEventListener('DOMContentLoaded', () => {
+  initWordSearch4();
+});
