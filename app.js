@@ -1321,3 +1321,240 @@ function lockFoundWord41(word, coords) {
 document.addEventListener('DOMContentLoaded', () => {
   initWordSearch41();
 });
+
+/* ==========================================================================
+   EVALUACIÓN INTERACTIVA TALLER CUARTO GRADO ÁREA 2: HERRAMIENTAS Y SEGURIDAD
+   ========================================================================== */
+function checkCuartoArea2Quiz(qNum, selectedOption, btnElem) {
+  const correctAnswers = {
+    1: 'B', // Machete
+    2: 'A', // Picar tierra dura, desterronar y voltear el suelo fértil
+    3: 'B', // Para abrir hoyos pequeños de siembra directa de semillas y granos
+    4: 'B', // Al menos 2 metros de distancia
+    5: 'A'  // Apuntando los filos hacia abajo, caminando a paso normal y nunca corriendo
+  };
+
+  const ansDiv = document.getElementById(`cuarto-area2-ans-${qNum}`);
+  if (!ansDiv) return;
+
+  const parent = btnElem.parentElement;
+  parent.querySelectorAll('button').forEach(b => {
+    b.style.background = 'white';
+    b.style.color = 'black';
+    b.style.borderColor = 'var(--border-color)';
+  });
+
+  if (selectedOption === correctAnswers[qNum]) {
+    btnElem.style.background = '#2e7d32';
+    btnElem.style.color = 'white';
+    btnElem.style.borderColor = '#2e7d32';
+    ansDiv.innerHTML = `<span style="color: #2e7d32;"><i class="fa-solid fa-circle-check"></i> ¡Correcto! Excelente conocimiento técnico y de prevención.</span>`;
+  } else {
+    btnElem.style.background = '#c62828';
+    btnElem.style.color = 'white';
+    btnElem.style.borderColor = '#c62828';
+    ansDiv.innerHTML = `<span style="color: #c62828;"><i class="fa-solid fa-circle-xmark"></i> Incorrecto. Inténtalo de nuevo.</span>`;
+  }
+}
+
+/* ==========================================================================
+   SOPA DE LETRAS INTERACTIVA - CUARTO GRADO ÁREA 2 (HERRAMIENTAS Y SEGURIDAD)
+   ========================================================================== */
+const WS42_MATRIX = [
+  ['M','A','C','H','E','T','E','X','Y','Z','A','B'],
+  ['H','A','C','H','A','C','D','E','F','G','H','I'],
+  ['A','Z','A','D','O','N','J','K','L','M','N','O'],
+  ['P','I','Q','U','E','T','A','P','Q','R','S','T'],
+  ['R','A','S','T','R','I','L','L','O','U','V','W'],
+  ['A','Z','A','D','A','X','Y','Z','A','B','C','D'],
+  ['P','A','L','A','E','F','G','H','I','J','K','L'],
+  ['A','G','A','R','R','E','M','N','O','P','Q','R'],
+  ['S','E','G','U','R','I','D','A','D','S','T','U'],
+  ['E','S','P','E','Q','U','E','V','W','X','Y','Z'],
+  ['A','B','C','D','E','F','G','H','I','J','K','L'],
+  ['M','N','O','P','Q','R','S','T','U','V','W','X']
+];
+
+const WS42_TARGET_WORDS = {
+  'MACHETE': [[0,0],[0,1],[0,2],[0,3],[0,4],[0,5],[0,6]],
+  'HACHA': [[1,0],[1,1],[1,2],[1,3],[1,4]],
+  'AZADON': [[2,0],[2,1],[2,2],[2,3],[2,4],[2,5]],
+  'PIQUETA': [[3,0],[3,1],[3,2],[3,3],[3,4],[3,5],[3,6]],
+  'RASTRILLO': [[4,0],[4,1],[4,2],[4,3],[4,4],[4,5],[4,6],[4,7],[4,8]],
+  'AZADA': [[5,0],[5,1],[5,2],[5,3],[5,4]],
+  'PALA': [[6,0],[6,1],[6,2],[6,3]],
+  'AGARRE': [[7,0],[7,1],[7,2],[7,3],[7,4],[7,5]],
+  'SEGURIDAD': [[8,0],[8,1],[8,2],[8,3],[8,4],[8,5],[8,6],[8,7],[8,8]],
+  'ESPEQUE': [[9,0],[9,1],[9,2],[9,3],[9,4],[9,5],[9,6]]
+};
+
+const WS42_WORD_COLORS = {
+  'MACHETE': '#2e7d32',
+  'HACHA': '#e65100',
+  'AZADON': '#1565c0',
+  'PIQUETA': '#6a1b9a',
+  'RASTRILLO': '#4e342e',
+  'AZADA': '#00838f',
+  'PALA': '#d84315',
+  'AGARRE': '#00695c',
+  'SEGURIDAD': '#c62828',
+  'ESPEQUE': '#ad1457'
+};
+
+let selectedCoords42 = [];
+let foundWords42 = new Set();
+let ws42TimerInterval = null;
+let ws42Seconds = 0;
+let ws42TimerRunning = false;
+
+function resetWS42Timer() {
+  if (ws42TimerInterval) clearInterval(ws42TimerInterval);
+  ws42TimerInterval = null;
+  ws42Seconds = 0;
+  ws42TimerRunning = false;
+  const timerElem = document.getElementById('ws42-timer');
+  if (timerElem) timerElem.textContent = '00:00';
+}
+
+function startWS42Timer() {
+  if (ws42TimerRunning) return;
+  ws42TimerRunning = true;
+  ws42Seconds = 0;
+  ws42TimerInterval = setInterval(() => {
+    ws42Seconds++;
+    const mins = Math.floor(ws42Seconds / 60).toString().padStart(2, '0');
+    const secs = (ws42Seconds % 60).toString().padStart(2, '0');
+    const timerElem = document.getElementById('ws42-timer');
+    if (timerElem) timerElem.textContent = `${mins}:${secs}`;
+  }, 1000);
+}
+
+function stopWS42Timer() {
+  if (ws42TimerInterval) {
+    clearInterval(ws42TimerInterval);
+    ws42TimerInterval = null;
+  }
+  ws42TimerRunning = false;
+}
+
+function initWordSearch42() {
+  const gridContainer = document.getElementById('wordsearch42-grid');
+  const counter = document.getElementById('ws42-counter');
+  if (!gridContainer) return;
+
+  gridContainer.innerHTML = '';
+  selectedCoords42 = [];
+  foundWords42.clear();
+  resetWS42Timer();
+
+  if (counter) counter.textContent = `0 / 10`;
+
+  document.querySelectorAll('#ws42-word-list div').forEach(item => {
+    if (!item.getAttribute('data-orig-text')) {
+      item.setAttribute('data-orig-text', item.textContent);
+    }
+    item.textContent = item.getAttribute('data-orig-text');
+    item.style.textDecoration = 'none';
+    item.style.opacity = '1';
+    item.style.color = 'var(--text-main)';
+    item.style.fontWeight = '600';
+  });
+
+  for (let r = 0; r < 12; r++) {
+    for (let c = 0; c < 12; c++) {
+      const cell = document.createElement('div');
+      cell.classList.add('ws42-cell');
+      cell.setAttribute('data-r', r);
+      cell.setAttribute('data-c', c);
+      cell.textContent = WS42_MATRIX[r][c];
+
+      cell.style.aspectRatio = '1';
+      cell.style.display = 'flex';
+      cell.style.alignItems = 'center';
+      cell.style.justifyContent = 'center';
+      cell.style.background = '#ffffff';
+      cell.style.border = '1px solid var(--border-color)';
+      cell.style.borderRadius = '4px';
+      cell.style.fontWeight = '700';
+      cell.style.fontSize = '0.9rem';
+      cell.style.cursor = 'pointer';
+      cell.style.transition = 'all 0.15s ease';
+
+      cell.addEventListener('click', () => handleCellClick42(r, c, cell));
+      gridContainer.appendChild(cell);
+    }
+  }
+}
+
+function handleCellClick42(r, c, cellElem) {
+  startWS42Timer();
+
+  const index = selectedCoords42.findIndex(item => item.r === r && item.c === c);
+  if (index >= 0) {
+    selectedCoords42.splice(index, 1);
+    cellElem.style.background = '#ffffff';
+    cellElem.style.color = '#000000';
+  } else {
+    selectedCoords42.push({ r, c, char: WS42_MATRIX[r][c] });
+    cellElem.style.background = 'var(--gold)';
+    cellElem.style.color = 'var(--primary-dark)';
+  }
+
+  checkSelectedWord42();
+}
+
+function checkSelectedWord42() {
+  const currentChars = selectedCoords42.map(item => item.char).join('');
+  const currentCharsRev = selectedCoords42.map(item => item.char).reverse().join('');
+
+  for (const [word, coords] of Object.entries(WS42_TARGET_WORDS)) {
+    if (foundWords42.has(word)) continue;
+
+    if (currentChars === word || currentCharsRev === word) {
+      foundWords42.add(word);
+      lockFoundWord42(word, coords);
+      selectedCoords42 = [];
+      break;
+    }
+  }
+}
+
+function lockFoundWord42(word, coords) {
+  const wordColor = WS42_WORD_COLORS[word] || 'var(--primary)';
+
+  coords.forEach(([r, c]) => {
+    const cell = document.querySelector(`.ws42-cell[data-r="${r}"][data-c="${c}"]`);
+    if (cell) {
+      cell.style.background = wordColor;
+      cell.style.color = '#ffffff';
+      cell.style.boxShadow = `0 0 6px ${wordColor}88`;
+    }
+  });
+
+  const wordItem = document.querySelector(`#ws42-word-list div[data-word="${word}"]`);
+  if (wordItem) {
+    const origText = wordItem.getAttribute('data-orig-text') || wordItem.textContent;
+    wordItem.innerHTML = `<span style="color: ${wordColor}; font-weight: 900; margin-right: 4px;">✓</span> ${origText}`;
+    wordItem.style.color = wordColor;
+    wordItem.style.fontWeight = '700';
+  }
+
+  const counter = document.getElementById('ws42-counter');
+  if (counter) {
+    counter.textContent = `${foundWords42.size} / 10`;
+  }
+
+  if (foundWords42.size === 10) {
+    stopWS42Timer();
+    const mins = Math.floor(ws42Seconds / 60).toString().padStart(2, '0');
+    const secs = (ws42Seconds % 60).toString().padStart(2, '0');
+    setTimeout(() => {
+      alert(`🎉 ¡EXCELENTE! Has encontrado las 10 palabras de Herramientas Manuales y Seguridad (Cuarto Grado) en ${mins}:${secs}. ¡Eres un Operador Técnico Agrícola Seguro!`);
+    }, 200);
+  }
+}
+
+// Auto init WS42 on load
+document.addEventListener('DOMContentLoaded', () => {
+  initWordSearch42();
+});
