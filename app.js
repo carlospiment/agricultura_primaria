@@ -1795,3 +1795,240 @@ function lockFoundWord43(word, coords) {
 document.addEventListener('DOMContentLoaded', () => {
   initWordSearch43();
 });
+
+/* ==========================================================================
+   EVALUACIÓN INTERACTIVA TALLER CUARTO GRADO ÁREA 4: AMBIENTE Y SOSTENIBILIDAD
+   ========================================================================== */
+function checkCuartoArea4Quiz(qNum, selectedOption, btnElem) {
+  const correctAnswers = {
+    1: 'B', // Una hilera tupida de plantas como vetiver o limoncillo sembradas para frenar la escorrentía
+    2: 'A', // Evitar la evaporacion del agua de riego y proteger el suelo del calor del sol
+    3: 'B', // Carbono para equilibrar la composicion del abono
+    4: 'B', // Lombriz roja californiana (Eisenia foetida)
+    5: 'A'  // La barrera viva usa plantas en crecimiento y la muerta usa piedras o troncos alineados
+  };
+
+  const ansDiv = document.getElementById(`cuarto-area4-ans-${qNum}`);
+  if (!ansDiv) return;
+
+  const parent = btnElem.parentElement;
+  parent.querySelectorAll('button').forEach(b => {
+    b.style.background = 'white';
+    b.style.color = 'black';
+    b.style.borderColor = 'var(--border-color)';
+  });
+
+  if (selectedOption === correctAnswers[qNum]) {
+    btnElem.style.background = '#2e7d32';
+    btnElem.style.color = 'white';
+    btnElem.style.borderColor = '#2e7d32';
+    ansDiv.innerHTML = `<span style="color: #2e7d32;"><i class="fa-solid fa-circle-check"></i> ¡Correcto! Excelente sentido de sostenibilidad y ecología.</span>`;
+  } else {
+    btnElem.style.background = '#c62828';
+    btnElem.style.color = 'white';
+    btnElem.style.borderColor = '#c62828';
+    ansDiv.innerHTML = `<span style="color: #c62828;"><i class="fa-solid fa-circle-xmark"></i> Incorrecto. Inténtalo de nuevo.</span>`;
+  }
+}
+
+/* ==========================================================================
+   SOPA DE LETRAS INTERACTIVA - CUARTO GRADO ÁREA 4 (CONSERVACIÓN Y COMPOST)
+   ========================================================================== */
+const WS44_MATRIX = [
+  ['E','R','O','S','I','O','N','X','Y','Z','A','B'],
+  ['B','A','R','R','E','R','A','C','D','E','F','G'],
+  ['V','E','T','I','V','E','R','H','I','J','K','L'],
+  ['M','U','L','C','H','M','N','O','P','Q','R','S'],
+  ['C','O','M','P','O','S','T','T','U','V','W','X'],
+  ['H','U','M','U','S','Y','Z','A','B','C','D','E'],
+  ['L','O','M','B','R','I','Z','F','G','H','I','J'],
+  ['C','A','R','B','O','N','O','K','L','M','N','O'],
+  ['N','I','T','R','O','G','E','N','O','P','Q','R'],
+  ['S','O','S','T','E','N','I','B','L','E','S','T'],
+  ['A','B','C','D','E','F','G','H','I','J','K','L'],
+  ['M','N','O','P','Q','R','S','T','U','V','W','X']
+];
+
+const WS44_TARGET_WORDS = {
+  'EROSION': [[0,0],[0,1],[0,2],[0,3],[0,4],[0,5],[0,6]],
+  'BARRERA': [[1,0],[1,1],[1,2],[1,3],[1,4],[1,5],[1,6]],
+  'VETIVER': [[2,0],[2,1],[2,2],[2,3],[2,4],[2,5],[2,6]],
+  'MULCH': [[3,0],[3,1],[3,2],[3,3],[3,4]],
+  'COMPOST': [[4,0],[4,1],[4,2],[4,3],[4,4],[4,5],[4,6]],
+  'HUMUS': [[5,0],[5,1],[5,2],[5,3],[5,4]],
+  'LOMBRIZ': [[6,0],[6,1],[6,2],[6,3],[6,4],[6,5],[6,6]],
+  'CARBONO': [[7,0],[7,1],[7,2],[7,3],[7,4],[7,5],[7,6]],
+  'NITROGENO': [[8,0],[8,1],[8,2],[8,3],[8,4],[8,5],[8,6],[8,7],[8,8]],
+  'SOSTENIBLE': [[9,0],[9,1],[9,2],[9,3],[9,4],[9,5],[9,6],[9,7],[9,8],[9,9]]
+};
+
+const WS44_WORD_COLORS = {
+  'EROSION': '#c62828',
+  'BARRERA': '#2e7d32',
+  'VETIVER': '#1565c0',
+  'MULCH': '#e65100',
+  'COMPOST': '#4e342e',
+  'HUMUS': '#00838f',
+  'LOMBRIZ': '#6a1b9a',
+  'CARBONO': '#d84315',
+  'NITROGENO': '#00695c',
+  'SOSTENIBLE': '#ad1457'
+};
+
+let selectedCoords44 = [];
+let foundWords44 = new Set();
+let ws44TimerInterval = null;
+let ws44Seconds = 0;
+let ws44TimerRunning = false;
+
+function resetWS44Timer() {
+  if (ws44TimerInterval) clearInterval(ws44TimerInterval);
+  ws44TimerInterval = null;
+  ws44Seconds = 0;
+  ws44TimerRunning = false;
+  const timerElem = document.getElementById('ws44-timer');
+  if (timerElem) timerElem.textContent = '00:00';
+}
+
+function startWS44Timer() {
+  if (ws44TimerRunning) return;
+  ws44TimerRunning = true;
+  ws44Seconds = 0;
+  ws44TimerInterval = setInterval(() => {
+    ws44Seconds++;
+    const mins = Math.floor(ws44Seconds / 60).toString().padStart(2, '0');
+    const secs = (ws44Seconds % 60).toString().padStart(2, '0');
+    const timerElem = document.getElementById('ws44-timer');
+    if (timerElem) timerElem.textContent = `${mins}:${secs}`;
+  }, 1000);
+}
+
+function stopWS44Timer() {
+  if (ws44TimerInterval) {
+    clearInterval(ws44TimerInterval);
+    ws44TimerInterval = null;
+  }
+  ws44TimerRunning = false;
+}
+
+function initWordSearch44() {
+  const gridContainer = document.getElementById('wordsearch44-grid');
+  const counter = document.getElementById('ws44-counter');
+  if (!gridContainer) return;
+
+  gridContainer.innerHTML = '';
+  selectedCoords44 = [];
+  foundWords44.clear();
+  resetWS44Timer();
+
+  if (counter) counter.textContent = `0 / 10`;
+
+  document.querySelectorAll('#ws44-word-list div').forEach(item => {
+    if (!item.getAttribute('data-orig-text')) {
+      item.setAttribute('data-orig-text', item.textContent);
+    }
+    item.textContent = item.getAttribute('data-orig-text');
+    item.style.textDecoration = 'none';
+    item.style.opacity = '1';
+    item.style.color = 'var(--text-main)';
+    item.style.fontWeight = '600';
+  });
+
+  for (let r = 0; r < 12; r++) {
+    for (let c = 0; c < 12; c++) {
+      const cell = document.createElement('div');
+      cell.classList.add('ws44-cell');
+      cell.setAttribute('data-r', r);
+      cell.setAttribute('data-c', c);
+      cell.textContent = WS44_MATRIX[r][c];
+
+      cell.style.aspectRatio = '1';
+      cell.style.display = 'flex';
+      cell.style.alignItems = 'center';
+      cell.style.justifyContent = 'center';
+      cell.style.background = '#ffffff';
+      cell.style.border = '1px solid var(--border-color)';
+      cell.style.borderRadius = '4px';
+      cell.style.fontWeight = '700';
+      cell.style.fontSize = '0.9rem';
+      cell.style.cursor = 'pointer';
+      cell.style.transition = 'all 0.15s ease';
+
+      cell.addEventListener('click', () => handleCellClick44(r, c, cell));
+      gridContainer.appendChild(cell);
+    }
+  }
+}
+
+function handleCellClick44(r, c, cellElem) {
+  startWS44Timer();
+
+  const index = selectedCoords44.findIndex(item => item.r === r && item.c === c);
+  if (index >= 0) {
+    selectedCoords44.splice(index, 1);
+    cellElem.style.background = '#ffffff';
+    cellElem.style.color = '#000000';
+  } else {
+    selectedCoords44.push({ r, c, char: WS44_MATRIX[r][c] });
+    cellElem.style.background = 'var(--gold)';
+    cellElem.style.color = 'var(--primary-dark)';
+  }
+
+  checkSelectedWord44();
+}
+
+function checkSelectedWord44() {
+  const currentChars = selectedCoords44.map(item => item.char).join('');
+  const currentCharsRev = selectedCoords44.map(item => item.char).reverse().join('');
+
+  for (const [word, coords] of Object.entries(WS44_TARGET_WORDS)) {
+    if (foundWords44.has(word)) continue;
+
+    if (currentChars === word || currentCharsRev === word) {
+      foundWords44.add(word);
+      lockFoundWord44(word, coords);
+      selectedCoords44 = [];
+      break;
+    }
+  }
+}
+
+function lockFoundWord44(word, coords) {
+  const wordColor = WS44_WORD_COLORS[word] || 'var(--primary)';
+
+  coords.forEach(([r, c]) => {
+    const cell = document.querySelector(`.ws44-cell[data-r="${r}"][data-c="${c}"]`);
+    if (cell) {
+      cell.style.background = wordColor;
+      cell.style.color = '#ffffff';
+      cell.style.boxShadow = `0 0 6px ${wordColor}88`;
+    }
+  });
+
+  const wordItem = document.querySelector(`#ws44-word-list div[data-word="${word}"]`);
+  if (wordItem) {
+    const origText = wordItem.getAttribute('data-orig-text') || wordItem.textContent;
+    wordItem.innerHTML = `<span style="color: ${wordColor}; font-weight: 900; margin-right: 4px;">✓</span> ${origText}`;
+    wordItem.style.color = wordColor;
+    wordItem.style.fontWeight = '700';
+  }
+
+  const counter = document.getElementById('ws44-counter');
+  if (counter) {
+    counter.textContent = `${foundWords44.size} / 10`;
+  }
+
+  if (foundWords44.size === 10) {
+    stopWS44Timer();
+    const mins = Math.floor(ws44Seconds / 60).toString().padStart(2, '0');
+    const secs = (ws44Seconds % 60).toString().padStart(2, '0');
+    setTimeout(() => {
+      alert(`🎉 ¡VICTORIA ECOLÓGICA! Has completado la Sopa de Letras de Ambiente y Agricultura Sostenible (Cuarto Grado) en ${mins}:${secs}. ¡Eres un Verdadero Guardián Agroecológico!`);
+    }, 200);
+  }
+}
+
+// Auto init WS44 on load
+document.addEventListener('DOMContentLoaded', () => {
+  initWordSearch44();
+});
