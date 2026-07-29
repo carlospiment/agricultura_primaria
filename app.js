@@ -381,7 +381,9 @@ function checkToolQuiz(qNum, selectedOption, btnElem) {
   const correctAnswers = {
     1: 'B', // Trasplantador
     2: 'A', // Tijera de podar
-    3: 'B'  // Escobilla / Rastrillo
+    3: 'B', // Escobilla / Rastrillo
+    4: 'B', // Aspersor
+    5: 'B'  // Limpiarlas, secarlas y guardarlas
   };
 
   const ansDiv = document.getElementById(`tool-ans-${qNum}`);
