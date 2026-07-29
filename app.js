@@ -2032,3 +2032,241 @@ function lockFoundWord44(word, coords) {
 document.addEventListener('DOMContentLoaded', () => {
   initWordSearch44();
 });
+
+/* ==========================================================================
+   EVALUACIÓN INTERACTIVA TALLER QUINTO GRADO ÁREA 1: JARDÍN Y ESPECIES VEGETALES
+   ========================================================================== */
+function checkQuintoArea1Quiz(qNum, selectedOption, btnElem) {
+  const correctAnswers = {
+    1: 'B', // Cultivar plantas aromaticas y fitoterapeuticas como albahaca, menta y sabila para la salud
+    2: 'A', // Luz directa (sol pleno mas de 6 horas diarias)
+    3: 'B', // Helechos, calateas, begonias y monsteras
+    4: 'B', // Temprano en la mañana o al atardecer fresco
+    5: 'A'  // Para eliminar partes enfermas o secas y prevenir la propagacion de hongos o plagas
+  };
+
+  const ansDiv = document.getElementById(`quinto-area1-ans-${qNum}`);
+  if (!ansDiv) return;
+
+  const parent = btnElem.parentElement;
+  parent.querySelectorAll('button').forEach(b => {
+    b.style.background = 'white';
+    b.style.color = 'black';
+    b.style.borderColor = 'var(--border-color)';
+  });
+
+  if (selectedOption === correctAnswers[qNum]) {
+    btnElem.style.background = '#2e7d32';
+    btnElem.style.color = 'white';
+    btnElem.style.borderColor = '#2e7d32';
+    ansDiv.innerHTML = `<span style="color: #2e7d32;"><i class="fa-solid fa-circle-check"></i> ¡Correcto! Excelente dominio de la jardinería y especies vegetales.</span>`;
+  } else {
+    btnElem.style.background = '#c62828';
+    btnElem.style.color = 'white';
+    btnElem.style.borderColor = '#c62828';
+    ansDiv.innerHTML = `<span style="color: #c62828;"><i class="fa-solid fa-circle-xmark"></i> Incorrecto. Inténtalo de nuevo.</span>`;
+  }
+}
+
+/* ==========================================================================
+   SOPA DE LETRAS INTERACTIVA - QUINTO GRADO ÁREA 1 (JARDINES Y CUIDADOS)
+   ========================================================================== */
+const WS51_MATRIX = [
+  ['B','O','T','A','N','I','C','O','X','Y','Z','A'],
+  ['M','E','D','I','C','I','N','A','L','B','C','D'],
+  ['A','L','I','M','E','N','T','I','C','I','O','E'],
+  ['S','O','M','B','R','A','F','G','H','I','J','K'],
+  ['S','E','M','I','S','O','M','B','R','A','L','M'],
+  ['D','I','R','E','C','T','A','N','O','P','Q','R'],
+  ['R','I','E','G','O','S','T','U','V','W','X','Y'],
+  ['P','O','D','A','Z','A','B','C','D','E','F','G'],
+  ['P','L','A','G','A','S','H','I','J','K','L','M'],
+  ['M','A','L','E','Z','A','S','N','O','P','Q','R'],
+  ['A','B','C','D','E','F','G','H','I','J','K','L'],
+  ['M','N','O','P','Q','R','S','T','U','V','W','X']
+];
+
+const WS51_TARGET_WORDS = {
+  'BOTANICO': [[0,0],[0,1],[0,2],[0,3],[0,4],[0,5],[0,6],[0,7]],
+  'MEDICINAL': [[1,0],[1,1],[1,2],[1,3],[1,4],[1,5],[1,6],[1,7],[1,8]],
+  'ALIMENTICIO': [[2,0],[2,1],[2,2],[2,3],[2,4],[2,5],[2,6],[2,7],[2,8],[2,9],[2,10]],
+  'SOMBRA': [[3,0],[3,1],[3,2],[3,3],[3,4],[3,5]],
+  'SEMISOMBRA': [[4,0],[4,1],[4,2],[4,3],[4,4],[4,5],[4,6],[4,7],[4,8],[4,9]],
+  'DIRECTA': [[5,0],[5,1],[5,2],[5,3],[5,4],[5,5],[5,6]],
+  'RIEGO': [[6,0],[6,1],[6,2],[6,3],[6,4]],
+  'PODA': [[7,0],[7,1],[7,2],[7,3]],
+  'PLAGAS': [[8,0],[8,1],[8,2],[8,3],[8,4],[8,5]],
+  'MALEZAS': [[9,0],[9,1],[9,2],[9,3],[9,4],[9,5],[9,6]]
+};
+
+const WS51_WORD_COLORS = {
+  'BOTANICO': '#2e7d32',
+  'MEDICINAL': '#1565c0',
+  'ALIMENTICIO': '#e65100',
+  'SOMBRA': '#4e342e',
+  'SEMISOMBRA': '#00838f',
+  'DIRECTA': '#6a1b9a',
+  'RIEGO': '#d84315',
+  'PODA': '#c62828',
+  'PLAGAS': '#00695c',
+  'MALEZAS': '#ad1457'
+};
+
+let selectedCoords51 = [];
+let foundWords51 = new Set();
+let ws51TimerInterval = null;
+let ws51Seconds = 0;
+let ws51TimerRunning = false;
+
+function resetWS51Timer() {
+  if (ws51TimerInterval) clearInterval(ws51TimerInterval);
+  ws51TimerInterval = null;
+  ws51Seconds = 0;
+  ws51TimerRunning = false;
+  const timerElem = document.getElementById('ws51-timer');
+  if (timerElem) timerElem.textContent = '00:00';
+}
+
+function startWS51Timer() {
+  if (ws51TimerRunning) return;
+  ws51TimerRunning = true;
+  ws51Seconds = 0;
+  ws51TimerInterval = setInterval(() => {
+    ws51Seconds++;
+    const mins = Math.floor(ws51Seconds / 60).toString().padStart(2, '0');
+    const secs = (ws51Seconds % 60).toString().padStart(2, '0');
+    const timerElem = document.getElementById('ws51-timer');
+    if (timerElem) timerElem.textContent = `${mins}:${secs}`;
+  }, 1000);
+}
+
+function stopWS51Timer() {
+  if (ws51TimerInterval) {
+    clearInterval(ws51TimerInterval);
+    ws51TimerInterval = null;
+  }
+  ws51TimerRunning = false;
+}
+
+function initWordSearch51() {
+  const gridContainer = document.getElementById('wordsearch51-grid');
+  const counter = document.getElementById('ws51-counter');
+  if (!gridContainer) return;
+
+  gridContainer.innerHTML = '';
+  selectedCoords51 = [];
+  foundWords51.clear();
+  resetWS51Timer();
+
+  if (counter) counter.textContent = `0 / 10`;
+
+  document.querySelectorAll('#ws51-word-list div').forEach(item => {
+    if (!item.getAttribute('data-orig-text')) {
+      item.setAttribute('data-orig-text', item.textContent);
+    }
+    item.textContent = item.getAttribute('data-orig-text');
+    item.style.textDecoration = 'none';
+    item.style.opacity = '1';
+    item.style.color = 'var(--text-main)';
+    item.style.fontWeight = '600';
+  });
+
+  for (let r = 0; r < 12; r++) {
+    for (let c = 0; c < 12; c++) {
+      const cell = document.createElement('div');
+      cell.classList.add('ws51-cell');
+      cell.setAttribute('data-r', r);
+      cell.setAttribute('data-c', c);
+      cell.textContent = WS51_MATRIX[r][c];
+
+      cell.style.aspectRatio = '1';
+      cell.style.display = 'flex';
+      cell.style.alignItems = 'center';
+      cell.style.justifyContent = 'center';
+      cell.style.background = '#ffffff';
+      cell.style.border = '1px solid var(--border-color)';
+      cell.style.borderRadius = '4px';
+      cell.style.fontWeight = '700';
+      cell.style.fontSize = '0.9rem';
+      cell.style.cursor = 'pointer';
+      cell.style.transition = 'all 0.15s ease';
+
+      cell.addEventListener('click', () => handleCellClick51(r, c, cell));
+      gridContainer.appendChild(cell);
+    }
+  }
+}
+
+function handleCellClick51(r, c, cellElem) {
+  startWS51Timer();
+
+  const index = selectedCoords51.findIndex(item => item.r === r && item.c === c);
+  if (index >= 0) {
+    selectedCoords51.splice(index, 1);
+    cellElem.style.background = '#ffffff';
+    cellElem.style.color = '#000000';
+  } else {
+    selectedCoords51.push({ r, c, char: WS51_MATRIX[r][c] });
+    cellElem.style.background = 'var(--gold)';
+    cellElem.style.color = 'var(--primary-dark)';
+  }
+
+  checkSelectedWord51();
+}
+
+function checkSelectedWord51() {
+  const currentChars = selectedCoords51.map(item => item.char).join('');
+  const currentCharsRev = selectedCoords51.map(item => item.char).reverse().join('');
+
+  for (const [word, coords] of Object.entries(WS51_TARGET_WORDS)) {
+    if (foundWords51.has(word)) continue;
+
+    if (currentChars === word || currentCharsRev === word) {
+      foundWords51.add(word);
+      lockFoundWord51(word, coords);
+      selectedCoords51 = [];
+      break;
+    }
+  }
+}
+
+function lockFoundWord51(word, coords) {
+  const wordColor = WS51_WORD_COLORS[word] || 'var(--primary)';
+
+  coords.forEach(([r, c]) => {
+    const cell = document.querySelector(`.ws51-cell[data-r="${r}"][data-c="${c}"]`);
+    if (cell) {
+      cell.style.background = wordColor;
+      cell.style.color = '#ffffff';
+      cell.style.boxShadow = `0 0 6px ${wordColor}88`;
+    }
+  });
+
+  const wordItem = document.querySelector(`#ws51-word-list div[data-word="${word}"]`);
+  if (wordItem) {
+    const origText = wordItem.getAttribute('data-orig-text') || wordItem.textContent;
+    wordItem.innerHTML = `<span style="color: ${wordColor}; font-weight: 900; margin-right: 4px;">✓</span> ${origText}`;
+    wordItem.style.color = wordColor;
+    wordItem.style.fontWeight = '700';
+  }
+
+  const counter = document.getElementById('ws51-counter');
+  if (counter) {
+    counter.textContent = `${foundWords51.size} / 10`;
+  }
+
+  if (foundWords51.size === 10) {
+    stopWS51Timer();
+    const mins = Math.floor(ws51Seconds / 60).toString().padStart(2, '0');
+    const secs = (ws51Seconds % 60).toString().padStart(2, '0');
+    setTimeout(() => {
+      alert(`🎉 ¡EXCELENTE TRABAJO! Has completado la Sopa de Letras de Jardines y Cuidados Vegetales (Quinto Grado) en ${mins}:${secs}. ¡Felicidades!`);
+    }, 200);
+  }
+}
+
+// Auto init WS51 on load
+document.addEventListener('DOMContentLoaded', () => {
+  initWordSearch51();
+});
+
