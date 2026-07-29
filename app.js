@@ -1084,3 +1084,240 @@ function lockFoundWord4(word, coords) {
 document.addEventListener('DOMContentLoaded', () => {
   initWordSearch4();
 });
+
+/* ==========================================================================
+   EVALUACIÓN INTERACTIVA TALLER CUARTO GRADO ÁREA 1: JARDINES Y HÁBITOS
+   ========================================================================== */
+function checkCuartoArea1Quiz(qNum, selectedOption, btnElem) {
+  const correctAnswers = {
+    1: 'B', // Embellecer el entorno escolar y brindar bienestar emocional y ambiental
+    2: 'A', // Vistosidad y relieve ornamental de sus hojas verdes o variegadas
+    3: 'B', // Poseer tallos flexibles con zarcillos para sujetarse a muros o tutores
+    4: 'B', // La grama y el maní forrajero que cubren el suelo
+    5: 'A'  // Aprovechan espacios verticales cayendo suavemente desde maceteros elevados
+  };
+
+  const ansDiv = document.getElementById(`cuarto-area1-ans-${qNum}`);
+  if (!ansDiv) return;
+
+  const parent = btnElem.parentElement;
+  parent.querySelectorAll('button').forEach(b => {
+    b.style.background = 'white';
+    b.style.color = 'black';
+    b.style.borderColor = 'var(--border-color)';
+  });
+
+  if (selectedOption === correctAnswers[qNum]) {
+    btnElem.style.background = '#2e7d32';
+    btnElem.style.color = 'white';
+    btnElem.style.borderColor = '#2e7d32';
+    ansDiv.innerHTML = `<span style="color: #2e7d32;"><i class="fa-solid fa-circle-check"></i> ¡Correcto! Excelente dominio de la botánica ornamental.</span>`;
+  } else {
+    btnElem.style.background = '#c62828';
+    btnElem.style.color = 'white';
+    btnElem.style.borderColor = '#c62828';
+    ansDiv.innerHTML = `<span style="color: #c62828;"><i class="fa-solid fa-circle-xmark"></i> Incorrecto. Inténtalo de nuevo.</span>`;
+  }
+}
+
+/* ==========================================================================
+   SOPA DE LETRAS INTERACTIVA - CUARTO GRADO ÁREA 1 (JARDINES Y HÁBITOS)
+   ========================================================================== */
+const WS41_MATRIX = [
+  ['O','R','N','A','M','E','N','T','A','L','X','Y'],
+  ['F','O','L','L','A','J','E','Z','A','B','C','D'],
+  ['E','R','G','U','I','D','A','E','F','G','H','I'],
+  ['T','R','E','P','A','D','O','R','A','J','K','L'],
+  ['C','O','L','G','A','N','T','E','M','N','O','P'],
+  ['R','A','S','T','R','E','R','A','Q','R','S','T'],
+  ['Z','A','R','C','I','L','L','O','U','V','W','X'],
+  ['F','L','O','R','E','S','Y','Z','A','B','C','D'],
+  ['J','A','R','D','I','N','E','F','G','H','I','J'],
+  ['P','A','I','S','A','J','E','K','L','M','N','O'],
+  ['A','B','C','D','E','F','G','H','I','J','K','L'],
+  ['M','N','O','P','Q','R','S','T','U','V','W','X']
+];
+
+const WS41_TARGET_WORDS = {
+  'ORNAMENTAL': [[0,0],[0,1],[0,2],[0,3],[0,4],[0,5],[0,6],[0,7],[0,8],[0,9]],
+  'FOLLAJE': [[1,0],[1,1],[1,2],[1,3],[1,4],[1,5],[1,6]],
+  'ERGUIDA': [[2,0],[2,1],[2,2],[2,3],[2,4],[2,5],[2,6]],
+  'TREPADORA': [[3,0],[3,1],[3,2],[3,3],[3,4],[3,5],[3,6],[3,7],[3,8]],
+  'COLGANTE': [[4,0],[4,1],[4,2],[4,3],[4,4],[4,5],[4,6],[4,7]],
+  'RASTRERA': [[5,0],[5,1],[5,2],[5,3],[5,4],[5,5],[5,6],[5,7]],
+  'ZARCILLO': [[6,0],[6,1],[6,2],[6,3],[6,4],[6,5],[6,6],[6,7]],
+  'FLORES': [[7,0],[7,1],[7,2],[7,3],[7,4],[7,5]],
+  'JARDIN': [[8,0],[8,1],[8,2],[8,3],[8,4],[8,5]],
+  'PAISAJE': [[9,0],[9,1],[9,2],[9,3],[9,4],[9,5],[9,6]]
+};
+
+const WS41_WORD_COLORS = {
+  'ORNAMENTAL': '#2e7d32',
+  'FOLLAJE': '#e65100',
+  'ERGUIDA': '#1565c0',
+  'TREPADORA': '#6a1b9a',
+  'COLGANTE': '#4e342e',
+  'RASTRERA': '#00838f',
+  'ZARCILLO': '#d84315',
+  'FLORES': '#00695c',
+  'JARDIN': '#c62828',
+  'PAISAJE': '#ad1457'
+};
+
+let selectedCoords41 = [];
+let foundWords41 = new Set();
+let ws41TimerInterval = null;
+let ws41Seconds = 0;
+let ws41TimerRunning = false;
+
+function resetWS41Timer() {
+  if (ws41TimerInterval) clearInterval(ws41TimerInterval);
+  ws41TimerInterval = null;
+  ws41Seconds = 0;
+  ws41TimerRunning = false;
+  const timerElem = document.getElementById('ws41-timer');
+  if (timerElem) timerElem.textContent = '00:00';
+}
+
+function startWS41Timer() {
+  if (ws41TimerRunning) return;
+  ws41TimerRunning = true;
+  ws41Seconds = 0;
+  ws41TimerInterval = setInterval(() => {
+    ws41Seconds++;
+    const mins = Math.floor(ws41Seconds / 60).toString().padStart(2, '0');
+    const secs = (ws41Seconds % 60).toString().padStart(2, '0');
+    const timerElem = document.getElementById('ws41-timer');
+    if (timerElem) timerElem.textContent = `${mins}:${secs}`;
+  }, 1000);
+}
+
+function stopWS41Timer() {
+  if (ws41TimerInterval) {
+    clearInterval(ws41TimerInterval);
+    ws41TimerInterval = null;
+  }
+  ws41TimerRunning = false;
+}
+
+function initWordSearch41() {
+  const gridContainer = document.getElementById('wordsearch41-grid');
+  const counter = document.getElementById('ws41-counter');
+  if (!gridContainer) return;
+
+  gridContainer.innerHTML = '';
+  selectedCoords41 = [];
+  foundWords41.clear();
+  resetWS41Timer();
+
+  if (counter) counter.textContent = `0 / 10`;
+
+  document.querySelectorAll('#ws41-word-list div').forEach(item => {
+    if (!item.getAttribute('data-orig-text')) {
+      item.setAttribute('data-orig-text', item.textContent);
+    }
+    item.textContent = item.getAttribute('data-orig-text');
+    item.style.textDecoration = 'none';
+    item.style.opacity = '1';
+    item.style.color = 'var(--text-main)';
+    item.style.fontWeight = '600';
+  });
+
+  for (let r = 0; r < 12; r++) {
+    for (let c = 0; c < 12; c++) {
+      const cell = document.createElement('div');
+      cell.classList.add('ws41-cell');
+      cell.setAttribute('data-r', r);
+      cell.setAttribute('data-c', c);
+      cell.textContent = WS41_MATRIX[r][c];
+
+      cell.style.aspectRatio = '1';
+      cell.style.display = 'flex';
+      cell.style.alignItems = 'center';
+      cell.style.justifyContent = 'center';
+      cell.style.background = '#ffffff';
+      cell.style.border = '1px solid var(--border-color)';
+      cell.style.borderRadius = '4px';
+      cell.style.fontWeight = '700';
+      cell.style.fontSize = '0.9rem';
+      cell.style.cursor = 'pointer';
+      cell.style.transition = 'all 0.15s ease';
+
+      cell.addEventListener('click', () => handleCellClick41(r, c, cell));
+      gridContainer.appendChild(cell);
+    }
+  }
+}
+
+function handleCellClick41(r, c, cellElem) {
+  startWS41Timer();
+
+  const index = selectedCoords41.findIndex(item => item.r === r && item.c === c);
+  if (index >= 0) {
+    selectedCoords41.splice(index, 1);
+    cellElem.style.background = '#ffffff';
+    cellElem.style.color = '#000000';
+  } else {
+    selectedCoords41.push({ r, c, char: WS41_MATRIX[r][c] });
+    cellElem.style.background = 'var(--gold)';
+    cellElem.style.color = 'var(--primary-dark)';
+  }
+
+  checkSelectedWord41();
+}
+
+function checkSelectedWord41() {
+  const currentChars = selectedCoords41.map(item => item.char).join('');
+  const currentCharsRev = selectedCoords41.map(item => item.char).reverse().join('');
+
+  for (const [word, coords] of Object.entries(WS41_TARGET_WORDS)) {
+    if (foundWords41.has(word)) continue;
+
+    if (currentChars === word || currentCharsRev === word) {
+      foundWords41.add(word);
+      lockFoundWord41(word, coords);
+      selectedCoords41 = [];
+      break;
+    }
+  }
+}
+
+function lockFoundWord41(word, coords) {
+  const wordColor = WS41_WORD_COLORS[word] || 'var(--primary)';
+
+  coords.forEach(([r, c]) => {
+    const cell = document.querySelector(`.ws41-cell[data-r="${r}"][data-c="${c}"]`);
+    if (cell) {
+      cell.style.background = wordColor;
+      cell.style.color = '#ffffff';
+      cell.style.boxShadow = `0 0 6px ${wordColor}88`;
+    }
+  });
+
+  const wordItem = document.querySelector(`#ws41-word-list div[data-word="${word}"]`);
+  if (wordItem) {
+    const origText = wordItem.getAttribute('data-orig-text') || wordItem.textContent;
+    wordItem.innerHTML = `<span style="color: ${wordColor}; font-weight: 900; margin-right: 4px;">✓</span> ${origText}`;
+    wordItem.style.color = wordColor;
+    wordItem.style.fontWeight = '700';
+  }
+
+  const counter = document.getElementById('ws41-counter');
+  if (counter) {
+    counter.textContent = `${foundWords41.size} / 10`;
+  }
+
+  if (foundWords41.size === 10) {
+    stopWS41Timer();
+    const mins = Math.floor(ws41Seconds / 60).toString().padStart(2, '0');
+    const secs = (ws41Seconds % 60).toString().padStart(2, '0');
+    setTimeout(() => {
+      alert(`🎉 ¡SOBRESALIENTE! Has completado la Sopa de Letras de Cuarto Grado (Área 1) en ${mins}:${secs}. ¡Eres un Paisajista Botánico Experto!`);
+    }, 200);
+  }
+}
+
+// Auto init WS41 on load
+document.addEventListener('DOMContentLoaded', () => {
+  initWordSearch41();
+});
