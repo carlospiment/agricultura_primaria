@@ -1321,6 +1321,78 @@
             </div>
           </div>
 
+          <!-- SOPA DE LETRAS INTERACTIVA ÁREA 2 -->
+          <div class="detail-section" style="margin-top: 36px; padding-top: 28px; border-top: 2px dashed var(--border-color);">
+            <div style="background: #ffffff; border: 2px solid var(--accent); border-radius: var(--radius-md); padding: 32px; box-shadow: var(--shadow-md);">
+              
+              <!-- Tag, Reloj y Título -->
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
+                <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                  <span style="background: var(--gold); color: var(--primary-dark); padding: 6px 18px; border-radius: var(--radius-pill); font-weight: 800; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px;">
+                    🧩 Juego Didáctico Interactivo
+                  </span>
+                  <span style="background: var(--primary-dark); color: white; padding: 6px 16px; border-radius: var(--radius-pill); font-weight: 700; font-size: 0.85rem;">
+                    ⏱️ Tiempo: <span id="ws2-timer">00:00</span>
+                  </span>
+                </div>
+                <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">
+                  <i class="fa-solid fa-gamepad"></i> Refuerzo de Vocabulario (Área 2)
+                </span>
+              </div>
+
+              <h3 style="font-family: var(--font-heading); font-size: 2rem; color: var(--primary-dark); margin-bottom: 12px;">
+                Sopa de Letras: Herramientas y Tecnología Agrícola
+              </h3>
+              <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.6; margin-bottom: 24px;">
+                Encuentra las 10 palabras ocultas sobre las herramientas, seguridad y labores del huerto escolar:
+              </p>
+
+              <!-- Contenedor del Juego -->
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; align-items: start;">
+                
+                <!-- Tablero de Letras -->
+                <div style="background: var(--warm-bg); padding: 16px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); text-align: center;">
+                  <div id="wordsearch2-grid" style="display: grid; grid-template-columns: repeat(12, 1fr); gap: 4px; max-width: 440px; margin: 0 auto; user-select: none;">
+                    <!-- Se genera dinámicamente con JavaScript -->
+                  </div>
+                </div>
+
+                <!-- Lista de Palabras a Buscar -->
+                <div style="background: var(--warm-bg); padding: 20px; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+                  <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;">
+                    <h4 style="color: var(--primary-dark); font-size: 1.1rem; margin: 0;">
+                      <i class="fa-solid fa-list"></i> Palabras a Buscar:
+                    </h4>
+                    <span id="ws2-counter" style="background: var(--primary); color: white; padding: 4px 12px; border-radius: var(--radius-pill); font-weight: 700; font-size: 0.85rem;">
+                      0 / 10
+                    </span>
+                  </div>
+
+                  <div id="ws2-word-list" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; font-size: 0.95rem; font-weight: 600; color: var(--text-main);">
+                    <div data-word="HERRAMIENTA">1. HERRAMIENTA</div>
+                    <div data-word="TIJERA">2. TIJERA</div>
+                    <div data-word="REGADERA">3. REGADERA</div>
+                    <div data-word="RASTRILLO">4. RASTRILLO</div>
+                    <div data-word="PALON">5. PALON</div>
+                    <div data-word="ASPERSOR">6. ASPERSOR</div>
+                    <div data-word="MANGUERA">7. MANGUERA</div>
+                    <div data-word="PODA">8. PODA</div>
+                    <div data-word="TRASPLANTE">9. TRASPLANTE</div>
+                    <div data-word="SEGURIDAD">10. SEGURIDAD</div>
+                  </div>
+
+                  <div style="margin-top: 24px; text-align: center;">
+                    <button type="button" onclick="initWordSearch2()" class="btn-primary" style="padding: 10px 20px; font-size: 0.9rem; font-weight: 700; cursor: pointer; background: var(--accent); color: white; border: none; border-radius: var(--radius-pill);">
+                      <i class="fa-solid fa-rotate-right"></i> Reiniciar Sopa de Letras
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+
         </div>
       </div>
     </section>

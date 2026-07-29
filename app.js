@@ -408,3 +408,205 @@ function checkToolQuiz(qNum, selectedOption, btnElem) {
     ansDiv.innerHTML = `<span style="color: #c62828;"><i class="fa-solid fa-circle-xmark"></i> Incorrecto. Inténtalo de nuevo.</span>`;
   }
 }
+
+/* ==========================================================================
+   SOPA DE LETRAS INTERACTIVA - ÁREA 2 (HERRAMIENTAS Y TECNOLOGÍA)
+   ========================================================================== */
+const WS2_MATRIX = [
+  ['H','E','R','R','A','M','I','E','N','T','A','X'],
+  ['T','I','J','E','R','A','X','Y','Z','K','L','M'],
+  ['R','E','G','A','D','E','R','A','P','Q','R','S'],
+  ['R','A','S','T','R','I','L','L','O','X','Y','Z'],
+  ['P','A','L','O','N','X','Y','Z','W','A','B','C'],
+  ['A','S','P','E','R','S','O','R','K','L','M','N'],
+  ['M','A','N','G','U','E','R','A','X','Y','Z','W'],
+  ['P','O','D','A','A','B','C','D','E','F','G','H'],
+  ['T','R','A','S','P','L','A','N','T','E','X','Y'],
+  ['S','E','G','U','R','I','D','A','D','X','Y','Z'],
+  ['A','B','C','D','E','F','G','H','I','J','K','L'],
+  ['M','N','O','P','Q','R','S','T','U','V','W','X']
+];
+
+const WS2_TARGET_WORDS = {
+  'HERRAMIENTA': [[0,0],[0,1],[0,2],[0,3],[0,4],[0,5],[0,6],[0,7],[0,8],[0,9],[0,10]],
+  'TIJERA': [[1,0],[1,1],[1,2],[1,3],[1,4],[1,5]],
+  'REGADERA': [[2,0],[2,1],[2,2],[2,3],[2,4],[2,5],[2,6],[2,7]],
+  'RASTRILLO': [[3,0],[3,1],[3,2],[3,3],[3,4],[3,5],[3,6],[3,7],[3,8]],
+  'PALON': [[4,0],[4,1],[4,2],[4,3],[4,4]],
+  'ASPERSOR': [[5,0],[5,1],[5,2],[5,3],[5,4],[5,5],[5,6],[5,7]],
+  'MANGUERA': [[6,0],[6,1],[6,2],[6,3],[6,4],[6,5],[6,6],[6,7]],
+  'PODA': [[7,0],[7,1],[7,2],[7,3]],
+  'TRASPLANTE': [[8,0],[8,1],[8,2],[8,3],[8,4],[8,5],[8,6],[8,7],[8,8],[8,9]],
+  'SEGURIDAD': [[9,0],[9,1],[9,2],[9,3],[9,4],[9,5],[9,6],[9,7],[9,8]]
+};
+
+const WS2_WORD_COLORS = {
+  'HERRAMIENTA': '#2e7d32',
+  'TIJERA': '#e65100',
+  'REGADERA': '#1565c0',
+  'RASTRILLO': '#6a1b9a',
+  'PALON': '#4e342e',
+  'ASPERSOR': '#00838f',
+  'MANGUERA': '#d84315',
+  'PODA': '#00695c',
+  'TRASPLANTE': '#c62828',
+  'SEGURIDAD': '#ad1457'
+};
+
+let selectedCoords2 = [];
+let foundWords2 = new Set();
+let ws2TimerInterval = null;
+let ws2Seconds = 0;
+let ws2TimerRunning = false;
+
+function resetWS2Timer() {
+  if (ws2TimerInterval) clearInterval(ws2TimerInterval);
+  ws2TimerInterval = null;
+  ws2Seconds = 0;
+  ws2TimerRunning = false;
+  const timerElem = document.getElementById('ws2-timer');
+  if (timerElem) timerElem.textContent = '00:00';
+}
+
+function startWS2Timer() {
+  if (ws2TimerRunning) return;
+  ws2TimerRunning = true;
+  ws2Seconds = 0;
+  ws2TimerInterval = setInterval(() => {
+    ws2Seconds++;
+    const mins = Math.floor(ws2Seconds / 60).toString().padStart(2, '0');
+    const secs = (ws2Seconds % 60).toString().padStart(2, '0');
+    const timerElem = document.getElementById('ws2-timer');
+    if (timerElem) timerElem.textContent = `${mins}:${secs}`;
+  }, 1000);
+}
+
+function stopWS2Timer() {
+  if (ws2TimerInterval) {
+    clearInterval(ws2TimerInterval);
+    ws2TimerInterval = null;
+  }
+  ws2TimerRunning = false;
+}
+
+function initWordSearch2() {
+  const gridContainer = document.getElementById('wordsearch2-grid');
+  const counter = document.getElementById('ws2-counter');
+  if (!gridContainer) return;
+
+  gridContainer.innerHTML = '';
+  selectedCoords2 = [];
+  foundWords2.clear();
+  resetWS2Timer();
+
+  if (counter) counter.textContent = `0 / 10`;
+
+  document.querySelectorAll('#ws2-word-list div').forEach(item => {
+    if (!item.getAttribute('data-orig-text')) {
+      item.setAttribute('data-orig-text', item.textContent);
+    }
+    item.textContent = item.getAttribute('data-orig-text');
+    item.style.textDecoration = 'none';
+    item.style.opacity = '1';
+    item.style.color = 'var(--text-main)';
+    item.style.fontWeight = '600';
+  });
+
+  for (let r = 0; r < 12; r++) {
+    for (let c = 0; c < 12; c++) {
+      const cell = document.createElement('div');
+      cell.classList.add('ws2-cell');
+      cell.setAttribute('data-r', r);
+      cell.setAttribute('data-c', c);
+      cell.textContent = WS2_MATRIX[r][c];
+
+      cell.style.aspectRatio = '1';
+      cell.style.display = 'flex';
+      cell.style.alignItems = 'center';
+      cell.style.justifyContent = 'center';
+      cell.style.background = '#ffffff';
+      cell.style.border = '1px solid var(--border-color)';
+      cell.style.borderRadius = '4px';
+      cell.style.fontWeight = '700';
+      cell.style.fontSize = '0.9rem';
+      cell.style.cursor = 'pointer';
+      cell.style.transition = 'all 0.15s ease';
+
+      cell.addEventListener('click', () => handleCellClick2(r, c, cell));
+      gridContainer.appendChild(cell);
+    }
+  }
+}
+
+function handleCellClick2(r, c, cellElem) {
+  startWS2Timer();
+
+  const index = selectedCoords2.findIndex(item => item.r === r && item.c === c);
+  if (index >= 0) {
+    selectedCoords2.splice(index, 1);
+    cellElem.style.background = '#ffffff';
+    cellElem.style.color = '#000000';
+  } else {
+    selectedCoords2.push({ r, c, char: WS2_MATRIX[r][c] });
+    cellElem.style.background = 'var(--gold)';
+    cellElem.style.color = 'var(--primary-dark)';
+  }
+
+  checkSelectedWord2();
+}
+
+function checkSelectedWord2() {
+  const currentChars = selectedCoords2.map(item => item.char).join('');
+  const currentCharsRev = selectedCoords2.map(item => item.char).reverse().join('');
+
+  for (const [word, coords] of Object.entries(WS2_TARGET_WORDS)) {
+    if (foundWords2.has(word)) continue;
+
+    if (currentChars === word || currentCharsRev === word) {
+      foundWords2.add(word);
+      lockFoundWord2(word, coords);
+      selectedCoords2 = [];
+      break;
+    }
+  }
+}
+
+function lockFoundWord2(word, coords) {
+  const wordColor = WS2_WORD_COLORS[word] || 'var(--primary)';
+
+  coords.forEach(([r, c]) => {
+    const cell = document.querySelector(`.ws2-cell[data-r="${r}"][data-c="${c}"]`);
+    if (cell) {
+      cell.style.background = wordColor;
+      cell.style.color = '#ffffff';
+      cell.style.boxShadow = `0 0 6px ${wordColor}88`;
+    }
+  });
+
+  const wordItem = document.querySelector(`#ws2-word-list div[data-word="${word}"]`);
+  if (wordItem) {
+    const origText = wordItem.getAttribute('data-orig-text') || wordItem.textContent;
+    wordItem.innerHTML = `<span style="color: ${wordColor}; font-weight: 900; margin-right: 4px;">✓</span> ${origText}`;
+    wordItem.style.color = wordColor;
+    wordItem.style.fontWeight = '700';
+  }
+
+  const counter = document.getElementById('ws2-counter');
+  if (counter) {
+    counter.textContent = `${foundWords2.size} / 10`;
+  }
+
+  if (foundWords2.size === 10) {
+    stopWS2Timer();
+    const mins = Math.floor(ws2Seconds / 60).toString().padStart(2, '0');
+    const secs = (ws2Seconds % 60).toString().padStart(2, '0');
+    setTimeout(() => {
+      alert(`🎉 ¡EXCELENTE TRABAJO! Has encontrado las 10 palabras de Herramientas y Tecnología en un tiempo récord de ${mins}:${secs}. ¡Eres un Maestro Tecnólogo del Campo!`);
+    }, 200);
+  }
+}
+
+// Auto init WS2 on load
+document.addEventListener('DOMContentLoaded', () => {
+  initWordSearch2();
+});
