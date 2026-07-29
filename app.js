@@ -373,3 +373,36 @@ function lockFoundWord(word, coords) {
 document.addEventListener('DOMContentLoaded', () => {
   initWordSearch();
 });
+
+/* ==========================================================================
+   EVALUACIÓN INTERACTIVA TALLER ÁREA 2: HERRAMIENTAS
+   ========================================================================== */
+function checkToolQuiz(qNum, selectedOption, btnElem) {
+  const correctAnswers = {
+    1: 'B', // Trasplantador
+    2: 'A', // Tijera de podar
+    3: 'B'  // Escobilla / Rastrillo
+  };
+
+  const ansDiv = document.getElementById(`tool-ans-${qNum}`);
+  if (!ansDiv) return;
+
+  const parent = btnElem.parentElement;
+  parent.querySelectorAll('button').forEach(b => {
+    b.style.background = 'white';
+    b.style.color = 'black';
+    b.style.borderColor = 'var(--border-color)';
+  });
+
+  if (selectedOption === correctAnswers[qNum]) {
+    btnElem.style.background = '#2e7d32';
+    btnElem.style.color = 'white';
+    btnElem.style.borderColor = '#2e7d32';
+    ansDiv.innerHTML = `<span style="color: #2e7d32;"><i class="fa-solid fa-circle-check"></i> ¡Correcto! Excelente identificación de la herramienta.</span>`;
+  } else {
+    btnElem.style.background = '#c62828';
+    btnElem.style.color = 'white';
+    btnElem.style.borderColor = '#c62828';
+    ansDiv.innerHTML = `<span style="color: #c62828;"><i class="fa-solid fa-circle-xmark"></i> Incorrecto. Inténtalo de nuevo.</span>`;
+  }
+}
