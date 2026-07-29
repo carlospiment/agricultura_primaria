@@ -1801,11 +1801,11 @@ document.addEventListener('DOMContentLoaded', () => {
    ========================================================================== */
 function checkCuartoArea4Quiz(qNum, selectedOption, btnElem) {
   const correctAnswers = {
-    1: 'B', // Una hilera tupida de plantas como vetiver o limoncillo sembradas para frenar la escorrentía
-    2: 'A', // Evitar la evaporacion del agua de riego y proteger el suelo del calor del sol
-    3: 'B', // Carbono para equilibrar la composicion del abono
-    4: 'B', // Lombriz roja californiana (Eisenia foetida)
-    5: 'A'  // La barrera viva usa plantas en crecimiento y la muerta usa piedras o troncos alineados
+    1: 'B', // Restos de frutas, cascaras y hojas secas
+    2: 'A', // Materia inorganica recicable
+    3: 'B', // Horizonte A
+    4: 'B', // Roca Madre
+    5: 'A'  // Para comprender su composicion, funcion y promover su conservacion responsable
   };
 
   const ansDiv = document.getElementById(`cuarto-area4-ans-${qNum}`);
@@ -1822,7 +1822,7 @@ function checkCuartoArea4Quiz(qNum, selectedOption, btnElem) {
     btnElem.style.background = '#2e7d32';
     btnElem.style.color = 'white';
     btnElem.style.borderColor = '#2e7d32';
-    ansDiv.innerHTML = `<span style="color: #2e7d32;"><i class="fa-solid fa-circle-check"></i> ¡Correcto! Excelente sentido de sostenibilidad y ecología.</span>`;
+    ansDiv.innerHTML = `<span style="color: #2e7d32;"><i class="fa-solid fa-circle-check"></i> ¡Correcto! Excelente conocimiento sobre residuos y horizontes del suelo.</span>`;
   } else {
     btnElem.style.background = '#c62828';
     btnElem.style.color = 'white';
@@ -1832,47 +1832,47 @@ function checkCuartoArea4Quiz(qNum, selectedOption, btnElem) {
 }
 
 /* ==========================================================================
-   SOPA DE LETRAS INTERACTIVA - CUARTO GRADO ÁREA 4 (CONSERVACIÓN Y COMPOST)
+   SOPA DE LETRAS INTERACTIVA - CUARTO GRADO ÁREA 4 (RESIDUOS Y HORIZONTES)
    ========================================================================== */
 const WS44_MATRIX = [
-  ['E','R','O','S','I','O','N','X','Y','Z','A','B'],
-  ['B','A','R','R','E','R','A','C','D','E','F','G'],
-  ['V','E','T','I','V','E','R','H','I','J','K','L'],
-  ['M','U','L','C','H','M','N','O','P','Q','R','S'],
-  ['C','O','M','P','O','S','T','T','U','V','W','X'],
-  ['H','U','M','U','S','Y','Z','A','B','C','D','E'],
-  ['L','O','M','B','R','I','Z','F','G','H','I','J'],
-  ['C','A','R','B','O','N','O','K','L','M','N','O'],
-  ['N','I','T','R','O','G','E','N','O','P','Q','R'],
-  ['S','O','S','T','E','N','I','B','L','E','S','T'],
+  ['O','R','G','A','N','I','C','A','X','Y','Z','A'],
+  ['I','N','O','R','G','A','N','I','C','A','B','C'],
+  ['R','E','S','I','D','U','O','D','E','F','G','H'],
+  ['P','E','R','F','I','L','I','J','K','L','M','N'],
+  ['H','O','R','I','Z','O','N','T','E','O','P','Q'],
+  ['H','U','M','U','S','R','S','T','U','V','W','X'],
+  ['S','U','B','S','U','E','L','O','Y','Z','A','B'],
+  ['R','O','C','A','M','A','D','R','E','C','D','E'],
+  ['R','E','C','I','C','L','A','J','E','F','G','H'],
+  ['A','M','B','I','E','N','T','E','I','J','K','L'],
   ['A','B','C','D','E','F','G','H','I','J','K','L'],
   ['M','N','O','P','Q','R','S','T','U','V','W','X']
 ];
 
 const WS44_TARGET_WORDS = {
-  'EROSION': [[0,0],[0,1],[0,2],[0,3],[0,4],[0,5],[0,6]],
-  'BARRERA': [[1,0],[1,1],[1,2],[1,3],[1,4],[1,5],[1,6]],
-  'VETIVER': [[2,0],[2,1],[2,2],[2,3],[2,4],[2,5],[2,6]],
-  'MULCH': [[3,0],[3,1],[3,2],[3,3],[3,4]],
-  'COMPOST': [[4,0],[4,1],[4,2],[4,3],[4,4],[4,5],[4,6]],
+  'ORGANICA': [[0,0],[0,1],[0,2],[0,3],[0,4],[0,5],[0,6],[0,7]],
+  'INORGANICA': [[1,0],[1,1],[1,2],[1,3],[1,4],[1,5],[1,6],[1,7],[1,8],[1,9]],
+  'RESIDUO': [[2,0],[2,1],[2,2],[2,3],[2,4],[2,5],[2,6]],
+  'PERFIL': [[3,0],[3,1],[3,2],[3,3],[3,4],[3,5]],
+  'HORIZONTE': [[4,0],[4,1],[4,2],[4,3],[4,4],[4,5],[4,6],[4,7],[4,8]],
   'HUMUS': [[5,0],[5,1],[5,2],[5,3],[5,4]],
-  'LOMBRIZ': [[6,0],[6,1],[6,2],[6,3],[6,4],[6,5],[6,6]],
-  'CARBONO': [[7,0],[7,1],[7,2],[7,3],[7,4],[7,5],[7,6]],
-  'NITROGENO': [[8,0],[8,1],[8,2],[8,3],[8,4],[8,5],[8,6],[8,7],[8,8]],
-  'SOSTENIBLE': [[9,0],[9,1],[9,2],[9,3],[9,4],[9,5],[9,6],[9,7],[9,8],[9,9]]
+  'SUBSUELO': [[6,0],[6,1],[6,2],[6,3],[6,4],[6,5],[6,6],[6,7]],
+  'ROCAMADRE': [[7,0],[7,1],[7,2],[7,3],[7,4],[7,5],[7,6],[7,7],[7,8]],
+  'RECICLAJE': [[8,0],[8,1],[8,2],[8,3],[8,4],[8,5],[8,6],[8,7],[8,8]],
+  'AMBIENTE': [[9,0],[9,1],[9,2],[9,3],[9,4],[9,5],[9,6],[9,7]]
 };
 
 const WS44_WORD_COLORS = {
-  'EROSION': '#c62828',
-  'BARRERA': '#2e7d32',
-  'VETIVER': '#1565c0',
-  'MULCH': '#e65100',
-  'COMPOST': '#4e342e',
-  'HUMUS': '#00838f',
-  'LOMBRIZ': '#6a1b9a',
-  'CARBONO': '#d84315',
-  'NITROGENO': '#00695c',
-  'SOSTENIBLE': '#ad1457'
+  'ORGANICA': '#2e7d32',
+  'INORGANICA': '#1565c0',
+  'RESIDUO': '#e65100',
+  'PERFIL': '#4e342e',
+  'HORIZONTE': '#00838f',
+  'HUMUS': '#6a1b9a',
+  'SUBSUELO': '#d84315',
+  'ROCAMADRE': '#c62828',
+  'RECICLAJE': '#00695c',
+  'AMBIENTE': '#ad1457'
 };
 
 let selectedCoords44 = [];
@@ -2023,7 +2023,7 @@ function lockFoundWord44(word, coords) {
     const mins = Math.floor(ws44Seconds / 60).toString().padStart(2, '0');
     const secs = (ws44Seconds % 60).toString().padStart(2, '0');
     setTimeout(() => {
-      alert(`🎉 ¡VICTORIA ECOLÓGICA! Has completado la Sopa de Letras de Ambiente y Agricultura Sostenible (Cuarto Grado) en ${mins}:${secs}. ¡Eres un Verdadero Guardián Agroecológico!`);
+      alert(`🎉 ¡VICTORIA ECOLÓGICA! Has completado la Sopa de Letras de Residuos y Horizontes del Suelo (Cuarto Grado) en ${mins}:${secs}. ¡Eres un Verdadero Guardián Agroecológico!`);
     }, 200);
   }
 }
