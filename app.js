@@ -610,3 +610,240 @@ function lockFoundWord2(word, coords) {
 document.addEventListener('DOMContentLoaded', () => {
   initWordSearch2();
 });
+
+/* ==========================================================================
+   EVALUACIÓN INTERACTIVA TALLER ÁREA 3: PRODUCCIÓN DE ALIMENTOS
+   ========================================================================== */
+function checkArea3Quiz(qNum, selectedOption, btnElem) {
+  const correctAnswers = {
+    1: 'B', // Espacio pedagógico para cultivar alimentos saludables
+    2: 'A', // Aportar vitaminas y minerales frescos a nuestra nutrición
+    3: 'B', // Trabajo manual ancestral y compost
+    4: 'B', // Optimizar el agua llegando directamente a las raíces
+    5: 'A'  // Garantiza la producción de alimentos sanos y vida saludable
+  };
+
+  const ansDiv = document.getElementById(`area3-ans-${qNum}`);
+  if (!ansDiv) return;
+
+  const parent = btnElem.parentElement;
+  parent.querySelectorAll('button').forEach(b => {
+    b.style.background = 'white';
+    b.style.color = 'black';
+    b.style.borderColor = 'var(--border-color)';
+  });
+
+  if (selectedOption === correctAnswers[qNum]) {
+    btnElem.style.background = '#2e7d32';
+    btnElem.style.color = 'white';
+    btnElem.style.borderColor = '#2e7d32';
+    ansDiv.innerHTML = `<span style="color: #2e7d32;"><i class="fa-solid fa-circle-check"></i> ¡Correcto! Excelente comprensión sobre la producción alimentaria.</span>`;
+  } else {
+    btnElem.style.background = '#c62828';
+    btnElem.style.color = 'white';
+    btnElem.style.borderColor = '#c62828';
+    ansDiv.innerHTML = `<span style="color: #c62828;"><i class="fa-solid fa-circle-xmark"></i> Incorrecto. Inténtalo de nuevo.</span>`;
+  }
+}
+
+/* ==========================================================================
+   SOPA DE LETRAS INTERACTIVA - ÁREA 3 (PRODUCCIÓN Y NUTRICIÓN)
+   ========================================================================== */
+const WS3_MATRIX = [
+  ['H','U','E','R','T','O','X','Y','Z','A','B','C'],
+  ['N','U','T','R','I','C','I','O','N','D','E','F'],
+  ['S','A','L','U','D','G','H','I','J','K','L','M'],
+  ['A','L','I','M','E','N','T','O','N','O','P','Q'],
+  ['C','O','S','E','C','H','A','R','S','T','U','V'],
+  ['S','I','E','M','B','R','A','W','X','Y','Z','A'],
+  ['T','R','A','D','I','C','I','O','N','A','L','B'],
+  ['M','O','D','E','R','N','O','C','D','E','F','G'],
+  ['C','O','M','P','O','S','T','H','I','J','K','L'],
+  ['V','E','R','D','U','R','A','M','N','O','P','Q'],
+  ['A','B','C','D','E','F','G','H','I','J','K','L'],
+  ['M','N','O','P','Q','R','S','T','U','V','W','X']
+];
+
+const WS3_TARGET_WORDS = {
+  'HUERTO': [[0,0],[0,1],[0,2],[0,3],[0,4],[0,5]],
+  'NUTRICION': [[1,0],[1,1],[1,2],[1,3],[1,4],[1,5],[1,6],[1,7],[1,8]],
+  'SALUD': [[2,0],[2,1],[2,2],[2,3],[2,4]],
+  'ALIMENTO': [[3,0],[3,1],[3,2],[3,3],[3,4],[3,5],[3,6],[3,7]],
+  'COSECHA': [[4,0],[4,1],[4,2],[4,3],[4,4],[4,5],[4,6]],
+  'SIEMBRA': [[5,0],[5,1],[5,2],[5,3],[5,4],[5,5],[5,6]],
+  'TRADICIONAL': [[6,0],[6,1],[6,2],[6,3],[6,4],[6,5],[6,6],[6,7],[6,8],[6,9],[6,10]],
+  'MODERNO': [[7,0],[7,1],[7,2],[7,3],[7,4],[7,5],[7,6]],
+  'COMPOST': [[8,0],[8,1],[8,2],[8,3],[8,4],[8,5],[8,6]],
+  'VERDURA': [[9,0],[9,1],[9,2],[9,3],[9,4],[9,5],[9,6]]
+};
+
+const WS3_WORD_COLORS = {
+  'HUERTO': '#2e7d32',
+  'NUTRICION': '#e65100',
+  'SALUD': '#1565c0',
+  'ALIMENTO': '#6a1b9a',
+  'COSECHA': '#4e342e',
+  'SIEMBRA': '#00838f',
+  'TRADICIONAL': '#d84315',
+  'MODERNO': '#00695c',
+  'COMPOST': '#c62828',
+  'VERDURA': '#ad1457'
+};
+
+let selectedCoords3 = [];
+let foundWords3 = new Set();
+let ws3TimerInterval = null;
+let ws3Seconds = 0;
+let ws3TimerRunning = false;
+
+function resetWS3Timer() {
+  if (ws3TimerInterval) clearInterval(ws3TimerInterval);
+  ws3TimerInterval = null;
+  ws3Seconds = 0;
+  ws3TimerRunning = false;
+  const timerElem = document.getElementById('ws3-timer');
+  if (timerElem) timerElem.textContent = '00:00';
+}
+
+function startWS3Timer() {
+  if (ws3TimerRunning) return;
+  ws3TimerRunning = true;
+  ws3Seconds = 0;
+  ws3TimerInterval = setInterval(() => {
+    ws3Seconds++;
+    const mins = Math.floor(ws3Seconds / 60).toString().padStart(2, '0');
+    const secs = (ws3Seconds % 60).toString().padStart(2, '0');
+    const timerElem = document.getElementById('ws3-timer');
+    if (timerElem) timerElem.textContent = `${mins}:${secs}`;
+  }, 1000);
+}
+
+function stopWS3Timer() {
+  if (ws3TimerInterval) {
+    clearInterval(ws3TimerInterval);
+    ws3TimerInterval = null;
+  }
+  ws3TimerRunning = false;
+}
+
+function initWordSearch3() {
+  const gridContainer = document.getElementById('wordsearch3-grid');
+  const counter = document.getElementById('ws3-counter');
+  if (!gridContainer) return;
+
+  gridContainer.innerHTML = '';
+  selectedCoords3 = [];
+  foundWords3.clear();
+  resetWS3Timer();
+
+  if (counter) counter.textContent = `0 / 10`;
+
+  document.querySelectorAll('#ws3-word-list div').forEach(item => {
+    if (!item.getAttribute('data-orig-text')) {
+      item.setAttribute('data-orig-text', item.textContent);
+    }
+    item.textContent = item.getAttribute('data-orig-text');
+    item.style.textDecoration = 'none';
+    item.style.opacity = '1';
+    item.style.color = 'var(--text-main)';
+    item.style.fontWeight = '600';
+  });
+
+  for (let r = 0; r < 12; r++) {
+    for (let c = 0; c < 12; c++) {
+      const cell = document.createElement('div');
+      cell.classList.add('ws3-cell');
+      cell.setAttribute('data-r', r);
+      cell.setAttribute('data-c', c);
+      cell.textContent = WS3_MATRIX[r][c];
+
+      cell.style.aspectRatio = '1';
+      cell.style.display = 'flex';
+      cell.style.alignItems = 'center';
+      cell.style.justifyContent = 'center';
+      cell.style.background = '#ffffff';
+      cell.style.border = '1px solid var(--border-color)';
+      cell.style.borderRadius = '4px';
+      cell.style.fontWeight = '700';
+      cell.style.fontSize = '0.9rem';
+      cell.style.cursor = 'pointer';
+      cell.style.transition = 'all 0.15s ease';
+
+      cell.addEventListener('click', () => handleCellClick3(r, c, cell));
+      gridContainer.appendChild(cell);
+    }
+  }
+}
+
+function handleCellClick3(r, c, cellElem) {
+  startWS3Timer();
+
+  const index = selectedCoords3.findIndex(item => item.r === r && item.c === c);
+  if (index >= 0) {
+    selectedCoords3.splice(index, 1);
+    cellElem.style.background = '#ffffff';
+    cellElem.style.color = '#000000';
+  } else {
+    selectedCoords3.push({ r, c, char: WS3_MATRIX[r][c] });
+    cellElem.style.background = 'var(--gold)';
+    cellElem.style.color = 'var(--primary-dark)';
+  }
+
+  checkSelectedWord3();
+}
+
+function checkSelectedWord3() {
+  const currentChars = selectedCoords3.map(item => item.char).join('');
+  const currentCharsRev = selectedCoords3.map(item => item.char).reverse().join('');
+
+  for (const [word, coords] of Object.entries(WS3_TARGET_WORDS)) {
+    if (foundWords3.has(word)) continue;
+
+    if (currentChars === word || currentCharsRev === word) {
+      foundWords3.add(word);
+      lockFoundWord3(word, coords);
+      selectedCoords3 = [];
+      break;
+    }
+  }
+}
+
+function lockFoundWord3(word, coords) {
+  const wordColor = WS3_WORD_COLORS[word] || 'var(--primary)';
+
+  coords.forEach(([r, c]) => {
+    const cell = document.querySelector(`.ws3-cell[data-r="${r}"][data-c="${c}"]`);
+    if (cell) {
+      cell.style.background = wordColor;
+      cell.style.color = '#ffffff';
+      cell.style.boxShadow = `0 0 6px ${wordColor}88`;
+    }
+  });
+
+  const wordItem = document.querySelector(`#ws3-word-list div[data-word="${word}"]`);
+  if (wordItem) {
+    const origText = wordItem.getAttribute('data-orig-text') || wordItem.textContent;
+    wordItem.innerHTML = `<span style="color: ${wordColor}; font-weight: 900; margin-right: 4px;">✓</span> ${origText}`;
+    wordItem.style.color = wordColor;
+    wordItem.style.fontWeight = '700';
+  }
+
+  const counter = document.getElementById('ws3-counter');
+  if (counter) {
+    counter.textContent = `${foundWords3.size} / 10`;
+  }
+
+  if (foundWords3.size === 10) {
+    stopWS3Timer();
+    const mins = Math.floor(ws3Seconds / 60).toString().padStart(2, '0');
+    const secs = (ws3Seconds % 60).toString().padStart(2, '0');
+    setTimeout(() => {
+      alert(`🎉 ¡FELICITACIONES! Has completado las 10 palabras de Producción de Alimentos y Nutrición en ${mins}:${secs}. ¡Eres un Campeón de la Nutrición Agrícola!`);
+    }, 200);
+  }
+}
+
+// Auto init WS3 on load
+document.addEventListener('DOMContentLoaded', () => {
+  initWordSearch3();
+});
