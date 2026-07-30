@@ -220,6 +220,288 @@ function evaluarComprensionLectora() {
 }
 
 /* ==========================================================================
+   EVALUACIÓN AUTOMÁTICA DE COMPRENSIÓN LECTORA - CUARTO GRADO ÁREA 1
+   ========================================================================== */
+function evaluarComprensionLectoraCuartoArea1() {
+  const q1 = (document.getElementById('cuarto-reading-q1')?.value || '').toLowerCase().trim();
+  const q2 = (document.getElementById('cuarto-reading-q2')?.value || '').toLowerCase().trim();
+  const q3 = (document.getElementById('cuarto-reading-q3')?.value || '').toLowerCase().trim();
+  const q4 = (document.getElementById('cuarto-reading-q4')?.value || '').toLowerCase().trim();
+
+  const card = document.getElementById('cuarto-eval-result-card');
+  const badge = document.getElementById('cuarto-eval-score-badge');
+  const content = document.getElementById('cuarto-eval-details-content');
+
+  if (!card || !badge || !content) return;
+
+  if (!q1 && !q2 && !q3 && !q4) {
+    alert('Por favor, responde al menos una pregunta antes de enviar tu evaluación.');
+    return;
+  }
+
+  let score = 0;
+  let feedback = [];
+
+  // Pregunta 1: Rosa (erguida), Hiedra (trepadora), Helecho (colgante), Menta (rastrera)
+  if ((q1.includes('rosa') && q1.includes('erguida')) &&
+      (q1.includes('hiedra') && q1.includes('trepadora')) &&
+      (q1.includes('helecho') && q1.includes('colgante')) &&
+      (q1.includes('menta') && q1.includes('rastrera'))) {
+    score += 25;
+    feedback.push('<div style="margin-bottom: 10px; padding: 10px; background: #f1f8e9; border-radius: 6px; border-left: 4px solid #4caf50;">✅ <strong>Pregunta 1 (25/25 pts):</strong> ¡Excelente! Identificaste correctamente las 4 plantas y sus hábitos de crecimiento (Rosa - Erguida, Hiedra - Trepadora, Helecho - Colgante, Menta - Rastrera).</div>');
+  } else if (q1.includes('rosa') || q1.includes('hiedra') || q1.includes('helecho') || q1.includes('menta')) {
+    score += 15;
+    feedback.push('<div style="margin-bottom: 10px; padding: 10px; background: #fff8e1; border-radius: 6px; border-left: 4px solid #ffb300;">🟡 <strong>Pregunta 1 (15/25 pts):</strong> Mencionaste algunas plantas. Asegúrate de incluir las cuatro y su hábito: Rosa (erguida), Hiedra (trepadora), Helecho (colgante) y Menta (rastrera).</div>');
+  } else {
+    feedback.push('<div style="margin-bottom: 10px; padding: 10px; background: #ffebee; border-radius: 6px; border-left: 4px solid #e53935;">❌ <strong>Pregunta 1 (0/25 pts):</strong> Las plantas son Rosa (Erguida), Hiedra (Trepadora), Helecho (Colgante) y Menta (Rastrera).</div>');
+  }
+
+  // Pregunta 2: Funciones (estética, cubrir pared, aire, cubrir suelo)
+  if ((q2.includes('hermosa') || q2.includes('estética') || q2.includes('estetica') || q2.includes('flor') || q2.includes('erguida')) &&
+      (q2.includes('pared') || q2.includes('muro')) &&
+      (q2.includes('suelo') || q2.includes('tierra') || q2.includes('seque'))) {
+    score += 25;
+    feedback.push('<div style="margin-bottom: 10px; padding: 10px; background: #f1f8e9; border-radius: 6px; border-left: 4px solid #4caf50;">✅ <strong>Pregunta 2 (25/25 pts):</strong> ¡Muy bien! Reconociste las funciones estéticas y ambientales de cada especie en el jardín.</div>');
+  } else if (q2.includes('pared') || q2.includes('suelo') || q2.includes('jardín') || q2.includes('flores')) {
+    score += 15;
+    feedback.push('<div style="margin-bottom: 10px; padding: 10px; background: #fff8e1; border-radius: 6px; border-left: 4px solid #ffb300;">🟡 <strong>Pregunta 2 (15/25 pts):</strong> Buen intento. Detalla cómo la Rosa embellece, la Hiedra cubre muros, el Helecho adorna el aire y la Menta protege el suelo.</div>');
+  } else {
+    feedback.push('<div style="margin-bottom: 10px; padding: 10px; background: #ffebee; border-radius: 6px; border-left: 4px solid #e53935;">❌ <strong>Pregunta 2 (0/25 pts):</strong> Respuesta a revisar. Cada planta cumple una función: estética en flores, cubrimiento de muros, adorno flotante o protección del suelo.</div>');
+  }
+
+  // Pregunta 3: Biodiversidad / Ecosistema / Ninguna es más importante
+  if (q3.includes('biodiversidad') || q3.includes('ecosistema') || q3.includes('importante') || q3.includes('junto') || q3.includes('equipo') || q3.includes('magia') || q3.includes('diferente')) {
+    score += 25;
+    feedback.push('<div style="margin-bottom: 10px; padding: 10px; background: #f1f8e9; border-radius: 6px; border-left: 4px solid #4caf50;">✅ <strong>Pregunta 3 (25/25 pts):</strong> ¡Gran análisis de pensamiento crítico! Comprendiste que la biodiversidad y la combinación de hábitos hacen funcionar al ecosistema.</div>');
+  } else if (q3.length > 5) {
+    score += 15;
+    feedback.push('<div style="margin-bottom: 10px; padding: 10px; background: #fff8e1; border-radius: 6px; border-left: 4px solid #ffb300;">🟡 <strong>Pregunta 3 (15/25 pts):</strong> Buen razonamiento. Recuerda mencionar que la <strong>biodiversidad</strong> hace que el ecosistema funcione.</div>');
+  } else {
+    feedback.push('<div style="margin-bottom: 10px; padding: 10px; background: #ffebee; border-radius: 6px; border-left: 4px solid #e53935;">❌ <strong>Pregunta 3 (0/25 pts):</strong> El Viejo Roble enseñó que todas las plantas son igual de importantes y la biodiversidad hace funcionar el ecosistema.</div>');
+  }
+
+  // Pregunta 4: Diseño del jardín combinando hábitos de crecimiento
+  if (q4.includes('combinar') || q4.includes('hábito') || q4.includes('habito') || q4.includes('trepadora') || q4.includes('rastrera') || q4.includes('erguida') || q4.includes('jardín') || q4.includes('jardin') || q4.includes('escuela')) {
+    score += 25;
+    feedback.push('<div style="margin-bottom: 10px; padding: 10px; background: #f1f8e9; border-radius: 6px; border-left: 4px solid #4caf50;">✅ <strong>Pregunta 4 (25/25 pts):</strong> ¡Excelente aplicación práctica! Usar diferentes hábitos de crecimiento aprovecha el espacio vertical, aéreo y del suelo en la escuela.</div>');
+  } else if (q4.length > 5) {
+    score += 15;
+    feedback.push('<div style="margin-bottom: 10px; padding: 10px; background: #fff8e1; border-radius: 6px; border-left: 4px solid #ffb300;">🟡 <strong>Pregunta 4 (15/25 pts):</strong> Mencionaste el jardín. Explica cómo combinarías plantas erguidas, trepadoras, colgantes y rastreras en tu escuela.</div>');
+  } else {
+    feedback.push('<div style="margin-bottom: 10px; padding: 10px; background: #ffebee; border-radius: 6px; border-left: 4px solid #e53935;">❌ <strong>Pregunta 4 (0/25 pts):</strong> Un buen diseño integra plantas erguidas, trepadoras, colgantes y rastreras para embellecer todos los espacios.</div>');
+  }
+
+  card.style.display = 'block';
+  badge.textContent = `Puntaje: ${score} / 100`;
+
+  if (score >= 80) {
+    badge.style.background = '#2e7d32';
+  } else if (score >= 50) {
+    badge.style.background = '#f57c00';
+  } else {
+    badge.style.background = '#d32f2f';
+  }
+
+  let summaryHeader = '';
+  if (score >= 90) {
+    summaryHeader = '<div style="background: #2e7d32; color: white; padding: 12px 16px; border-radius: 6px; margin-bottom: 16px; font-weight: 700;">🌟 ¡Felicidades! Has alcanzado la máxima calificación en Comprensión Lectora y Pensamiento Crítico.</div>';
+  } else if (score >= 60) {
+    summaryHeader = '<div style="background: #f57c00; color: white; padding: 12px 16px; border-radius: 6px; margin-bottom: 16px; font-weight: 700;">👍 ¡Buen trabajo! Revisa las recomendaciones para enriquecer tus respuestas.</div>';
+  } else {
+    summaryHeader = '<div style="background: #d32f2f; color: white; padding: 12px 16px; border-radius: 6px; margin-bottom: 16px; font-weight: 700;">📖 Te sugerimos releer "El Consejo del Viejo Roble" y responder nuevamente.</div>';
+  }
+
+  content.innerHTML = summaryHeader + feedback.join('');
+  card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+/* ==========================================================================
+   EVALUACIÓN AUTOMÁTICA DE COMPRENSIÓN LECTORA - QUINTO GRADO ÁREA 1
+   ========================================================================== */
+function evaluarComprensionLectoraQuintoArea1() {
+  const q1 = (document.getElementById('quinto-reading-q1')?.value || '').toLowerCase().trim();
+  const q2 = (document.getElementById('quinto-reading-q2')?.value || '').toLowerCase().trim();
+  const q3 = (document.getElementById('quinto-reading-q3')?.value || '').toLowerCase().trim();
+  const q4 = (document.getElementById('quinto-reading-q4')?.value || '').toLowerCase().trim();
+
+  const card = document.getElementById('quinto-eval-result-card');
+  const badge = document.getElementById('quinto-eval-score-badge');
+  const content = document.getElementById('quinto-eval-details-content');
+
+  if (!card || !badge || !content) return;
+
+  if (!q1 && !q2 && !q3 && !q4) {
+    alert('Por favor, responde al menos una pregunta antes de enviar tu evaluación.');
+    return;
+  }
+
+  let score = 0;
+  let feedback = [];
+
+  // Pregunta 1: Tomate (Alimenticio), Menta (Medicinal), Helecho (Botánico)
+  if ((q1.includes('tomate') && (q1.includes('alimenticio') || q1.includes('alimento'))) &&
+      (q1.includes('menta') && (q1.includes('medicinal') || q1.includes('medicina'))) &&
+      (q1.includes('helecho') && (q1.includes('botánico') || q1.includes('botanico')))) {
+    score += 25;
+    feedback.push('<div style="margin-bottom: 10px; padding: 10px; background: #f1f8e9; border-radius: 6px; border-left: 4px solid #4caf50;">✅ <strong>Pregunta 1 (25/25 pts):</strong> ¡Excelente! Identificaste correctamente las tres plantas y sus tipos de jardín (Tomate - Alimenticio, Menta - Medicinal, Helecho - Botánico).</div>');
+  } else if (q1.includes('tomate') || q1.includes('menta') || q1.includes('helecho')) {
+    score += 15;
+    feedback.push('<div style="margin-bottom: 10px; padding: 10px; background: #fff8e1; border-radius: 6px; border-left: 4px solid #ffb300;">🟡 <strong>Pregunta 1 (15/25 pts):</strong> Mencionaste algunas plantas. Asegúrate de incluir las tres: Tomate (Alimenticio), Menta (Medicinal) y Helecho (Botánico).</div>');
+  } else {
+    feedback.push('<div style="margin-bottom: 10px; padding: 10px; background: #ffebee; border-radius: 6px; border-left: 4px solid #e53935;">❌ <strong>Pregunta 1 (0/25 pts):</strong> Las tres plantas son el Tomate (Jardín Alimenticio), Menta (Jardín Medicinal) y Helecho (Jardín Botánico).</div>');
+  }
+
+  // Pregunta 2: Luz directa (Tomate), Semisombra (Menta), Sombra (Helecho)
+  if ((q2.includes('tomate') || q2.includes('directa') || q2.includes('sol')) &&
+      (q2.includes('menta') || q2.includes('semisombra')) &&
+      (q2.includes('helecho') || q2.includes('sombra'))) {
+    score += 25;
+    feedback.push('<div style="margin-bottom: 10px; padding: 10px; background: #f1f8e9; border-radius: 6px; border-left: 4px solid #4caf50;">✅ <strong>Pregunta 2 (25/25 pts):</strong> ¡Muy bien! Reconociste las necesidades lumínicas: Tomate (luz directa/sol pleno), Menta (semisombra) y Helecho (sombra).</div>');
+  } else if (q2.includes('luz') || q2.includes('sol') || q2.includes('sombra')) {
+    score += 15;
+    feedback.push('<div style="margin-bottom: 10px; padding: 10px; background: #fff8e1; border-radius: 6px; border-left: 4px solid #ffb300;">🟡 <strong>Pregunta 2 (15/25 pts):</strong> Recuerda detallar: Tomate necesita luz directa, Menta prefiere semisombra y Helecho requiere sombra.</div>');
+  } else {
+    feedback.push('<div style="margin-bottom: 10px; padding: 10px; background: #ffebee; border-radius: 6px; border-left: 4px solid #e53935;">❌ <strong>Pregunta 2 (0/25 pts):</strong> Respuesta a revisar. Tomate = Luz directa, Menta = Semisombra, Helecho = Sombra.</div>');
+  }
+
+  // Pregunta 3: Ninguna es más importante / Alimento, medicina y conocimiento / Biodiversidad
+  if (q3.includes('alimento') || q3.includes('medicina') || q3.includes('conocimiento') || q3.includes('biodiversidad') || q3.includes('propósito') || q3.includes('proposito') || q3.includes('importante') || q3.includes('función') || q3.includes('funcion')) {
+    score += 25;
+    feedback.push('<div style="margin-bottom: 10px; padding: 10px; background: #f1f8e9; border-radius: 6px; border-left: 4px solid #4caf50;">✅ <strong>Pregunta 3 (25/25 pts):</strong> ¡Gran análisis de pensamiento crítico! Comprendiste que la escuela necesita alimento, medicina y conocimiento para proteger nuestra biodiversidad.</div>');
+  } else if (q3.length > 5) {
+    score += 15;
+    feedback.push('<div style="margin-bottom: 10px; padding: 10px; background: #fff8e1; border-radius: 6px; border-left: 4px solid #ffb300;">🟡 <strong>Pregunta 3 (15/25 pts):</strong> Buen razonamiento. Recuerda incluir que la escuela necesita alimento, medicina y conocimiento.</div>');
+  } else {
+    feedback.push('<div style="margin-bottom: 10px; padding: 10px; background: #ffebee; border-radius: 6px; border-left: 4px solid #e53935;">❌ <strong>Pregunta 3 (0/25 pts):</strong> El Gran Árbol enseña que todas las plantas son valiosas porque aportan alimento, medicina y conservación de la biodiversidad.</div>');
+  }
+
+  // Pregunta 4: Mallas de sombra / parcelas correctas / ubicación adecuada
+  if (q4.includes('malla') || q4.includes('sombra') || q4.includes('parcela') || q4.includes('ubicar') || q4.includes('lugar') || q4.includes('proteger')) {
+    score += 25;
+    feedback.push('<div style="margin-bottom: 10px; padding: 10px; background: #f1f8e9; border-radius: 6px; border-left: 4px solid #4caf50;">✅ <strong>Pregunta 4 (25/25 pts):</strong> ¡Excelente aplicación práctica! El uso de mallas de sombra y la correcta ubicación en parcelas aseguran que cada especie cumpla su propósito vital.</div>');
+  } else if (q4.length > 5) {
+    score += 15;
+    feedback.push('<div style="margin-bottom: 10px; padding: 10px; background: #fff8e1; border-radius: 6px; border-left: 4px solid #ffb300;">🟡 <strong>Pregunta 4 (15/25 pts):</strong> Mencionaste la protección. Destaca el uso de <strong>mallas de sombra</strong> y la ubicación en las parcelas correctas.</div>');
+  } else {
+    feedback.push('<div style="margin-bottom: 10px; padding: 10px; background: #ffebee; border-radius: 6px; border-left: 4px solid #e53935;">❌ <strong>Pregunta 4 (0/25 pts):</strong> La solución consiste en aprender a usar <strong>mallas de sombra</strong> y ubicar las plantas en sus parcelas correspondientes.</div>');
+  }
+
+  card.style.display = 'block';
+  badge.textContent = `Puntaje: ${score} / 100`;
+
+  if (score >= 80) {
+    badge.style.background = '#2e7d32';
+  } else if (score >= 50) {
+    badge.style.background = '#f57c00';
+  } else {
+    badge.style.background = '#d32f2f';
+  }
+
+  let summaryHeader = '';
+  if (score >= 90) {
+    summaryHeader = '<div style="background: #2e7d32; color: white; padding: 12px 16px; border-radius: 6px; margin-bottom: 16px; font-weight: 700;">🌟 ¡Felicidades! Has alcanzado la máxima calificación en Comprensión Lectora y Pensamiento Crítico.</div>';
+  } else if (score >= 60) {
+    summaryHeader = '<div style="background: #f57c00; color: white; padding: 12px 16px; border-radius: 6px; margin-bottom: 16px; font-weight: 700;">👍 ¡Buen trabajo! Revisa las recomendaciones para enriquecer tus respuestas.</div>';
+  } else {
+    summaryHeader = '<div style="background: #d32f2f; color: white; padding: 12px 16px; border-radius: 6px; margin-bottom: 16px; font-weight: 700;">📖 Te sugerimos releer "El Consejo del Gran Árbol" y responder nuevamente.</div>';
+  }
+
+  content.innerHTML = summaryHeader + feedback.join('');
+  card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+/* ==========================================================================
+   EVALUACIÓN AUTOMÁTICA DE COMPRENSIÓN LECTORA - SEXTO GRADO ÁREA 1
+   ========================================================================== */
+function evaluarComprensionLectoraSextoArea1() {
+  const q1 = (document.getElementById('sexto-reading-q1')?.value || '').toLowerCase().trim();
+  const q2 = (document.getElementById('sexto-reading-q2')?.value || '').toLowerCase().trim();
+  const q3 = (document.getElementById('sexto-reading-q3')?.value || '').toLowerCase().trim();
+  const q4 = (document.getElementById('sexto-reading-q4')?.value || '').toLowerCase().trim();
+
+  const card = document.getElementById('sexto-eval-result-card');
+  const badge = document.getElementById('sexto-eval-score-badge');
+  const content = document.getElementById('sexto-eval-details-content');
+
+  if (!card || !badge || !content) return;
+
+  if (!q1 && !q2 && !q3 && !q4) {
+    alert('Por favor, responde al menos una pregunta antes de enviar tu evaluación.');
+    return;
+  }
+
+  let score = 0;
+  let feedback = [];
+
+  // Pregunta 1: Horas luz / exterior (Sol), Suelo esponjoso/drenaje/terreno (Lombriz)
+  if ((q1.includes('sol') || q1.includes('luz')) && (q1.includes('lombriz') || q1.includes('suelo') || q1.includes('terreno') || q1.includes('drenaje') || q1.includes('roca'))) {
+    score += 25;
+    feedback.push('<div style="margin-bottom: 10px; padding: 10px; background: #f1f8e9; border-radius: 6px; border-left: 4px solid #4caf50;">✅ <strong>Pregunta 1 (25/25 pts):</strong> ¡Excelente! Identificaste los factores clave de planificación: las horas de luz recomendadas por el Sol y la necesidad de un suelo fértil con buen drenaje explicada por la Lombriz.</div>');
+  } else if (q1.includes('sol') || q1.includes('lombriz') || q1.includes('luz') || q1.includes('suelo')) {
+    score += 15;
+    feedback.push('<div style="margin-bottom: 10px; padding: 10px; background: #fff8e1; border-radius: 6px; border-left: 4px solid #ffb300;">🟡 <strong>Pregunta 1 (15/25 pts):</strong> Mencionaste al Sol o a la Lombriz. Asegúrate de incluir tanto las horas luz como la calidad y drenaje del suelo.</div>');
+  } else {
+    feedback.push('<div style="margin-bottom: 10px; padding: 10px; background: #ffebee; border-radius: 6px; border-left: 4px solid #e53935;">❌ <strong>Pregunta 1 (0/25 pts):</strong> El Sol pedía horas luz en un jardín exterior, mientras que la Lombriz exigía suelo fértil con buen drenaje.</div>');
+  }
+
+  // Pregunta 2: Catarina / Control biológico / Manejo orgánico sin venenos
+  if (q2.includes('catarina') || q2.includes('biológico') || q2.includes('biologico') || q2.includes('orgánico') || q2.includes('organico') || q2.includes('natural') || q2.includes('sin veneno') || q2.includes('comer')) {
+    score += 25;
+    feedback.push('<div style="margin-bottom: 10px; padding: 10px; background: #f1f8e9; border-radius: 6px; border-left: 4px solid #4caf50;">✅ <strong>Pregunta 2 (25/25 pts):</strong> ¡Muy bien! Comprendiste que la Catarina representa el control biológico y el manejo orgánico que protege el ecosistema sin usar químicos tóxicos.</div>');
+  } else if (q2.length > 5) {
+    score += 15;
+    feedback.push('<div style="margin-bottom: 10px; padding: 10px; background: #fff8e1; border-radius: 6px; border-left: 4px solid #ffb300;">🟡 <strong>Pregunta 2 (15/25 pts):</strong> Buen intento. Recuerda mencionar que la Catarina realiza control biológico natural eliminando plagas sin químicos.</div>');
+  } else {
+    feedback.push('<div style="margin-bottom: 10px; padding: 10px; background: #ffebee; border-radius: 6px; border-left: 4px solid #e53935;">❌ <strong>Pregunta 2 (0/25 pts):</strong> La Catarina representa el manejo orgánico y el control biológico natural contra las plagas.</div>');
+  }
+
+  // Pregunta 3: Búho / Planificación integrada / Trabajo en equipo / Croquis
+  if (q3.includes('búho') || q3.includes('buho') || q3.includes('equipo') || q3.includes('juntos') || q3.includes('integrado') || q3.includes('planific') || q3.includes('combinar') || q3.includes('diseño') || q3.includes('diseño')) {
+    score += 25;
+    feedback.push('<div style="margin-bottom: 10px; padding: 10px; background: #f1f8e9; border-radius: 6px; border-left: 4px solid #4caf50;">✅ <strong>Pregunta 3 (25/25 pts):</strong> ¡Gran análisis de pensamiento crítico! El Búho entendió que un diseño exitoso requiere integrar luz, suelo y defensa orgánica.</div>');
+  } else if (q3.length > 5) {
+    score += 15;
+    feedback.push('<div style="margin-bottom: 10px; padding: 10px; background: #fff8e1; border-radius: 6px; border-left: 4px solid #ffb300;">🟡 <strong>Pregunta 3 (15/25 pts):</strong> Buen razonamiento. Destaca que la planificación requiere la colaboración de todos los elementos (luz, suelo, biodiversidad).</div>');
+  } else {
+    feedback.push('<div style="margin-bottom: 10px; padding: 10px; background: #ffebee; border-radius: 6px; border-left: 4px solid #e53935;">❌ <strong>Pregunta 3 (0/25 pts):</strong> El Búho Sabio enseñó que el diseño perfecto requiere unir la luz solar, el tipo de suelo y el control biológico.</div>');
+  }
+
+  // Pregunta 4: Croquis / Aplicación práctica en jardín escolar
+  if (q4.includes('croquis') || q4.includes('planific') || q4.includes('luz') || q4.includes('suelo') || q4.includes('orgánico') || q4.includes('jardín') || q4.includes('jardin') || q4.includes('terreno')) {
+    score += 25;
+    feedback.push('<div style="margin-bottom: 10px; padding: 10px; background: #f1f8e9; border-radius: 6px; border-left: 4px solid #4caf50;">✅ <strong>Pregunta 4 (25/25 pts):</strong> ¡Excelente aplicación de ingeniería y planificación agrícola! Integrar el croquis, estudio de terreno y control de plagas garantiza un jardín sostenible.</div>');
+  } else if (q4.length > 5) {
+    score += 15;
+    feedback.push('<div style="margin-bottom: 10px; padding: 10px; background: #fff8e1; border-radius: 6px; border-left: 4px solid #ffb300;">🟡 <strong>Pregunta 4 (15/25 pts):</strong> Mencionaste el jardín. Asegúrate de detallar cómo trazarías el croquis considerando horas luz, suelo y control orgánico.</div>');
+  } else {
+    feedback.push('<div style="margin-bottom: 10px; padding: 10px; background: #ffebee; border-radius: 6px; border-left: 4px solid #e53935;">❌ <strong>Pregunta 4 (0/25 pts):</strong> Para diseñar un jardín escolar debes medir el espacio, verificar horas luz, preparar el suelo y planear el control orgánico.</div>');
+  }
+
+  card.style.display = 'block';
+  badge.textContent = `Puntaje: ${score} / 100`;
+
+  if (score >= 80) {
+    badge.style.background = '#2e7d32';
+  } else if (score >= 50) {
+    badge.style.background = '#f57c00';
+  } else {
+    badge.style.background = '#d32f2f';
+  }
+
+  let summaryHeader = '';
+  if (score >= 90) {
+    summaryHeader = '<div style="background: #2e7d32; color: white; padding: 12px 16px; border-radius: 6px; margin-bottom: 16px; font-weight: 700;">🌟 ¡Felicidades! Has alcanzado la máxima calificación en Comprensión Lectora y Pensamiento Crítico.</div>';
+  } else if (score >= 60) {
+    summaryHeader = '<div style="background: #f57c00; color: white; padding: 12px 16px; border-radius: 6px; margin-bottom: 16px; font-weight: 700;">👍 ¡Buen trabajo! Revisa las recomendaciones para enriquecer tus respuestas.</div>';
+  } else {
+    summaryHeader = '<div style="background: #d32f2f; color: white; padding: 12px 16px; border-radius: 6px; margin-bottom: 16px; font-weight: 700;">📖 Te sugerimos releer "El Concilio de la Semilla Dorada" y responder nuevamente.</div>';
+  }
+
+  content.innerHTML = summaryHeader + feedback.join('');
+  card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+/* ==========================================================================
    SOPA DE LETRAS INTERACTIVA CON COLORES, GANCHO (✓) Y RELOJ
    ========================================================================== */
 const WS_MATRIX = [
