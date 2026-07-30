@@ -5,9 +5,20 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   const views = document.querySelectorAll('.view-section');
-  const navLinks = document.querySelectorAll('.nav-link, .dropdown-link, [data-target]');
   const mobileToggle = document.getElementById('mobileToggle');
   const navMenu = document.getElementById('navMenu');
+  const mobileOverlay = document.getElementById('mobileOverlay');
+  const floatingIndexBtn = document.getElementById('floatingIndexBtn');
+
+  function openMobileMenu() {
+    if (navMenu) navMenu.classList.add('mobile-open');
+    if (mobileOverlay) mobileOverlay.classList.add('active');
+  }
+
+  function closeMobileMenu() {
+    if (navMenu) navMenu.classList.remove('mobile-open');
+    if (mobileOverlay) mobileOverlay.classList.remove('active');
+  }
 
   // Navigation router function
   function navigateTo(targetId) {
@@ -38,9 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Close mobile menu if open
-    if (navMenu.classList.contains('mobile-open')) {
-      navMenu.classList.remove('mobile-open');
-    }
+    closeMobileMenu();
   }
 
   // Handle Hash Changes in URL
@@ -52,8 +61,30 @@ document.addEventListener('DOMContentLoaded', () => {
   // Listen for hashchange events
   window.addEventListener('hashchange', handleHashChange);
 
-  // Click listeners for data-target links
+  // Mobile Accordion and Click listener
   document.addEventListener('click', (e) => {
+    // Check if clicking a nav-link on mobile that has a dropdown menu
+    const isMobile = window.innerWidth <= 900;
+    const parentNavItem = e.target.closest('.nav-item');
+    const navLinkHeader = e.target.closest('.nav-link');
+
+    if (isMobile && parentNavItem && navLinkHeader && parentNavItem.querySelector('.dropdown-menu')) {
+      // Toggle dropdown accordion on mobile
+      const dropdownMenu = parentNavItem.querySelector('.dropdown-menu');
+      if (dropdownMenu) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        // Close other dropdowns
+        document.querySelectorAll('.nav-item').forEach(item => {
+          if (item !== parentNavItem) item.classList.remove('dropdown-open');
+        });
+
+        parentNavItem.classList.toggle('dropdown-open');
+        return;
+      }
+    }
+
     const targetLink = e.target.closest('[data-target]');
     if (targetLink) {
       const targetId = targetLink.getAttribute('data-target');
@@ -63,10 +94,32 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Mobile drawer toggle
+  // Mobile drawer toggles
   if (mobileToggle) {
-    mobileToggle.addEventListener('click', () => {
-      navMenu.classList.toggle('mobile-open');
+    mobileToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (navMenu.classList.contains('mobile-open')) {
+        closeMobileMenu();
+      } else {
+        openMobileMenu();
+      }
+    });
+  }
+
+  if (floatingIndexBtn) {
+    floatingIndexBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (navMenu.classList.contains('mobile-open')) {
+        closeMobileMenu();
+      } else {
+        openMobileMenu();
+      }
+    });
+  }
+
+  if (mobileOverlay) {
+    mobileOverlay.addEventListener('click', () => {
+      closeMobileMenu();
     });
   }
 
@@ -2042,7 +2095,10 @@ function checkQuintoArea1Quiz(qNum, selectedOption, btnElem) {
     2: 'A', // Luz directa (sol pleno mas de 6 horas diarias)
     3: 'B', // Helechos, calateas, begonias y monsteras
     4: 'B', // Temprano en la mañana o al atardecer fresco
-    5: 'A'  // Para eliminar partes enfermas o secas y prevenir la propagacion de hongos o plagas
+    5: 'A', // Para eliminar partes enfermas o secas y prevenir la propagacion de hongos o plagas
+    6: 'A', // Filtrar la luz solar intensa y proteger los plantones mas sensibles
+    7: 'B', // Deshierbe manual o limpieza periodica alrededor del tallo principal
+    8: 'B'  // Utilizando preparados naturales a base de extractos vegetales como purin de ajo, chile o agua jabonosa neutra
   };
 
   const ansDiv = document.getElementById(`quinto-area1-ans-${qNum}`);
@@ -2065,6 +2121,44 @@ function checkQuintoArea1Quiz(qNum, selectedOption, btnElem) {
     btnElem.style.color = 'white';
     btnElem.style.borderColor = '#c62828';
     ansDiv.innerHTML = `<span style="color: #c62828;"><i class="fa-solid fa-circle-xmark"></i> Incorrecto. Inténtalo de nuevo.</span>`;
+  }
+}
+
+/* ==========================================================================
+   EVALUACIÓN INTERACTIVA TALLER QUINTO GRADO ÁREA 2: TECNOLOGÍA PRÁCTICA Y FUNCIONAL
+   ========================================================================== */
+function checkQuintoArea2Quiz(qNum, selectedOption, btnElem) {
+  const correctAnswers = {
+    1: 'A', // Transportar tierra, abono compostado, cosecha y herramientas pesadas con menor esfuerzo
+    2: 'A', // Para evitar transmitir enfermedades, hongos y bacterias entre plantas sanas y enfermas
+    3: 'A', // En un angulo aproximado de 45° realizando pasadas firmes en un solo sentido hacia adelante
+    4: 'B', // Botas de caucho o hule con suela antideslizante
+    5: 'A', // Doblar las rodillas y mantener la espalda recta, haciendo la fuerza con las piernas
+    6: 'A', // Al menos 2 metros de distancia libre alrededor de cada compañero
+    7: 'A', // Para proteger el metal del oxigeno y la humedad, evitando la formacion de oxido y herrumbre
+    8: 'A'  // Clasificadas y colgadas verticalmente en soportes de pared con filos orientados hacia abajo
+  };
+
+  const ansDiv = document.getElementById(`quinto-area2-ans-${qNum}`);
+  if (!ansDiv) return;
+
+  const parent = btnElem.parentElement;
+  parent.querySelectorAll('button').forEach(b => {
+    b.style.background = 'white';
+    b.style.color = 'black';
+    b.style.borderColor = 'var(--border-color)';
+  });
+
+  if (selectedOption === correctAnswers[qNum]) {
+    btnElem.style.background = '#2e7d32';
+    btnElem.style.color = 'white';
+    btnElem.style.borderColor = '#2e7d32';
+    ansDiv.innerHTML = `<span style="color: #2e7d32;"><i class="fa-solid fa-circle-check"></i> ¡Correcto! Excelente dominio de las herramientas, equipos, mantenimiento y normas de seguridad agrícola.</span>`;
+  } else {
+    btnElem.style.background = '#c62828';
+    btnElem.style.color = 'white';
+    btnElem.style.borderColor = '#c62828';
+    ansDiv.innerHTML = `<span style="color: #c62828;"><i class="fa-solid fa-circle-xmark"></i> Incorrecto. Revisa el contenido del tema e inténtalo nuevamente.</span>`;
   }
 }
 
@@ -2265,8 +2359,2006 @@ function lockFoundWord51(word, coords) {
   }
 }
 
-// Auto init WS51 on load
+// Auto init WS51, WS52, WS53, WS54, WS61, WS62, WS63 and WS64 on load
 document.addEventListener('DOMContentLoaded', () => {
   initWordSearch51();
+  initWordSearch52();
+  initWordSearch53();
+  initWordSearch54();
+  initWordSearch61();
+  initWordSearch62();
+  initWordSearch63();
+  initWordSearch64();
 });
+
+/* ==========================================================================
+   SOPA DE LETRAS INTERACTIVA - QUINTO GRADO ÁREA 2 (HERRAMIENTAS, MANTENIMIENTO Y SEGURIDAD)
+   ========================================================================== */
+const WS52_MATRIX = [
+  ['A','Z','A','D','O','N','X','Y','Z','A','B','C'],
+  ['C','A','R','R','E','T','I','L','L','A','D','E'],
+  ['A','S','P','E','R','S','O','R','A','F','G','H'],
+  ['D','E','S','I','N','F','E','C','C','I','O','N'],
+  ['A','F','I','L','A','D','O','I','J','K','L','M'],
+  ['L','U','B','R','I','C','A','C','I','O','N','N'],
+  ['E','R','G','O','N','O','M','I','A','O','P','Q'],
+  ['G','A','L','P','O','N','R','S','T','U','V','W'],
+  ['I','N','V','E','N','T','A','R','I','O','X','Y'],
+  ['S','E','G','U','R','I','D','A','D','Z','A','B'],
+  ['C','D','E','F','G','H','I','J','K','L','M','N'],
+  ['O','P','Q','R','S','T','U','V','W','X','Y','Z']
+];
+
+const WS52_TARGET_WORDS = {
+  'AZADON': [[0,0],[0,1],[0,2],[0,3],[0,4],[0,5]],
+  'CARRETILLA': [[1,0],[1,1],[1,2],[1,3],[1,4],[1,5],[1,6],[1,7],[1,8],[1,9]],
+  'ASPERSORA': [[2,0],[2,1],[2,2],[2,3],[2,4],[2,5],[2,6],[2,7],[2,8]],
+  'DESINFECCION': [[3,0],[3,1],[3,2],[3,3],[3,4],[3,5],[3,6],[3,7],[3,8],[3,9],[3,10],[3,11]],
+  'AFILADO': [[4,0],[4,1],[4,2],[4,3],[4,4],[4,5],[4,6]],
+  'LUBRICACION': [[5,0],[5,1],[5,2],[5,3],[5,4],[5,5],[5,6],[5,7],[5,8],[5,9],[5,10]],
+  'ERGONOMIA': [[6,0],[6,1],[6,2],[6,3],[6,4],[6,5],[6,6],[6,7],[6,8]],
+  'GALPON': [[7,0],[7,1],[7,2],[7,3],[7,4],[7,5]],
+  'INVENTARIO': [[8,0],[8,1],[8,2],[8,3],[8,4],[8,5],[8,6],[8,7],[8,8],[8,9]],
+  'SEGURIDAD': [[9,0],[9,1],[9,2],[9,3],[9,4],[9,5],[9,6],[9,7],[9,8]]
+};
+
+const WS52_WORD_COLORS = {
+  'AZADON': '#2e7d32',
+  'CARRETILLA': '#1565c0',
+  'ASPERSORA': '#e65100',
+  'DESINFECCION': '#4e342e',
+  'AFILADO': '#00838f',
+  'LUBRICACION': '#6a1b9a',
+  'ERGONOMIA': '#d84315',
+  'GALPON': '#c62828',
+  'INVENTARIO': '#00695c',
+  'SEGURIDAD': '#ad1457'
+};
+
+let selectedCoords52 = [];
+let foundWords52 = new Set();
+let ws52TimerInterval = null;
+let ws52Seconds = 0;
+let ws52TimerRunning = false;
+
+function resetWS52Timer() {
+  if (ws52TimerInterval) clearInterval(ws52TimerInterval);
+  ws52TimerInterval = null;
+  ws52Seconds = 0;
+  ws52TimerRunning = false;
+  const timerElem = document.getElementById('ws52-timer');
+  if (timerElem) timerElem.textContent = '00:00';
+}
+
+function startWS52Timer() {
+  if (ws52TimerRunning) return;
+  ws52TimerRunning = true;
+  ws52Seconds = 0;
+  ws52TimerInterval = setInterval(() => {
+    ws52Seconds++;
+    const mins = Math.floor(ws52Seconds / 60).toString().padStart(2, '0');
+    const secs = (ws52Seconds % 60).toString().padStart(2, '0');
+    const timerElem = document.getElementById('ws52-timer');
+    if (timerElem) timerElem.textContent = `${mins}:${secs}`;
+  }, 1000);
+}
+
+function stopWS52Timer() {
+  if (ws52TimerInterval) {
+    clearInterval(ws52TimerInterval);
+    ws52TimerInterval = null;
+  }
+  ws52TimerRunning = false;
+}
+
+function initWordSearch52() {
+  const gridContainer = document.getElementById('wordsearch52-grid');
+  const counter = document.getElementById('ws52-counter');
+  if (!gridContainer) return;
+
+  gridContainer.innerHTML = '';
+  selectedCoords52 = [];
+  foundWords52.clear();
+  resetWS52Timer();
+
+  if (counter) counter.textContent = `0 / 10`;
+
+  document.querySelectorAll('#ws52-word-list div').forEach(item => {
+    if (!item.getAttribute('data-orig-text')) {
+      item.setAttribute('data-orig-text', item.textContent);
+    }
+    item.textContent = item.getAttribute('data-orig-text');
+    item.style.textDecoration = 'none';
+    item.style.opacity = '1';
+    item.style.color = 'var(--text-main)';
+    item.style.fontWeight = '600';
+  });
+
+  for (let r = 0; r < 12; r++) {
+    for (let c = 0; c < 12; c++) {
+      const cell = document.createElement('div');
+      cell.classList.add('ws52-cell');
+      cell.setAttribute('data-r', r);
+      cell.setAttribute('data-c', c);
+      cell.textContent = WS52_MATRIX[r][c];
+
+      cell.style.aspectRatio = '1';
+      cell.style.display = 'flex';
+      cell.style.alignItems = 'center';
+      cell.style.justifyContent = 'center';
+      cell.style.background = '#ffffff';
+      cell.style.border = '1px solid var(--border-color)';
+      cell.style.borderRadius = '4px';
+      cell.style.fontWeight = '700';
+      cell.style.fontSize = '0.9rem';
+      cell.style.cursor = 'pointer';
+      cell.style.transition = 'all 0.15s ease';
+
+      cell.addEventListener('click', () => handleCellClick52(r, c, cell));
+      gridContainer.appendChild(cell);
+    }
+  }
+}
+
+function handleCellClick52(r, c, cellElem) {
+  startWS52Timer();
+
+  const index = selectedCoords52.findIndex(item => item.r === r && item.c === c);
+  if (index >= 0) {
+    selectedCoords52.splice(index, 1);
+    cellElem.style.background = '#ffffff';
+    cellElem.style.color = '#000000';
+  } else {
+    selectedCoords52.push({ r, c, char: WS52_MATRIX[r][c] });
+    cellElem.style.background = 'var(--gold)';
+    cellElem.style.color = 'var(--primary-dark)';
+  }
+
+  checkSelectedWord52();
+}
+
+function checkSelectedWord52() {
+  const currentChars = selectedCoords52.map(item => item.char).join('');
+  const currentCharsRev = selectedCoords52.map(item => item.char).reverse().join('');
+
+  for (const [word, coords] of Object.entries(WS52_TARGET_WORDS)) {
+    if (foundWords52.has(word)) continue;
+
+    if (currentChars === word || currentCharsRev === word) {
+      foundWords52.add(word);
+      lockFoundWord52(word, coords);
+      selectedCoords52 = [];
+      break;
+    }
+  }
+}
+
+function lockFoundWord52(word, coords) {
+  const wordColor = WS52_WORD_COLORS[word] || 'var(--primary)';
+
+  coords.forEach(([r, c]) => {
+    const cell = document.querySelector(`.ws52-cell[data-r="${r}"][data-c="${c}"]`);
+    if (cell) {
+      cell.style.background = wordColor;
+      cell.style.color = '#ffffff';
+      cell.style.boxShadow = `0 0 6px ${wordColor}88`;
+    }
+  });
+
+  const wordItem = document.querySelector(`#ws52-word-list div[data-word="${word}"]`);
+  if (wordItem) {
+    const origText = wordItem.getAttribute('data-orig-text') || wordItem.textContent;
+    wordItem.innerHTML = `<span style="color: ${wordColor}; font-weight: 900; margin-right: 4px;">✓</span> ${origText}`;
+    wordItem.style.color = wordColor;
+    wordItem.style.fontWeight = '700';
+  }
+
+  const counter = document.getElementById('ws52-counter');
+  if (counter) {
+    counter.textContent = `${foundWords52.size} / 10`;
+  }
+
+  if (foundWords52.size === 10) {
+    stopWS52Timer();
+    const mins = Math.floor(ws52Seconds / 60).toString().padStart(2, '0');
+    const secs = (ws52Seconds % 60).toString().padStart(2, '0');
+    setTimeout(() => {
+      alert(`🎉 ¡EXCELENTE TRABAJO! Has completado la Sopa de Letras de Herramientas, Mantenimiento y Seguridad (Quinto Grado - Área 2) en ${mins}:${secs}. ¡Felicidades!`);
+    }, 200);
+  }
+}
+
+/* ==========================================================================
+   EVALUACIÓN INTERACTIVA TALLER QUINTO GRADO ÁREA 3: PRODUCCIÓN DE ALIMENTOS
+   ========================================================================== */
+function checkQuintoArea3Quiz(qNum, selectedOption, btnElem) {
+  const correctAnswers = {
+    1: 'A', // Selección de semillas de calidad y preparación de semilleros
+    2: 'A', // Drones agrícolas con cámaras multiespectrales y GPS
+    3: 'A', // Aprovechar condiciones climáticas óptimas y reducir plagas
+    4: 'B', // Complementar merienda escolar con alimentos frescos y nutritivos
+    5: 'A', // Venta simbólica de excedentes y plan de negocios comunitario
+    6: 'A', // Nutrir el suelo sin contaminar ni acumular tóxicos
+    7: 'A', // Fecha de siembra, porcentaje de germinación y trasplante
+    8: 'A'  // Cultivar alimentos propios de forma limpia y sostenible
+  };
+
+  const ansDiv = document.getElementById(`quinto-area3-ans-${qNum}`);
+  if (!ansDiv) return;
+
+  const parent = btnElem.parentElement;
+  parent.querySelectorAll('button').forEach(b => {
+    b.style.background = 'white';
+    b.style.color = 'black';
+    b.style.borderColor = 'var(--border-color)';
+  });
+
+  if (selectedOption === correctAnswers[qNum]) {
+    btnElem.style.background = '#2e7d32';
+    btnElem.style.color = 'white';
+    btnElem.style.borderColor = '#2e7d32';
+    ansDiv.innerHTML = `<span style="color: #2e7d32;"><i class="fa-solid fa-circle-check"></i> ¡Correcto! Excelente comprensión de la producción de alimentos, nuevas tecnologías y emprendimiento agrícola.</span>`;
+  } else {
+    btnElem.style.background = '#c62828';
+    btnElem.style.color = 'white';
+    btnElem.style.borderColor = '#c62828';
+    ansDiv.innerHTML = `<span style="color: #c62828;"><i class="fa-solid fa-circle-xmark"></i> Incorrecto. Revisa los contenidos de la lección e inténtalo nuevamente.</span>`;
+  }
+}
+
+/* ==========================================================================
+   SOPA DE LETRAS INTERACTIVA - QUINTO GRADO ÁREA 3 (PRODUCCIÓN DE ALIMENTOS)
+   ========================================================================== */
+const WS53_MATRIX = [
+  ['S','E','M','I','L','L','E','R','O','S','A','B'],
+  ['G','E','R','M','I','N','A','C','I','O','N','C'],
+  ['D','R','O','N','E','S','D','E','F','G','H','I'],
+  ['G','P','S','J','K','L','M','N','O','P','Q','R'],
+  ['B','I','O','F','E','R','T','I','L','I','Z','A'],
+  ['C','O','S','E','C','H','A','S','T','U','V','W'],
+  ['E','M','P','R','E','N','D','E','R','X','Y','Z'],
+  ['N','U','T','R','I','C','I','O','N','A','B','C'],
+  ['F','E','R','I','A','D','E','F','G','H','I','J'],
+  ['S','E','G','U','R','I','D','A','D','K','L','M'],
+  ['A','B','C','D','E','F','G','H','I','J','K','L'],
+  ['M','N','O','P','Q','R','S','T','U','V','W','X']
+];
+
+const WS53_TARGET_WORDS = {
+  'SEMILLEROS': [[0,0],[0,1],[0,2],[0,3],[0,4],[0,5],[0,6],[0,7],[0,8],[0,9]],
+  'GERMINACION': [[1,0],[1,1],[1,2],[1,3],[1,4],[1,5],[1,6],[1,7],[1,8],[1,9],[1,10]],
+  'DRONES': [[2,0],[2,1],[2,2],[2,3],[2,4],[2,5]],
+  'GPS': [[3,0],[3,1],[3,2]],
+  'BIOFERTILIZA': [[4,0],[4,1],[4,2],[4,3],[4,4],[4,5],[4,6],[4,7],[4,8],[4,9],[4,10],[4,11]],
+  'COSECHA': [[5,0],[5,1],[5,2],[5,3],[5,4],[5,5],[5,6]],
+  'EMPRENDER': [[6,0],[6,1],[6,2],[6,3],[6,4],[6,5],[6,6],[6,7],[6,8]],
+  'NUTRICION': [[7,0],[7,1],[7,2],[7,3],[7,4],[7,5],[7,6],[7,7],[7,8]],
+  'FERIA': [[8,0],[8,1],[8,2],[8,3],[8,4]],
+  'SEGURIDAD': [[9,0],[9,1],[9,2],[9,3],[9,4],[9,5],[9,6],[9,7],[9,8]]
+};
+
+const WS53_WORD_COLORS = {
+  'SEMILLEROS': '#2e7d32',
+  'GERMINACION': '#1565c0',
+  'DRONES': '#e65100',
+  'GPS': '#6a1b9a',
+  'BIOFERTILIZA': '#00838f',
+  'COSECHA': '#d84315',
+  'EMPRENDER': '#2e7d32',
+  'NUTRICION': '#c62828',
+  'FERIA': '#00695c',
+  'SEGURIDAD': '#ad1457'
+};
+
+let selectedCoords53 = [];
+let foundWords53 = new Set();
+let ws53TimerInterval = null;
+let ws53Seconds = 0;
+let ws53TimerRunning = false;
+
+function startWS53Timer() {
+  if (ws53TimerRunning) return;
+  ws53TimerRunning = true;
+  ws53TimerInterval = setInterval(() => {
+    ws53Seconds++;
+    const mins = Math.floor(ws53Seconds / 60).toString().padStart(2, '0');
+    const secs = (ws53Seconds % 60).toString().padStart(2, '0');
+    const timerElem = document.getElementById('ws53-timer');
+    if (timerElem) timerElem.textContent = `${mins}:${secs}`;
+  }, 1000);
+}
+
+function stopWS53Timer() {
+  clearInterval(ws53TimerInterval);
+  ws53TimerRunning = false;
+}
+
+function initWordSearch53() {
+  const gridContainer = document.getElementById('wordsearch53-grid');
+  if (!gridContainer) return;
+
+  stopWS53Timer();
+  ws53Seconds = 0;
+  foundWords53.clear();
+  selectedCoords53 = [];
+
+  const timerElem = document.getElementById('ws53-timer');
+  if (timerElem) timerElem.textContent = '00:00';
+
+  const counter = document.getElementById('ws53-counter');
+  if (counter) counter.textContent = '0 / 10';
+
+  gridContainer.innerHTML = '';
+  for (let r = 0; r < 12; r++) {
+    for (let c = 0; c < 12; c++) {
+      const cell = document.createElement('div');
+      cell.className = 'ws-cell ws53-cell';
+      cell.dataset.r = r;
+      cell.dataset.c = c;
+      cell.dataset.letter = WS53_MATRIX[r][c];
+      cell.textContent = WS53_MATRIX[r][c];
+      cell.style.cssText = `
+        width: 100%; aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+        font-weight: 800; font-size: 1.05rem; background: #ffffff; border: 1px solid var(--border-color);
+        border-radius: 6px; cursor: pointer; user-select: none; transition: all 0.15s ease;
+      `;
+      gridContainer.appendChild(cell);
+    }
+  }
+
+  const wordListContainer = document.getElementById('ws53-word-list');
+  if (wordListContainer) {
+    const items = wordListContainer.querySelectorAll('div[data-word]');
+    items.forEach(item => {
+      if (!item.hasAttribute('data-orig-text')) {
+        item.setAttribute('data-orig-text', item.textContent);
+      }
+      item.textContent = item.getAttribute('data-orig-text');
+      item.style.color = 'var(--text-main)';
+      item.style.fontWeight = '500';
+    });
+  }
+
+  setupWS53Interactions();
+}
+
+function setupWS53Interactions() {
+  const gridContainer = document.getElementById('wordsearch53-grid');
+  if (!gridContainer) return;
+
+  let isSelecting = false;
+
+  const getCellFromEvent = (e) => {
+    let clientX = e.clientX;
+    let clientY = e.clientY;
+    if (e.touches && e.touches.length > 0) {
+      clientX = e.touches[0].clientX;
+      clientY = e.touches[0].clientY;
+    }
+    const target = document.elementFromPoint(clientX, clientY);
+    return target && target.classList.contains('ws53-cell') ? target : null;
+  };
+
+  const handleStart = (e) => {
+    const cell = getCellFromEvent(e) || (e.target.classList.contains('ws53-cell') ? e.target : null);
+    if (!cell) return;
+
+    if (!ws53TimerRunning) startWS53Timer();
+    isSelecting = true;
+    selectedCoords53 = [];
+    clearWS53TempSelection();
+    addCellToWS53Selection(cell);
+  };
+
+  const handleMove = (e) => {
+    if (!isSelecting) return;
+    const cell = getCellFromEvent(e);
+    if (cell) addCellToWS53Selection(cell);
+  };
+
+  const handleEnd = () => {
+    if (!isSelecting) return;
+    isSelecting = false;
+    checkWS53Selection();
+  };
+
+  gridContainer.onmousedown = handleStart;
+  gridContainer.onmousemove = handleMove;
+  window.onmouseup = handleEnd;
+
+  gridContainer.ontouchstart = handleStart;
+  gridContainer.ontouchmove = handleMove;
+  window.ontouchend = handleEnd;
+}
+
+function addCellToWS53Selection(cell) {
+  const r = parseInt(cell.dataset.r);
+  const c = parseInt(cell.dataset.c);
+
+  const already = selectedCoords53.some(([sr, sc]) => sr === r && sc === c);
+  if (!already) {
+    selectedCoords53.push([r, c]);
+    cell.style.background = 'var(--primary-light)';
+    cell.style.color = 'white';
+  }
+}
+
+function clearWS53TempSelection() {
+  document.querySelectorAll('.ws53-cell').forEach(cell => {
+    const r = parseInt(cell.dataset.r);
+    const c = parseInt(cell.dataset.c);
+    let isFound = false;
+
+    for (let word of foundWords53) {
+      const coords = WS53_TARGET_WORDS[word];
+      if (coords.some(([fr, fc]) => fr === r && fc === c)) {
+        isFound = true;
+        break;
+      }
+    }
+
+    if (!isFound) {
+      cell.style.background = '#ffffff';
+      cell.style.color = 'var(--text-main)';
+    }
+  });
+}
+
+function checkWS53Selection() {
+  if (selectedCoords53.length === 0) return;
+
+  let matchedWord = null;
+  for (let [word, coords] of Object.entries(WS53_TARGET_WORDS)) {
+    if (foundWords53.has(word)) continue;
+
+    if (coords.length === selectedCoords53.length) {
+      const matchForward = coords.every(([r, c], idx) => selectedCoords53[idx][0] === r && selectedCoords53[idx][1] === c);
+      const matchBackward = coords.every(([r, c], idx) => selectedCoords53[selectedCoords53.length - 1 - idx][0] === r && selectedCoords53[selectedCoords53.length - 1 - idx][1] === c);
+
+      if (matchForward || matchBackward) {
+        matchedWord = word;
+        break;
+      }
+    }
+  }
+
+  if (matchedWord) {
+    foundWords53.add(matchedWord);
+    markWS53WordAsFound(matchedWord);
+  } else {
+    clearWS53TempSelection();
+  }
+  selectedCoords53 = [];
+}
+
+function markWS53WordAsFound(word) {
+  const coords = WS53_TARGET_WORDS[word];
+  const wordColor = WS53_WORD_COLORS[word] || '#2e7d32';
+
+  coords.forEach(([r, c]) => {
+    const cell = document.querySelector(`.ws53-cell[data-r="${r}"][data-c="${c}"]`);
+    if (cell) {
+      cell.style.background = wordColor;
+      cell.style.color = '#ffffff';
+      cell.style.boxShadow = `0 0 6px ${wordColor}88`;
+    }
+  });
+
+  const wordItem = document.querySelector(`#ws53-word-list div[data-word="${word}"]`);
+  if (wordItem) {
+    const origText = wordItem.getAttribute('data-orig-text') || wordItem.textContent;
+    wordItem.innerHTML = `<span style="color: ${wordColor}; font-weight: 900; margin-right: 4px;">✓</span> ${origText}`;
+    wordItem.style.color = wordColor;
+    wordItem.style.fontWeight = '700';
+  }
+
+  const counter = document.getElementById('ws53-counter');
+  if (counter) {
+    counter.textContent = `${foundWords53.size} / 10`;
+  }
+
+  if (foundWords53.size === 10) {
+    stopWS53Timer();
+    const mins = Math.floor(ws53Seconds / 60).toString().padStart(2, '0');
+    const secs = (ws53Seconds % 60).toString().padStart(2, '0');
+    setTimeout(() => {
+      alert(`🎉 ¡EXCELENTE TRABAJO! Has completado la Sopa de Letras de Producción de Alimentos (Quinto Grado - Área 3) en ${mins}:${secs}. ¡Felicidades!`);
+    }, 200);
+  }
+}
+
+/* ==========================================================================
+   EVALUACIÓN INTERACTIVA TALLER QUINTO GRADO ÁREA 4: AGRICULTURA AGROSOSTENIBLE
+   ========================================================================== */
+function checkQuintoArea4Quiz(qNum, selectedOption, btnElem) {
+  const correctAnswers = {
+    1: 'A', // Suelo Arcilloso (retiene mas agua, compacta facil)
+    2: 'B', // Suelo Arenoso (particulas gruesas, drena rapido)
+    3: 'A', // Bocashi (abono fermentado de descomposicion rapida)
+    4: 'A', // Bioles (abonos liquidos fermentados)
+    5: 'A', // Recicla residuos organicos y restaura la fertilidad natural
+    6: 'A', // Materia organica o humus
+    7: 'A', // Humedecer y moldear chorizos sin agrietarse
+    8: 'A'  // Estimular microorganismos beneficos y nutrir las plantas de forma limpia
+  };
+
+  const ansDiv = document.getElementById(`quinto-area4-ans-${qNum}`);
+  if (!ansDiv) return;
+
+  const parent = btnElem.parentElement;
+  parent.querySelectorAll('button').forEach(b => {
+    b.style.background = 'white';
+    b.style.color = 'black';
+    b.style.borderColor = 'var(--border-color)';
+  });
+
+  if (selectedOption === correctAnswers[qNum]) {
+    btnElem.style.background = '#2e7d32';
+    btnElem.style.color = 'white';
+    btnElem.style.borderColor = '#2e7d32';
+    ansDiv.innerHTML = `<span style="color: #2e7d32;"><i class="fa-solid fa-circle-check"></i> ¡Correcto! Excelente dominio de la clasificación de suelos, abonos orgánicos (Bocashi, Bioles) y agricultura agrosostenible.</span>`;
+  } else {
+    btnElem.style.background = '#c62828';
+    btnElem.style.color = 'white';
+    btnElem.style.borderColor = '#c62828';
+    ansDiv.innerHTML = `<span style="color: #c62828;"><i class="fa-solid fa-circle-xmark"></i> Incorrecto. Revisa el contenido de la lección e inténtalo nuevamente.</span>`;
+  }
+}
+
+/* ==========================================================================
+   SOPA DE LETRAS INTERACTIVA - QUINTO GRADO ÁREA 4 (AGRICULTURA AGROSOSTENIBLE)
+   ========================================================================== */
+const WS54_MATRIX = [
+  ['A','R','C','I','L','L','O','S','O','X','Y','Z'],
+  ['L','I','M','O','S','O','A','B','C','D','E','F'],
+  ['A','R','E','N','O','S','O','G','H','I','J','K'],
+  ['B','O','C','A','S','H','I','L','M','N','O','P'],
+  ['C','O','M','P','O','S','T','Q','R','S','T','U'],
+  ['B','I','O','L','E','S','V','W','X','Y','Z','A'],
+  ['H','U','M','U','S','B','C','D','E','F','G','H'],
+  ['E','C','O','L','O','G','I','A','I','J','K','L'],
+  ['S','U','E','L','O','M','N','O','P','Q','R','S'],
+  ['S','U','S','T','E','N','I','B','L','E','T','U'],
+  ['A','B','C','D','E','F','G','H','I','J','K','L'],
+  ['M','N','O','P','Q','R','S','T','U','V','W','X']
+];
+
+const WS54_TARGET_WORDS = {
+  'ARCILLOSO': [[0,0],[0,1],[0,2],[0,3],[0,4],[0,5],[0,6],[0,7],[0,8]],
+  'LIMOSO': [[1,0],[1,1],[1,2],[1,3],[1,4],[1,5]],
+  'ARENOSO': [[2,0],[2,1],[2,2],[2,3],[2,4],[2,5],[2,6]],
+  'BOCASHI': [[3,0],[3,1],[3,2],[3,3],[3,4],[3,5],[3,6]],
+  'COMPOST': [[4,0],[4,1],[4,2],[4,3],[4,4],[4,5],[4,6]],
+  'BIOLES': [[5,0],[5,1],[5,2],[5,3],[5,4],[5,5]],
+  'HUMUS': [[6,0],[6,1],[6,2],[6,3],[6,4]],
+  'ECOLOGIA': [[7,0],[7,1],[7,2],[7,3],[7,4],[7,5],[7,6],[7,7]],
+  'SUELO': [[8,0],[8,1],[8,2],[8,3],[8,4]],
+  'SUSTENIBLE': [[9,0],[9,1],[9,2],[9,3],[9,4],[9,5],[9,6],[9,7],[9,8],[9,9]]
+};
+
+const WS54_WORD_COLORS = {
+  'ARCILLOSO': '#2e7d32',
+  'LIMOSO': '#1565c0',
+  'ARENOSO': '#e65100',
+  'BOCASHI': '#6a1b9a',
+  'COMPOST': '#00838f',
+  'BIOLES': '#d84315',
+  'HUMUS': '#2e7d32',
+  'ECOLOGIA': '#c62828',
+  'SUELO': '#00695c',
+  'SUSTENIBLE': '#ad1457'
+};
+
+let selectedCoords54 = [];
+let foundWords54 = new Set();
+let ws54TimerInterval = null;
+let ws54Seconds = 0;
+let ws54TimerRunning = false;
+
+function startWS54Timer() {
+  if (ws54TimerRunning) return;
+  ws54TimerRunning = true;
+  ws54TimerInterval = setInterval(() => {
+    ws54Seconds++;
+    const mins = Math.floor(ws54Seconds / 60).toString().padStart(2, '0');
+    const secs = (ws54Seconds % 60).toString().padStart(2, '0');
+    const timerElem = document.getElementById('ws54-timer');
+    if (timerElem) timerElem.textContent = `${mins}:${secs}`;
+  }, 1000);
+}
+
+function stopWS54Timer() {
+  clearInterval(ws54TimerInterval);
+  ws54TimerRunning = false;
+}
+
+function initWordSearch54() {
+  const gridContainer = document.getElementById('wordsearch54-grid');
+  if (!gridContainer) return;
+
+  stopWS54Timer();
+  ws54Seconds = 0;
+  foundWords54.clear();
+  selectedCoords54 = [];
+
+  const timerElem = document.getElementById('ws54-timer');
+  if (timerElem) timerElem.textContent = '00:00';
+
+  const counter = document.getElementById('ws54-counter');
+  if (counter) counter.textContent = '0 / 10';
+
+  gridContainer.innerHTML = '';
+  for (let r = 0; r < 12; r++) {
+    for (let c = 0; c < 12; c++) {
+      const cell = document.createElement('div');
+      cell.className = 'ws-cell ws54-cell';
+      cell.dataset.r = r;
+      cell.dataset.c = c;
+      cell.dataset.letter = WS54_MATRIX[r][c];
+      cell.textContent = WS54_MATRIX[r][c];
+      cell.style.cssText = `
+        width: 100%; aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+        font-weight: 800; font-size: 1.05rem; background: #ffffff; border: 1px solid var(--border-color);
+        border-radius: 6px; cursor: pointer; user-select: none; transition: all 0.15s ease;
+      `;
+      gridContainer.appendChild(cell);
+    }
+  }
+
+  const wordListContainer = document.getElementById('ws54-word-list');
+  if (wordListContainer) {
+    const items = wordListContainer.querySelectorAll('div[data-word]');
+    items.forEach(item => {
+      if (!item.hasAttribute('data-orig-text')) {
+        item.setAttribute('data-orig-text', item.textContent);
+      }
+      item.textContent = item.getAttribute('data-orig-text');
+      item.style.color = 'var(--text-main)';
+      item.style.fontWeight = '500';
+    });
+  }
+
+  setupWS54Interactions();
+}
+
+function setupWS54Interactions() {
+  const gridContainer = document.getElementById('wordsearch54-grid');
+  if (!gridContainer) return;
+
+  let isSelecting = false;
+
+  const getCellFromEvent = (e) => {
+    let clientX = e.clientX;
+    let clientY = e.clientY;
+    if (e.touches && e.touches.length > 0) {
+      clientX = e.touches[0].clientX;
+      clientY = e.touches[0].clientY;
+    }
+    const target = document.elementFromPoint(clientX, clientY);
+    return target && target.classList.contains('ws54-cell') ? target : null;
+  };
+
+  const handleStart = (e) => {
+    const cell = getCellFromEvent(e) || (e.target.classList.contains('ws54-cell') ? e.target : null);
+    if (!cell) return;
+
+    if (!ws54TimerRunning) startWS54Timer();
+    isSelecting = true;
+    selectedCoords54 = [];
+    clearWS54TempSelection();
+    addCellToWS54Selection(cell);
+  };
+
+  const handleMove = (e) => {
+    if (!isSelecting) return;
+    const cell = getCellFromEvent(e);
+    if (cell) addCellToWS54Selection(cell);
+  };
+
+  const handleEnd = () => {
+    if (!isSelecting) return;
+    isSelecting = false;
+    checkWS54Selection();
+  };
+
+  gridContainer.onmousedown = handleStart;
+  gridContainer.onmousemove = handleMove;
+  window.onmouseup = handleEnd;
+
+  gridContainer.ontouchstart = handleStart;
+  gridContainer.ontouchmove = handleMove;
+  window.ontouchend = handleEnd;
+}
+
+function addCellToWS54Selection(cell) {
+  const r = parseInt(cell.dataset.r);
+  const c = parseInt(cell.dataset.c);
+
+  const already = selectedCoords54.some(([sr, sc]) => sr === r && sc === c);
+  if (!already) {
+    selectedCoords54.push([r, c]);
+    cell.style.background = 'var(--primary-light)';
+    cell.style.color = 'white';
+  }
+}
+
+function clearWS54TempSelection() {
+  document.querySelectorAll('.ws54-cell').forEach(cell => {
+    const r = parseInt(cell.dataset.r);
+    const c = parseInt(cell.dataset.c);
+    let isFound = false;
+
+    for (let word of foundWords54) {
+      const coords = WS54_TARGET_WORDS[word];
+      if (coords.some(([fr, fc]) => fr === r && fc === c)) {
+        isFound = true;
+        break;
+      }
+    }
+
+    if (!isFound) {
+      cell.style.background = '#ffffff';
+      cell.style.color = 'var(--text-main)';
+    }
+  });
+}
+
+function checkWS54Selection() {
+  if (selectedCoords54.length === 0) return;
+
+  let matchedWord = null;
+  for (let [word, coords] of Object.entries(WS54_TARGET_WORDS)) {
+    if (foundWords54.has(word)) continue;
+
+    if (coords.length === selectedCoords54.length) {
+      const matchForward = coords.every(([r, c], idx) => selectedCoords54[idx][0] === r && selectedCoords54[idx][1] === c);
+      const matchBackward = coords.every(([r, c], idx) => selectedCoords54[selectedCoords54.length - 1 - idx][0] === r && selectedCoords54[selectedCoords54.length - 1 - idx][1] === c);
+
+      if (matchForward || matchBackward) {
+        matchedWord = word;
+        break;
+      }
+    }
+  }
+
+  if (matchedWord) {
+    foundWords54.add(matchedWord);
+    markWS54WordAsFound(matchedWord);
+  } else {
+    clearWS54TempSelection();
+  }
+  selectedCoords54 = [];
+}
+
+function markWS54WordAsFound(word) {
+  const coords = WS54_TARGET_WORDS[word];
+  const wordColor = WS54_WORD_COLORS[word] || '#2e7d32';
+
+  coords.forEach(([r, c]) => {
+    const cell = document.querySelector(`.ws54-cell[data-r="${r}"][data-c="${c}"]`);
+    if (cell) {
+      cell.style.background = wordColor;
+      cell.style.color = '#ffffff';
+      cell.style.boxShadow = `0 0 6px ${wordColor}88`;
+    }
+  });
+
+  const wordItem = document.querySelector(`#ws54-word-list div[data-word="${word}"]`);
+  if (wordItem) {
+    const origText = wordItem.getAttribute('data-orig-text') || wordItem.textContent;
+    wordItem.innerHTML = `<span style="color: ${wordColor}; font-weight: 900; margin-right: 4px;">✓</span> ${origText}`;
+    wordItem.style.color = wordColor;
+    wordItem.style.fontWeight = '700';
+  }
+
+  const counter = document.getElementById('ws54-counter');
+  if (counter) {
+    counter.textContent = `${foundWords54.size} / 10`;
+  }
+
+  if (foundWords54.size === 10) {
+    stopWS54Timer();
+    const mins = Math.floor(ws54Seconds / 60).toString().padStart(2, '0');
+    const secs = (ws54Seconds % 60).toString().padStart(2, '0');
+    setTimeout(() => {
+      alert(`🎉 ¡EXCELENTE TRABAJO! Has completado la Sopa de Letras de Agricultura Agrosostenible (Quinto Grado - Área 4) en ${mins}:${secs}. ¡Felicidades!`);
+    }, 200);
+  }
+}
+
+/* ==========================================================================
+   EVALUACIÓN INTERACTIVA TALLER SEXTO GRADO ÁREA 1: JARDÍN Y ESPECIES VEGETALES
+   ========================================================================== */
+function checkSextoArea1Quiz(qNum, selectedOption, btnElem) {
+  const correctAnswers = {
+    1: 'A', // Elementos de planificacion (area, plantas, suelo, luz, materiales)
+    2: 'A', // Jardin exterior (exposicion directa a sol y lluvia)
+    3: 'A', // Materiales reciclables (llantas, botellas, madera)
+    4: 'A', // Manejo Integrado de Plagas organico sin quimicos
+    5: 'A', // Purin de ajo, chile y agua jabonosa
+    6: 'A', // Seleccion de plantas segun horas de luz
+    7: 'A', // Jornada de limpieza y acondicionamiento del suelo
+    8: 'A'  // Feria de emprendimiento verde
+  };
+
+  const ansDiv = document.getElementById(`sexto-area1-ans-${qNum}`);
+  if (!ansDiv) return;
+
+  const parent = btnElem.parentElement;
+  parent.querySelectorAll('button').forEach(b => {
+    b.style.background = 'white';
+    b.style.color = 'black';
+    b.style.borderColor = 'var(--border-color)';
+  });
+
+  if (selectedOption === correctAnswers[qNum]) {
+    btnElem.style.background = '#2e7d32';
+    btnElem.style.color = 'white';
+    btnElem.style.borderColor = '#2e7d32';
+    ansDiv.innerHTML = `<span style="color: #2e7d32;"><i class="fa-solid fa-circle-check"></i> ¡Correcto! Excelente comprensión de la planificación del jardín, diseño de espacios y manejo integrado orgánico de plagas.</span>`;
+  } else {
+    btnElem.style.background = '#c62828';
+    btnElem.style.color = 'white';
+    btnElem.style.borderColor = '#c62828';
+    ansDiv.innerHTML = `<span style="color: #c62828;"><i class="fa-solid fa-circle-xmark"></i> Incorrecto. Revisa el contenido de la lección e inténtalo nuevamente.</span>`;
+  }
+}
+
+/* ==========================================================================
+   SOPA DE LETRAS INTERACTIVA - SEXTO GRADO ÁREA 1 (JARDÍN Y ESPECIES VEGETALES)
+   ========================================================================== */
+const WS61_MATRIX = [
+  ['J','A','R','D','I','N','X','Y','Z','A','B','C'],
+  ['D','I','S','E','Ñ','O','D','E','F','G','H','I'],
+  ['E','X','T','E','R','I','O','R','J','K','L','M'],
+  ['I','N','T','E','R','I','O','R','N','O','P','Q'],
+  ['P','L','A','G','A','S','R','S','T','U','V','W'],
+  ['E','N','F','E','R','M','E','D','A','D','X','Y'],
+  ['O','R','G','A','N','I','C','O','Z','A','B','C'],
+  ['P','U','R','I','N','E','S','D','E','F','G','H'],
+  ['R','E','C','I','C','L','A','J','E','I','J','K'],
+  ['E','C','O','L','O','G','I','A','L','M','N','O'],
+  ['A','B','C','D','E','F','G','H','I','J','K','L'],
+  ['M','N','O','P','Q','R','S','T','U','V','W','X']
+];
+
+const WS61_TARGET_WORDS = {
+  'JARDIN': [[0,0],[0,1],[0,2],[0,3],[0,4],[0,5]],
+  'DISEÑO': [[1,0],[1,1],[1,2],[1,3],[1,4],[1,5]],
+  'EXTERIOR': [[2,0],[2,1],[2,2],[2,3],[2,4],[2,5],[2,6],[2,7]],
+  'INTERIOR': [[3,0],[3,1],[3,2],[3,3],[3,4],[3,5],[3,6],[3,7]],
+  'PLAGAS': [[4,0],[4,1],[4,2],[4,3],[4,4],[4,5]],
+  'ENFERMEDAD': [[5,0],[5,1],[5,2],[5,3],[5,4],[5,5],[5,6],[5,7],[5,8],[5,9]],
+  'ORGANICO': [[6,0],[6,1],[6,2],[6,3],[6,4],[6,5],[6,6],[6,7]],
+  'PURINES': [[7,0],[7,1],[7,2],[7,3],[7,4],[7,5],[7,6]],
+  'RECICLAJE': [[8,0],[8,1],[8,2],[8,3],[8,4],[8,5],[8,6],[8,7],[8,8]],
+  'ECOLOGIA': [[9,0],[9,1],[9,2],[9,3],[9,4],[9,5],[9,6],[9,7]]
+};
+
+const WS61_WORD_COLORS = {
+  'JARDIN': '#2e7d32',
+  'DISEÑO': '#1565c0',
+  'EXTERIOR': '#e65100',
+  'INTERIOR': '#6a1b9a',
+  'PLAGAS': '#c62828',
+  'ENFERMEDAD': '#d84315',
+  'ORGANICO': '#00838f',
+  'PURINES': '#2e7d32',
+  'RECICLAJE': '#00695c',
+  'ECOLOGIA': '#ad1457'
+};
+
+let selectedCoords61 = [];
+let foundWords61 = new Set();
+let ws61TimerInterval = null;
+let ws61Seconds = 0;
+let ws61TimerRunning = false;
+
+function startWS61Timer() {
+  if (ws61TimerRunning) return;
+  ws61TimerRunning = true;
+  ws61TimerInterval = setInterval(() => {
+    ws61Seconds++;
+    const mins = Math.floor(ws61Seconds / 60).toString().padStart(2, '0');
+    const secs = (ws61Seconds % 60).toString().padStart(2, '0');
+    const timerElem = document.getElementById('ws61-timer');
+    if (timerElem) timerElem.textContent = `${mins}:${secs}`;
+  }, 1000);
+}
+
+function stopWS61Timer() {
+  clearInterval(ws61TimerInterval);
+  ws61TimerRunning = false;
+}
+
+function initWordSearch61() {
+  const gridContainer = document.getElementById('wordsearch61-grid');
+  if (!gridContainer) return;
+
+  stopWS61Timer();
+  ws61Seconds = 0;
+  foundWords61.clear();
+  selectedCoords61 = [];
+
+  const timerElem = document.getElementById('ws61-timer');
+  if (timerElem) timerElem.textContent = '00:00';
+
+  const counter = document.getElementById('ws61-counter');
+  if (counter) counter.textContent = '0 / 10';
+
+  gridContainer.innerHTML = '';
+  for (let r = 0; r < 12; r++) {
+    for (let c = 0; c < 12; c++) {
+      const cell = document.createElement('div');
+      cell.className = 'ws-cell ws61-cell';
+      cell.dataset.r = r;
+      cell.dataset.c = c;
+      cell.dataset.letter = WS61_MATRIX[r][c];
+      cell.textContent = WS61_MATRIX[r][c];
+      cell.style.cssText = `
+        width: 100%; aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+        font-weight: 800; font-size: 1.05rem; background: #ffffff; border: 1px solid var(--border-color);
+        border-radius: 6px; cursor: pointer; user-select: none; transition: all 0.15s ease;
+      `;
+      gridContainer.appendChild(cell);
+    }
+  }
+
+  const wordListContainer = document.getElementById('ws61-word-list');
+  if (wordListContainer) {
+    const items = wordListContainer.querySelectorAll('div[data-word]');
+    items.forEach(item => {
+      if (!item.hasAttribute('data-orig-text')) {
+        item.setAttribute('data-orig-text', item.textContent);
+      }
+      item.textContent = item.getAttribute('data-orig-text');
+      item.style.color = 'var(--text-main)';
+      item.style.fontWeight = '500';
+    });
+  }
+
+  setupWS61Interactions();
+}
+
+function setupWS61Interactions() {
+  const gridContainer = document.getElementById('wordsearch61-grid');
+  if (!gridContainer) return;
+
+  let isSelecting = false;
+
+  const getCellFromEvent = (e) => {
+    let clientX = e.clientX;
+    let clientY = e.clientY;
+    if (e.touches && e.touches.length > 0) {
+      clientX = e.touches[0].clientX;
+      clientY = e.touches[0].clientY;
+    }
+    const target = document.elementFromPoint(clientX, clientY);
+    return target && target.classList.contains('ws61-cell') ? target : null;
+  };
+
+  const handleStart = (e) => {
+    const cell = getCellFromEvent(e) || (e.target.classList.contains('ws61-cell') ? e.target : null);
+    if (!cell) return;
+
+    if (!ws61TimerRunning) startWS61Timer();
+    isSelecting = true;
+    selectedCoords61 = [];
+    clearWS61TempSelection();
+    addCellToWS61Selection(cell);
+  };
+
+  const handleMove = (e) => {
+    if (!isSelecting) return;
+    const cell = getCellFromEvent(e);
+    if (cell) addCellToWS61Selection(cell);
+  };
+
+  const handleEnd = () => {
+    if (!isSelecting) return;
+    isSelecting = false;
+    checkWS61Selection();
+  };
+
+  gridContainer.onmousedown = handleStart;
+  gridContainer.onmousemove = handleMove;
+  window.onmouseup = handleEnd;
+
+  gridContainer.ontouchstart = handleStart;
+  gridContainer.ontouchmove = handleMove;
+  window.ontouchend = handleEnd;
+}
+
+function addCellToWS61Selection(cell) {
+  const r = parseInt(cell.dataset.r);
+  const c = parseInt(cell.dataset.c);
+
+  const already = selectedCoords61.some(([sr, sc]) => sr === r && sc === c);
+  if (!already) {
+    selectedCoords61.push([r, c]);
+    cell.style.background = 'var(--primary-light)';
+    cell.style.color = 'white';
+  }
+}
+
+function clearWS61TempSelection() {
+  document.querySelectorAll('.ws61-cell').forEach(cell => {
+    const r = parseInt(cell.dataset.r);
+    const c = parseInt(cell.dataset.c);
+    let isFound = false;
+
+    for (let word of foundWords61) {
+      const coords = WS61_TARGET_WORDS[word];
+      if (coords.some(([fr, fc]) => fr === r && fc === c)) {
+        isFound = true;
+        break;
+      }
+    }
+
+    if (!isFound) {
+      cell.style.background = '#ffffff';
+      cell.style.color = 'var(--text-main)';
+    }
+  });
+}
+
+function checkWS61Selection() {
+  if (selectedCoords61.length === 0) return;
+
+  let matchedWord = null;
+  for (let [word, coords] of Object.entries(WS61_TARGET_WORDS)) {
+    if (foundWords61.has(word)) continue;
+
+    if (coords.length === selectedCoords61.length) {
+      const matchForward = coords.every(([r, c], idx) => selectedCoords61[idx][0] === r && selectedCoords61[idx][1] === c);
+      const matchBackward = coords.every(([r, c], idx) => selectedCoords61[selectedCoords61.length - 1 - idx][0] === r && selectedCoords61[selectedCoords61.length - 1 - idx][1] === c);
+
+      if (matchForward || matchBackward) {
+        matchedWord = word;
+        break;
+      }
+    }
+  }
+
+  if (matchedWord) {
+    foundWords61.add(matchedWord);
+    markWS61WordAsFound(matchedWord);
+  } else {
+    clearWS61TempSelection();
+  }
+  selectedCoords61 = [];
+}
+
+function markWS61WordAsFound(word) {
+  const coords = WS61_TARGET_WORDS[word];
+  const wordColor = WS61_WORD_COLORS[word] || '#2e7d32';
+
+  coords.forEach(([r, c]) => {
+    const cell = document.querySelector(`.ws61-cell[data-r="${r}"][data-c="${c}"]`);
+    if (cell) {
+      cell.style.background = wordColor;
+      cell.style.color = '#ffffff';
+      cell.style.boxShadow = `0 0 6px ${wordColor}88`;
+    }
+  });
+
+  const wordItem = document.querySelector(`#ws61-word-list div[data-word="${word}"]`);
+  if (wordItem) {
+    const origText = wordItem.getAttribute('data-orig-text') || wordItem.textContent;
+    wordItem.innerHTML = `<span style="color: ${wordColor}; font-weight: 900; margin-right: 4px;">✓</span> ${origText}`;
+    wordItem.style.color = wordColor;
+    wordItem.style.fontWeight = '700';
+  }
+
+  const counter = document.getElementById('ws61-counter');
+  if (counter) {
+    counter.textContent = `${foundWords61.size} / 10`;
+  }
+
+  if (foundWords61.size === 10) {
+    stopWS61Timer();
+    const mins = Math.floor(ws61Seconds / 60).toString().padStart(2, '0');
+    const secs = (ws61Seconds % 60).toString().padStart(2, '0');
+    setTimeout(() => {
+      alert(`🎉 ¡EXCELENTE TRABAJO! Has completado la Sopa de Letras de Jardín y Especies Vegetales (Sexto Grado - Área 1) en ${mins}:${secs}. ¡Felicidades!`);
+    }, 200);
+  }
+}
+
+/* ==========================================================================
+   EVALUACIÓN INTERACTIVA TALLER SEXTO GRADO ÁREA 2: TECNOLOGÍA PRÁCTICA Y FUNCIONAL
+   ========================================================================== */
+function checkSextoArea2Quiz(qNum, selectedOption, btnElem) {
+  const correctAnswers = {
+    1: 'A', // Azadon o azada
+    2: 'A', // Motocultor labranza ligera
+    3: 'A', // Tractor traccion y potencia
+    4: 'A', // Arado rotura primaria
+    5: 'A', // Rastra desmenuzar terrones
+    6: 'A', // Surcador abrir lomos y zanjas
+    7: 'A', // Sembradora profundidad y distancia
+    8: 'A'  // Mantenimiento preventivo vida util
+  };
+
+  const ansDiv = document.getElementById(`sexto-area2-ans-${qNum}`);
+  if (!ansDiv) return;
+
+  const parent = btnElem.parentElement;
+  parent.querySelectorAll('button').forEach(b => {
+    b.style.background = 'white';
+    b.style.color = 'black';
+    b.style.borderColor = 'var(--border-color)';
+  });
+
+  if (selectedOption === correctAnswers[qNum]) {
+    btnElem.style.background = '#2e7d32';
+    btnElem.style.color = 'white';
+    btnElem.style.borderColor = '#2e7d32';
+    ansDiv.innerHTML = `<span style="color: #2e7d32;"><i class="fa-solid fa-circle-check"></i> ¡Correcto! Excelente dominio de herramientas manuales, maquinaria agrícola, equipos de tiro y mantenimiento preventivo.</span>`;
+  } else {
+    btnElem.style.background = '#c62828';
+    btnElem.style.color = 'white';
+    btnElem.style.borderColor = '#c62828';
+    ansDiv.innerHTML = `<span style="color: #c62828;"><i class="fa-solid fa-circle-xmark"></i> Incorrecto. Revisa el contenido de la lección e inténtalo nuevamente.</span>`;
+  }
+}
+
+/* ==========================================================================
+   SOPA DE LETRAS INTERACTIVA - SEXTO GRADO ÁREA 2 (MAQUINARIA Y EQUIPOS DE TIRO)
+   ========================================================================== */
+const WS62_MATRIX = [
+  ['T','R','A','C','T','O','R','X','Y','Z','A','B'],
+  ['A','R','A','D','O','C','D','E','F','G','H','I'],
+  ['R','A','S','T','R','A','J','K','L','M','N','O'],
+  ['S','U','R','C','A','D','O','R','P','Q','R','S'],
+  ['S','E','M','B','R','A','D','O','R','A','T','U'],
+  ['M','O','T','O','C','U','L','T','O','R','V','W'],
+  ['A','Z','A','D','O','N','X','Y','Z','A','B','C'],
+  ['R','A','S','T','R','I','L','L','O','D','E','F'],
+  ['M','A','Q','U','I','N','A','R','I','A','G','H'],
+  ['S','E','G','U','R','I','D','A','D','I','J','K'],
+  ['A','B','C','D','E','F','G','H','I','J','K','L'],
+  ['M','N','O','P','Q','R','S','T','U','V','W','X']
+];
+
+const WS62_TARGET_WORDS = {
+  'TRACTOR': [[0,0],[0,1],[0,2],[0,3],[0,4],[0,5],[0,6]],
+  'ARADO': [[1,0],[1,1],[1,2],[1,3],[1,4]],
+  'RASTRA': [[2,0],[2,1],[2,2],[2,3],[2,4],[2,5]],
+  'SURCADOR': [[3,0],[3,1],[3,2],[3,3],[3,4],[3,5],[3,6],[3,7]],
+  'SEMBRADORA': [[4,0],[4,1],[4,2],[4,3],[4,4],[4,5],[4,6],[4,7],[4,8],[4,9]],
+  'MOTOCULTOR': [[5,0],[5,1],[5,2],[5,3],[5,4],[5,5],[5,6],[5,7],[5,8],[5,9]],
+  'AZADON': [[6,0],[6,1],[6,2],[6,3],[6,4],[6,5]],
+  'RASTRILLO': [[7,0],[7,1],[7,2],[7,3],[7,4],[7,5],[7,6],[7,7],[7,8]],
+  'MAQUINARIA': [[8,0],[8,1],[8,2],[8,3],[8,4],[8,5],[8,6],[8,7],[8,8],[8,9]],
+  'SEGURIDAD': [[9,0],[9,1],[9,2],[9,3],[9,4],[9,5],[9,6],[9,7],[9,8]]
+};
+
+const WS62_WORD_COLORS = {
+  'TRACTOR': '#1565c0',
+  'ARADO': '#e65100',
+  'RASTRA': '#2e7d32',
+  'SURCADOR': '#6a1b9a',
+  'SEMBRADORA': '#00838f',
+  'MOTOCULTOR': '#c62828',
+  'AZADON': '#00695c',
+  'RASTRILLO': '#ad1457',
+  'MAQUINARIA': '#d84315',
+  'SEGURIDAD': '#2e7d32'
+};
+
+let selectedCoords62 = [];
+let foundWords62 = new Set();
+let ws62TimerInterval = null;
+let ws62Seconds = 0;
+let ws62TimerRunning = false;
+
+function startWS62Timer() {
+  if (ws62TimerRunning) return;
+  ws62TimerRunning = true;
+  ws62TimerInterval = setInterval(() => {
+    ws62Seconds++;
+    const mins = Math.floor(ws62Seconds / 60).toString().padStart(2, '0');
+    const secs = (ws62Seconds % 60).toString().padStart(2, '0');
+    const timerElem = document.getElementById('ws62-timer');
+    if (timerElem) timerElem.textContent = `${mins}:${secs}`;
+  }, 1000);
+}
+
+function stopWS62Timer() {
+  clearInterval(ws62TimerInterval);
+  ws62TimerRunning = false;
+}
+
+function initWordSearch62() {
+  const gridContainer = document.getElementById('wordsearch62-grid');
+  if (!gridContainer) return;
+
+  stopWS62Timer();
+  ws62Seconds = 0;
+  foundWords62.clear();
+  selectedCoords62 = [];
+
+  const timerElem = document.getElementById('ws62-timer');
+  if (timerElem) timerElem.textContent = '00:00';
+
+  const counter = document.getElementById('ws62-counter');
+  if (counter) counter.textContent = '0 / 10';
+
+  gridContainer.innerHTML = '';
+  for (let r = 0; r < 12; r++) {
+    for (let c = 0; c < 12; c++) {
+      const cell = document.createElement('div');
+      cell.className = 'ws-cell ws62-cell';
+      cell.dataset.r = r;
+      cell.dataset.c = c;
+      cell.dataset.letter = WS62_MATRIX[r][c];
+      cell.textContent = WS62_MATRIX[r][c];
+      cell.style.cssText = `
+        width: 100%; aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+        font-weight: 800; font-size: 1.05rem; background: #ffffff; border: 1px solid var(--border-color);
+        border-radius: 6px; cursor: pointer; user-select: none; transition: all 0.15s ease;
+      `;
+      gridContainer.appendChild(cell);
+    }
+  }
+
+  const wordListContainer = document.getElementById('ws62-word-list');
+  if (wordListContainer) {
+    const items = wordListContainer.querySelectorAll('div[data-word]');
+    items.forEach(item => {
+      if (!item.hasAttribute('data-orig-text')) {
+        item.setAttribute('data-orig-text', item.textContent);
+      }
+      item.textContent = item.getAttribute('data-orig-text');
+      item.style.color = 'var(--text-main)';
+      item.style.fontWeight = '500';
+    });
+  }
+
+  setupWS62Interactions();
+}
+
+function setupWS62Interactions() {
+  const gridContainer = document.getElementById('wordsearch62-grid');
+  if (!gridContainer) return;
+
+  let isSelecting = false;
+
+  const getCellFromEvent = (e) => {
+    let clientX = e.clientX;
+    let clientY = e.clientY;
+    if (e.touches && e.touches.length > 0) {
+      clientX = e.touches[0].clientX;
+      clientY = e.touches[0].clientY;
+    }
+    const target = document.elementFromPoint(clientX, clientY);
+    return target && target.classList.contains('ws62-cell') ? target : null;
+  };
+
+  const handleStart = (e) => {
+    const cell = getCellFromEvent(e) || (e.target.classList.contains('ws62-cell') ? e.target : null);
+    if (!cell) return;
+
+    if (!ws62TimerRunning) startWS62Timer();
+    isSelecting = true;
+    selectedCoords62 = [];
+    clearWS62TempSelection();
+    addCellToWS62Selection(cell);
+  };
+
+  const handleMove = (e) => {
+    if (!isSelecting) return;
+    const cell = getCellFromEvent(e);
+    if (cell) addCellToWS62Selection(cell);
+  };
+
+  const handleEnd = () => {
+    if (!isSelecting) return;
+    isSelecting = false;
+    checkWS62Selection();
+  };
+
+  gridContainer.onmousedown = handleStart;
+  gridContainer.onmousemove = handleMove;
+  window.onmouseup = handleEnd;
+
+  gridContainer.ontouchstart = handleStart;
+  gridContainer.ontouchmove = handleMove;
+  window.ontouchend = handleEnd;
+}
+
+function addCellToWS62Selection(cell) {
+  const r = parseInt(cell.dataset.r);
+  const c = parseInt(cell.dataset.c);
+
+  const already = selectedCoords62.some(([sr, sc]) => sr === r && sc === c);
+  if (!already) {
+    selectedCoords62.push([r, c]);
+    cell.style.background = 'var(--primary-light)';
+    cell.style.color = 'white';
+  }
+}
+
+function clearWS62TempSelection() {
+  document.querySelectorAll('.ws62-cell').forEach(cell => {
+    const r = parseInt(cell.dataset.r);
+    const c = parseInt(cell.dataset.c);
+    let isFound = false;
+
+    for (let word of foundWords62) {
+      const coords = WS62_TARGET_WORDS[word];
+      if (coords.some(([fr, fc]) => fr === r && fc === c)) {
+        isFound = true;
+        break;
+      }
+    }
+
+    if (!isFound) {
+      cell.style.background = '#ffffff';
+      cell.style.color = 'var(--text-main)';
+    }
+  });
+}
+
+function checkWS62Selection() {
+  if (selectedCoords62.length === 0) return;
+
+  let matchedWord = null;
+  for (let [word, coords] of Object.entries(WS62_TARGET_WORDS)) {
+    if (foundWords62.has(word)) continue;
+
+    if (coords.length === selectedCoords62.length) {
+      const matchForward = coords.every(([r, c], idx) => selectedCoords62[idx][0] === r && selectedCoords62[idx][1] === c);
+      const matchBackward = coords.every(([r, c], idx) => selectedCoords62[selectedCoords62.length - 1 - idx][0] === r && selectedCoords62[selectedCoords62.length - 1 - idx][1] === c);
+
+      if (matchForward || matchBackward) {
+        matchedWord = word;
+        break;
+      }
+    }
+  }
+
+  if (matchedWord) {
+    foundWords62.add(matchedWord);
+    markWS62WordAsFound(matchedWord);
+  } else {
+    clearWS62TempSelection();
+  }
+  selectedCoords62 = [];
+}
+
+function markWS62WordAsFound(word) {
+  const coords = WS62_TARGET_WORDS[word];
+  const wordColor = WS62_WORD_COLORS[word] || '#1565c0';
+
+  coords.forEach(([r, c]) => {
+    const cell = document.querySelector(`.ws62-cell[data-r="${r}"][data-c="${c}"]`);
+    if (cell) {
+      cell.style.background = wordColor;
+      cell.style.color = '#ffffff';
+      cell.style.boxShadow = `0 0 6px ${wordColor}88`;
+    }
+  });
+
+  const wordItem = document.querySelector(`#ws62-word-list div[data-word="${word}"]`);
+  if (wordItem) {
+    const origText = wordItem.getAttribute('data-orig-text') || wordItem.textContent;
+    wordItem.innerHTML = `<span style="color: ${wordColor}; font-weight: 900; margin-right: 4px;">✓</span> ${origText}`;
+    wordItem.style.color = wordColor;
+    wordItem.style.fontWeight = '700';
+  }
+
+  const counter = document.getElementById('ws62-counter');
+  if (counter) {
+    counter.textContent = `${foundWords62.size} / 10`;
+  }
+
+  if (foundWords62.size === 10) {
+    stopWS62Timer();
+    const mins = Math.floor(ws62Seconds / 60).toString().padStart(2, '0');
+    const secs = (ws62Seconds % 60).toString().padStart(2, '0');
+    setTimeout(() => {
+      alert(`🎉 ¡EXCELENTE TRABAJO! Has completado la Sopa de Letras de Maquinaria y Equipos de Tiro (Sexto Grado - Área 2) en ${mins}:${secs}. ¡Felicidades!`);
+    }, 200);
+  }
+}
+
+/* ==========================================================================
+   EVALUACIÓN INTERACTIVA TALLER SEXTO GRADO ÁREA 3: ALIMENTOS PARA CONSUMO HUMANO
+   ========================================================================== */
+function checkSextoArea3Quiz(qNum, selectedOption, btnElem) {
+  const correctAnswers = {
+    1: 'A', // Consumo escolar y familiar
+    2: 'A', // Menu semanal saludable
+    3: 'A', // Hidroponia agua con nutrientes sin suelo
+    4: 'A', // Invernadero proteccion y clima controlado
+    5: 'A', // Fertirriego agua y fertilizante simultaneo
+    6: 'A', // SIG mapeo digital y suelos
+    7: 'A', // Ahorro de agua y fertilizante
+    8: 'A'  // Feria de emprendimiento e innovacion
+  };
+
+  const ansDiv = document.getElementById(`sexto-area3-ans-${qNum}`);
+  if (!ansDiv) return;
+
+  const parent = btnElem.parentElement;
+  parent.querySelectorAll('button').forEach(b => {
+    b.style.background = 'white';
+    b.style.color = 'black';
+    b.style.borderColor = 'var(--border-color)';
+  });
+
+  if (selectedOption === correctAnswers[qNum]) {
+    btnElem.style.background = '#2e7d32';
+    btnElem.style.color = 'white';
+    btnElem.style.borderColor = '#2e7d32';
+    ansDiv.innerHTML = `<span style="color: #2e7d32;"><i class="fa-solid fa-circle-check"></i> ¡Correcto! Excelente dominio de la producción alimentaria, tecnologías agrosostenibles, fertirriego y mapas SIG.</span>`;
+  } else {
+    btnElem.style.background = '#c62828';
+    btnElem.style.color = 'white';
+    btnElem.style.borderColor = '#c62828';
+    ansDiv.innerHTML = `<span style="color: #c62828;"><i class="fa-solid fa-circle-xmark"></i> Incorrecto. Revisa el contenido de la lección e inténtalo nuevamente.</span>`;
+  }
+}
+
+/* ==========================================================================
+   SOPA DE LETRAS INTERACTIVA - SEXTO GRADO ÁREA 3 (TECNOLOGÍAS Y ALIMENTACIÓN)
+   ========================================================================== */
+const WS63_MATRIX = [
+  ['C','O','N','S','U','M','O','X','Y','Z','A','B'],
+  ['H','I','D','R','O','P','O','N','I','A','C','D'],
+  ['I','N','V','E','R','N','A','D','E','R','O','E'],
+  ['F','E','R','T','I','R','R','I','E','G','O','F'],
+  ['T','E','C','N','O','L','O','G','I','A','G','H'],
+  ['S','I','G','I','J','K','L','M','N','O','P','Q'],
+  ['A','L','I','M','E','N','T','A','C','I','O','N'],
+  ['N','U','T','R','I','E','N','T','E','S','R','S'],
+  ['S','O','S','T','E','N','I','B','L','E','T','U'],
+  ['E','M','P','R','E','N','D','E','R','V','W','X'],
+  ['A','B','C','D','E','F','G','H','I','J','K','L'],
+  ['M','N','O','P','Q','R','S','T','U','V','W','X']
+];
+
+const WS63_TARGET_WORDS = {
+  'CONSUMO': [[0,0],[0,1],[0,2],[0,3],[0,4],[0,5],[0,6]],
+  'HIDROPONIA': [[1,0],[1,1],[1,2],[1,3],[1,4],[1,5],[1,6],[1,7],[1,8],[1,9]],
+  'INVERNADERO': [[2,0],[2,1],[2,2],[2,3],[2,4],[2,5],[2,6],[2,7],[2,8],[2,9],[2,10]],
+  'FERTIRRIEGO': [[3,0],[3,1],[3,2],[3,3],[3,4],[3,5],[3,6],[3,7],[3,8],[3,9],[3,10]],
+  'TECNOLOGIA': [[4,0],[4,1],[4,2],[4,3],[4,4],[4,5],[4,6],[4,7],[4,8],[4,9]],
+  'SIG': [[5,0],[5,1],[5,2]],
+  'ALIMENTACION': [[6,0],[6,1],[6,2],[6,3],[6,4],[6,5],[6,6],[6,7],[6,8],[6,9],[6,10],[6,11]],
+  'NUTRIENTES': [[7,0],[7,1],[7,2],[7,3],[7,4],[7,5],[7,6],[7,7],[7,8],[7,9]],
+  'SOSTENIBLE': [[8,0],[8,1],[8,2],[8,3],[8,4],[8,5],[8,6],[8,7],[8,8],[8,9]],
+  'EMPRENDER': [[9,0],[9,1],[9,2],[9,3],[9,4],[9,5],[9,6],[9,7],[9,8]]
+};
+
+const WS63_WORD_COLORS = {
+  'CONSUMO': '#2e7d32',
+  'HIDROPONIA': '#00838f',
+  'INVERNADERO': '#6a1b9a',
+  'FERTIRRIEGO': '#1565c0',
+  'TECNOLOGIA': '#e65100',
+  'SIG': '#c62828',
+  'ALIMENTACION': '#00695c',
+  'NUTRIENTES': '#ad1457',
+  'SOSTENIBLE': '#2e7d32',
+  'EMPRENDER': '#d84315'
+};
+
+let selectedCoords63 = [];
+let foundWords63 = new Set();
+let ws63TimerInterval = null;
+let ws63Seconds = 0;
+let ws63TimerRunning = false;
+
+function startWS63Timer() {
+  if (ws63TimerRunning) return;
+  ws63TimerRunning = true;
+  ws63TimerInterval = setInterval(() => {
+    ws63Seconds++;
+    const mins = Math.floor(ws63Seconds / 60).toString().padStart(2, '0');
+    const secs = (ws63Seconds % 60).toString().padStart(2, '0');
+    const timerElem = document.getElementById('ws63-timer');
+    if (timerElem) timerElem.textContent = `${mins}:${secs}`;
+  }, 1000);
+}
+
+function stopWS63Timer() {
+  clearInterval(ws63TimerInterval);
+  ws63TimerRunning = false;
+}
+
+function initWordSearch63() {
+  const gridContainer = document.getElementById('wordsearch63-grid');
+  if (!gridContainer) return;
+
+  stopWS63Timer();
+  ws63Seconds = 0;
+  foundWords63.clear();
+  selectedCoords63 = [];
+
+  const timerElem = document.getElementById('ws63-timer');
+  if (timerElem) timerElem.textContent = '00:00';
+
+  const counter = document.getElementById('ws63-counter');
+  if (counter) counter.textContent = '0 / 10';
+
+  gridContainer.innerHTML = '';
+  for (let r = 0; r < 12; r++) {
+    for (let c = 0; c < 12; c++) {
+      const cell = document.createElement('div');
+      cell.className = 'ws-cell ws63-cell';
+      cell.dataset.r = r;
+      cell.dataset.c = c;
+      cell.dataset.letter = WS63_MATRIX[r][c];
+      cell.textContent = WS63_MATRIX[r][c];
+      cell.style.cssText = `
+        width: 100%; aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+        font-weight: 800; font-size: 1.05rem; background: #ffffff; border: 1px solid var(--border-color);
+        border-radius: 6px; cursor: pointer; user-select: none; transition: all 0.15s ease;
+      `;
+      gridContainer.appendChild(cell);
+    }
+  }
+
+  const wordListContainer = document.getElementById('ws63-word-list');
+  if (wordListContainer) {
+    const items = wordListContainer.querySelectorAll('div[data-word]');
+    items.forEach(item => {
+      if (!item.hasAttribute('data-orig-text')) {
+        item.setAttribute('data-orig-text', item.textContent);
+      }
+      item.textContent = item.getAttribute('data-orig-text');
+      item.style.color = 'var(--text-main)';
+      item.style.fontWeight = '500';
+    });
+  }
+
+  setupWS63Interactions();
+}
+
+function setupWS63Interactions() {
+  const gridContainer = document.getElementById('wordsearch63-grid');
+  if (!gridContainer) return;
+
+  let isSelecting = false;
+
+  const getCellFromEvent = (e) => {
+    let clientX = e.clientX;
+    let clientY = e.clientY;
+    if (e.touches && e.touches.length > 0) {
+      clientX = e.touches[0].clientX;
+      clientY = e.touches[0].clientY;
+    }
+    const target = document.elementFromPoint(clientX, clientY);
+    return target && target.classList.contains('ws63-cell') ? target : null;
+  };
+
+  const handleStart = (e) => {
+    const cell = getCellFromEvent(e) || (e.target.classList.contains('ws63-cell') ? e.target : null);
+    if (!cell) return;
+
+    if (!ws63TimerRunning) startWS63Timer();
+    isSelecting = true;
+    selectedCoords63 = [];
+    clearWS63TempSelection();
+    addCellToWS63Selection(cell);
+  };
+
+  const handleMove = (e) => {
+    if (!isSelecting) return;
+    const cell = getCellFromEvent(e);
+    if (cell) addCellToWS63Selection(cell);
+  };
+
+  const handleEnd = () => {
+    if (!isSelecting) return;
+    isSelecting = false;
+    checkWS63Selection();
+  };
+
+  gridContainer.onmousedown = handleStart;
+  gridContainer.onmousemove = handleMove;
+  window.onmouseup = handleEnd;
+
+  gridContainer.ontouchstart = handleStart;
+  gridContainer.ontouchmove = handleMove;
+  window.ontouchend = handleEnd;
+}
+
+function addCellToWS63Selection(cell) {
+  const r = parseInt(cell.dataset.r);
+  const c = parseInt(cell.dataset.c);
+
+  const already = selectedCoords63.some(([sr, sc]) => sr === r && sc === c);
+  if (!already) {
+    selectedCoords63.push([r, c]);
+    cell.style.background = 'var(--primary-light)';
+    cell.style.color = 'white';
+  }
+}
+
+function clearWS63TempSelection() {
+  document.querySelectorAll('.ws63-cell').forEach(cell => {
+    const r = parseInt(cell.dataset.r);
+    const c = parseInt(cell.dataset.c);
+    let isFound = false;
+
+    for (let word of foundWords63) {
+      const coords = WS63_TARGET_WORDS[word];
+      if (coords.some(([fr, fc]) => fr === r && fc === c)) {
+        isFound = true;
+        break;
+      }
+    }
+
+    if (!isFound) {
+      cell.style.background = '#ffffff';
+      cell.style.color = 'var(--text-main)';
+    }
+  });
+}
+
+function checkWS63Selection() {
+  if (selectedCoords63.length === 0) return;
+
+  let matchedWord = null;
+  for (let [word, coords] of Object.entries(WS63_TARGET_WORDS)) {
+    if (foundWords63.has(word)) continue;
+
+    if (coords.length === selectedCoords63.length) {
+      const matchForward = coords.every(([r, c], idx) => selectedCoords63[idx][0] === r && selectedCoords63[idx][1] === c);
+      const matchBackward = coords.every(([r, c], idx) => selectedCoords63[selectedCoords63.length - 1 - idx][0] === r && selectedCoords63[selectedCoords63.length - 1 - idx][1] === c);
+
+      if (matchForward || matchBackward) {
+        matchedWord = word;
+        break;
+      }
+    }
+  }
+
+  if (matchedWord) {
+    foundWords63.add(matchedWord);
+    markWS63WordAsFound(matchedWord);
+  } else {
+    clearWS63TempSelection();
+  }
+  selectedCoords63 = [];
+}
+
+function markWS63WordAsFound(word) {
+  const coords = WS63_TARGET_WORDS[word];
+  const wordColor = WS63_WORD_COLORS[word] || '#2e7d32';
+
+  coords.forEach(([r, c]) => {
+    const cell = document.querySelector(`.ws63-cell[data-r="${r}"][data-c="${c}"]`);
+    if (cell) {
+      cell.style.background = wordColor;
+      cell.style.color = '#ffffff';
+      cell.style.boxShadow = `0 0 6px ${wordColor}88`;
+    }
+  });
+
+  const wordItem = document.querySelector(`#ws63-word-list div[data-word="${word}"]`);
+  if (wordItem) {
+    const origText = wordItem.getAttribute('data-orig-text') || wordItem.textContent;
+    wordItem.innerHTML = `<span style="color: ${wordColor}; font-weight: 900; margin-right: 4px;">✓</span> ${origText}`;
+    wordItem.style.color = wordColor;
+    wordItem.style.fontWeight = '700';
+  }
+
+  const counter = document.getElementById('ws63-counter');
+  if (counter) {
+    counter.textContent = `${foundWords63.size} / 10`;
+  }
+
+  if (foundWords63.size === 10) {
+    stopWS63Timer();
+    const mins = Math.floor(ws63Seconds / 60).toString().padStart(2, '0');
+    const secs = (ws63Seconds % 60).toString().padStart(2, '0');
+    setTimeout(() => {
+      alert(`🎉 ¡EXCELENTE TRABAJO! Has completado la Sopa de Letras de Tecnologías Agrícolas (Sexto Grado - Área 3) en ${mins}:${secs}. ¡Felicidades!`);
+    }, 200);
+  }
+}
+
+/* ==========================================================================
+   EVALUACIÓN INTERACTIVA TALLER SEXTO GRADO ÁREA 4: AMBIENTE Y AGRICULTURA SOSTENIBLE
+   ========================================================================== */
+function checkSextoArea4Quiz(qNum, selectedOption, btnElem) {
+  const correctAnswers = {
+    1: 'A', // Asociacion de cultivos beneficio mutuo
+    2: 'A', // Rotacion vs monocultura
+    3: 'A', // Silvopastoril arboles pasto ganado
+    4: 'A', // Textura arena limo arcilla
+    5: 'A', // NPK macronutrientes
+    6: 'A', // pH acidez alcalinidad
+    7: 'A', // Micronutrientes enzimas fotosintesis
+    8: 'A'  // Agroforesteria agua carbono erosión
+  };
+
+  const ansDiv = document.getElementById(`sexto-area4-ans-${qNum}`);
+  if (!ansDiv) return;
+
+  const parent = btnElem.parentElement;
+  parent.querySelectorAll('button').forEach(b => {
+    b.style.background = 'white';
+    b.style.color = 'black';
+    b.style.borderColor = 'var(--border-color)';
+  });
+
+  if (selectedOption === correctAnswers[qNum]) {
+    btnElem.style.background = '#2e7d32';
+    btnElem.style.color = 'white';
+    btnElem.style.borderColor = '#2e7d32';
+    ansDiv.innerHTML = `<span style="color: #2e7d32;"><i class="fa-solid fa-circle-check"></i> ¡Correcto! Excelente dominio de la agricultura orgánica, sistemas agroforestales y edafología (suelos).</span>`;
+  } else {
+    btnElem.style.background = '#c62828';
+    btnElem.style.color = 'white';
+    btnElem.style.borderColor = '#c62828';
+    ansDiv.innerHTML = `<span style="color: #c62828;"><i class="fa-solid fa-circle-xmark"></i> Incorrecto. Revisa el contenido de la lección e inténtalo nuevamente.</span>`;
+  }
+}
+
+/* ==========================================================================
+   SOPA DE LETRAS INTERACTIVA - SEXTO GRADO ÁREA 4 (AGRICULTURA SOSTENIBLE Y SUELOS)
+   ========================================================================== */
+const WS64_MATRIX = [
+  ['O','R','G','A','N','I','C','O','X','Y','Z','A'],
+  ['R','O','T','A','C','I','O','N','B','C','D','E'],
+  ['A','S','O','C','I','A','C','I','O','N','F','G'],
+  ['A','G','R','O','F','O','R','E','S','T','A','L'],
+  ['T','E','X','T','U','R','A','H','I','J','K','L'],
+  ['E','S','T','R','U','C','T','U','R','A','M','N'],
+  ['N','I','T','R','O','G','E','N','O','O','P','Q'],
+  ['F','O','S','F','O','R','O','R','S','T','U','V'],
+  ['P','O','T','A','S','I','O','W','X','Y','Z','A'],
+  ['A','C','I','D','E','Z','B','C','D','E','F','G'],
+  ['A','B','C','D','E','F','G','H','I','J','K','L'],
+  ['M','N','O','P','Q','R','S','T','U','V','W','X']
+];
+
+const WS64_TARGET_WORDS = {
+  'ORGANICO': [[0,0],[0,1],[0,2],[0,3],[0,4],[0,5],[0,6],[0,7]],
+  'ROTACION': [[1,0],[1,1],[1,2],[1,3],[1,4],[1,5],[1,6],[1,7]],
+  'ASOCIACION': [[2,0],[2,1],[2,2],[2,3],[2,4],[2,5],[2,6],[2,7],[2,8],[2,9]],
+  'AGROFORESTAL': [[3,0],[3,1],[3,2],[3,3],[3,4],[3,5],[3,6],[3,7],[3,8],[3,9],[3,10],[3,11]],
+  'TEXTURA': [[4,0],[4,1],[4,2],[4,3],[4,4],[4,5],[4,6]],
+  'ESTRUCTURA': [[5,0],[5,1],[5,2],[5,3],[5,4],[5,5],[5,6],[5,7],[5,8],[5,9]],
+  'NITROGENO': [[6,0],[6,1],[6,2],[6,3],[6,4],[6,5],[6,6],[6,7],[6,8]],
+  'FOSFORO': [[7,0],[7,1],[7,2],[7,3],[7,4],[7,5],[7,6]],
+  'POTASIO': [[8,0],[8,1],[8,2],[8,3],[8,4],[8,5],[8,6]],
+  'ACIDEZ': [[9,0],[9,1],[9,2],[9,3],[9,4],[9,5]]
+};
+
+const WS64_WORD_COLORS = {
+  'ORGANICO': '#2e7d32',
+  'ROTACION': '#00838f',
+  'ASOCIACION': '#6a1b9a',
+  'AGROFORESTAL': '#1565c0',
+  'TEXTURA': '#e65100',
+  'ESTRUCTURA': '#c62828',
+  'NITROGENO': '#00695c',
+  'FOSFORO': '#ad1457',
+  'POTASIO': '#2e7d32',
+  'ACIDEZ': '#d84315'
+};
+
+let selectedCoords64 = [];
+let foundWords64 = new Set();
+let ws64TimerInterval = null;
+let ws64Seconds = 0;
+let ws64TimerRunning = false;
+
+function startWS64Timer() {
+  if (ws64TimerRunning) return;
+  ws64TimerRunning = true;
+  ws64TimerInterval = setInterval(() => {
+    ws64Seconds++;
+    const mins = Math.floor(ws64Seconds / 60).toString().padStart(2, '0');
+    const secs = (ws64Seconds % 60).toString().padStart(2, '0');
+    const timerElem = document.getElementById('ws64-timer');
+    if (timerElem) timerElem.textContent = `${mins}:${secs}`;
+  }, 1000);
+}
+
+function stopWS64Timer() {
+  clearInterval(ws64TimerInterval);
+  ws64TimerRunning = false;
+}
+
+function initWordSearch64() {
+  const gridContainer = document.getElementById('wordsearch64-grid');
+  if (!gridContainer) return;
+
+  stopWS64Timer();
+  ws64Seconds = 0;
+  foundWords64.clear();
+  selectedCoords64 = [];
+
+  const timerElem = document.getElementById('ws64-timer');
+  if (timerElem) timerElem.textContent = '00:00';
+
+  const counter = document.getElementById('ws64-counter');
+  if (counter) counter.textContent = '0 / 10';
+
+  gridContainer.innerHTML = '';
+  for (let r = 0; r < 12; r++) {
+    for (let c = 0; c < 12; c++) {
+      const cell = document.createElement('div');
+      cell.className = 'ws-cell ws64-cell';
+      cell.dataset.r = r;
+      cell.dataset.c = c;
+      cell.dataset.letter = WS64_MATRIX[r][c];
+      cell.textContent = WS64_MATRIX[r][c];
+      cell.style.cssText = `
+        width: 100%; aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+        font-weight: 800; font-size: 1.05rem; background: #ffffff; border: 1px solid var(--border-color);
+        border-radius: 6px; cursor: pointer; user-select: none; transition: all 0.15s ease;
+      `;
+      gridContainer.appendChild(cell);
+    }
+  }
+
+  const wordListContainer = document.getElementById('ws64-word-list');
+  if (wordListContainer) {
+    const items = wordListContainer.querySelectorAll('div[data-word]');
+    items.forEach(item => {
+      if (!item.hasAttribute('data-orig-text')) {
+        item.setAttribute('data-orig-text', item.textContent);
+      }
+      item.textContent = item.getAttribute('data-orig-text');
+      item.style.color = 'var(--text-main)';
+      item.style.fontWeight = '500';
+    });
+  }
+
+  setupWS64Interactions();
+}
+
+function setupWS64Interactions() {
+  const gridContainer = document.getElementById('wordsearch64-grid');
+  if (!gridContainer) return;
+
+  let isSelecting = false;
+
+  const getCellFromEvent = (e) => {
+    let clientX = e.clientX;
+    let clientY = e.clientY;
+    if (e.touches && e.touches.length > 0) {
+      clientX = e.touches[0].clientX;
+      clientY = e.touches[0].clientY;
+    }
+    const target = document.elementFromPoint(clientX, clientY);
+    return target && target.classList.contains('ws64-cell') ? target : null;
+  };
+
+  const handleStart = (e) => {
+    const cell = getCellFromEvent(e) || (e.target.classList.contains('ws64-cell') ? e.target : null);
+    if (!cell) return;
+
+    if (!ws64TimerRunning) startWS64Timer();
+    isSelecting = true;
+    selectedCoords64 = [];
+    clearWS64TempSelection();
+    addCellToWS64Selection(cell);
+  };
+
+  const handleMove = (e) => {
+    if (!isSelecting) return;
+    const cell = getCellFromEvent(e);
+    if (cell) addCellToWS64Selection(cell);
+  };
+
+  const handleEnd = () => {
+    if (!isSelecting) return;
+    isSelecting = false;
+    checkWS64Selection();
+  };
+
+  gridContainer.onmousedown = handleStart;
+  gridContainer.onmousemove = handleMove;
+  window.onmouseup = handleEnd;
+
+  gridContainer.ontouchstart = handleStart;
+  gridContainer.ontouchmove = handleMove;
+  window.ontouchend = handleEnd;
+}
+
+function addCellToWS64Selection(cell) {
+  const r = parseInt(cell.dataset.r);
+  const c = parseInt(cell.dataset.c);
+
+  const already = selectedCoords64.some(([sr, sc]) => sr === r && sc === c);
+  if (!already) {
+    selectedCoords64.push([r, c]);
+    cell.style.background = 'var(--primary-light)';
+    cell.style.color = 'white';
+  }
+}
+
+function clearWS64TempSelection() {
+  document.querySelectorAll('.ws64-cell').forEach(cell => {
+    const r = parseInt(cell.dataset.r);
+    const c = parseInt(cell.dataset.c);
+    let isFound = false;
+
+    for (let word of foundWords64) {
+      const coords = WS64_TARGET_WORDS[word];
+      if (coords.some(([fr, fc]) => fr === r && fc === c)) {
+        isFound = true;
+        break;
+      }
+    }
+
+    if (!isFound) {
+      cell.style.background = '#ffffff';
+      cell.style.color = 'var(--text-main)';
+    }
+  });
+}
+
+function checkWS64Selection() {
+  if (selectedCoords64.length === 0) return;
+
+  let matchedWord = null;
+  for (let [word, coords] of Object.entries(WS64_TARGET_WORDS)) {
+    if (foundWords64.has(word)) continue;
+
+    if (coords.length === selectedCoords64.length) {
+      const matchForward = coords.every(([r, c], idx) => selectedCoords64[idx][0] === r && selectedCoords64[idx][1] === c);
+      const matchBackward = coords.every(([r, c], idx) => selectedCoords64[selectedCoords64.length - 1 - idx][0] === r && selectedCoords64[selectedCoords64.length - 1 - idx][1] === c);
+
+      if (matchForward || matchBackward) {
+        matchedWord = word;
+        break;
+      }
+    }
+  }
+
+  if (matchedWord) {
+    foundWords64.add(matchedWord);
+    markWS64WordAsFound(matchedWord);
+  } else {
+    clearWS64TempSelection();
+  }
+  selectedCoords64 = [];
+}
+
+function markWS64WordAsFound(word) {
+  const coords = WS64_TARGET_WORDS[word];
+  const wordColor = WS64_WORD_COLORS[word] || '#2e7d32';
+
+  coords.forEach(([r, c]) => {
+    const cell = document.querySelector(`.ws64-cell[data-r="${r}"][data-c="${c}"]`);
+    if (cell) {
+      cell.style.background = wordColor;
+      cell.style.color = '#ffffff';
+      cell.style.boxShadow = `0 0 6px ${wordColor}88`;
+    }
+  });
+
+  const wordItem = document.querySelector(`#ws64-word-list div[data-word="${word}"]`);
+  if (wordItem) {
+    const origText = wordItem.getAttribute('data-orig-text') || wordItem.textContent;
+    wordItem.innerHTML = `<span style="color: ${wordColor}; font-weight: 900; margin-right: 4px;">✓</span> ${origText}`;
+    wordItem.style.color = wordColor;
+    wordItem.style.fontWeight = '700';
+  }
+
+  const counter = document.getElementById('ws64-counter');
+  if (counter) {
+    counter.textContent = `${foundWords64.size} / 10`;
+  }
+
+  if (foundWords64.size === 10) {
+    stopWS64Timer();
+    const mins = Math.floor(ws64Seconds / 60).toString().padStart(2, '0');
+    const secs = (ws64Seconds % 60).toString().padStart(2, '0');
+    setTimeout(() => {
+      alert(`🎉 ¡EXCELENTE TRABAJO! Has completado la Sopa de Letras de Agricultura Sostenible y Suelos (Sexto Grado - Área 4) en ${mins}:${secs}. ¡Felicidades!`);
+    }, 200);
+  }
+}
 
