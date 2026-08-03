@@ -11,8 +11,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const floatingIndexBtn = document.getElementById('floatingIndexBtn');
 
   function openMobileMenu() {
-    if (navMenu) navMenu.classList.add('mobile-open');
+    if (navMenu) {
+      navMenu.scrollTop = 0;
+      navMenu.classList.add('mobile-open');
+    }
     if (mobileOverlay) mobileOverlay.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   function closeMobileMenu() {
