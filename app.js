@@ -25,7 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!targetId) targetId = 'inicio';
     
     // Hide all views
-    views.forEach(view => {
+    const allViews = document.querySelectorAll('.view-section');
+    allViews.forEach(view => {
       view.classList.remove('active');
     });
 
@@ -58,8 +59,9 @@ document.addEventListener('DOMContentLoaded', () => {
     navigateTo(hash || 'inicio');
   }
 
-  // Listen for hashchange events
+  // Listen for hashchange and popstate events
   window.addEventListener('hashchange', handleHashChange);
+  window.addEventListener('popstate', handleHashChange);
 
   // Mobile Accordion and Click listener
   document.addEventListener('click', (e) => {
@@ -72,16 +74,20 @@ document.addEventListener('DOMContentLoaded', () => {
       // Toggle dropdown accordion on mobile
       const dropdownMenu = parentNavItem.querySelector('.dropdown-menu');
       if (dropdownMenu) {
-        e.preventDefault();
-        e.stopPropagation();
+        if (!parentNavItem.classList.contains('dropdown-open')) {
+          e.preventDefault();
+          e.stopPropagation();
 
-        // Close other dropdowns
-        document.querySelectorAll('.nav-item').forEach(item => {
-          if (item !== parentNavItem) item.classList.remove('dropdown-open');
-        });
+          // Close other dropdowns
+          document.querySelectorAll('.nav-item').forEach(item => {
+            if (item !== parentNavItem) item.classList.remove('dropdown-open');
+          });
 
-        parentNavItem.classList.toggle('dropdown-open');
-        return;
+          parentNavItem.classList.add('dropdown-open');
+          return;
+        } else {
+          parentNavItem.classList.remove('dropdown-open');
+        }
       }
     }
 
@@ -89,7 +95,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (targetLink) {
       const targetId = targetLink.getAttribute('data-target');
       if (targetId) {
-        window.location.hash = targetId;
+        if (window.location.hash !== '#' + targetId) {
+          window.location.hash = targetId;
+        }
+        navigateTo(targetId);
       }
     }
   });

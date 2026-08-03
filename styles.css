@@ -227,6 +227,7 @@ a {
   font-weight: 600;
   color: var(--text-main);
   border-radius: var(--radius-sm);
+  cursor: pointer;
   transition: var(--transition);
 }
 
