@@ -1501,12 +1501,18 @@ const WS44_WORD_COLORS = {
 const ws44TimerObj = { interval: null, seconds: 0, running: false };
 
 function initWordSearch44() {
+  createWordSearchEngine({
+    gridId: 'wordsearch44-grid',
+    counterId: 'ws44-counter',
+    timerId: 'ws44-timer',
+    wordListId: 'ws44-word-list',
+    matrix: WS44_MATRIX,
+    targetWords: WS44_TARGET_WORDS,
+    wordColors: WS44_WORD_COLORS,
+    timerObj: ws44TimerObj,
+    winAlertMessage: '🎉 ¡FABULOSO! Has completado la Sopa de Letras de Residuos Orgánicos e Inorgánicos y Perfil del Suelo (Cuarto Grado) en {mins}:{secs}. ¡Felicidades!'
+  });
 }
-
-// Auto init WS44 on load
-document.addEventListener('DOMContentLoaded', () => {
-  initWordSearch44();
-});
 
 /* ==========================================================================
    EVALUACIÓN INTERACTIVA TALLER QUINTO GRADO ÁREA 1: JARDÍN Y ESPECIES VEGETALES
