@@ -26,6 +26,16 @@
         </div>
       </a>
 
+      <div class="nav-actions">
+        <button class="action-btn" id="searchOpenBtn" aria-label="Buscar en el programa">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <span class="action-text">Buscar</span>
+        </button>
+        <button class="action-btn" id="themeToggleBtn" aria-label="Cambiar tema">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+      </div>
+
       <button class="mobile-toggle" id="mobileToggle" aria-label="Abrir menú">
         <i class="fa-solid fa-bars"></i>
       </button>
@@ -6853,6 +6863,14 @@
 
               </div>
 
+              <!-- Descarga de Documento PDF Plantas Ornamentales -->
+              <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border-color); display: flex; justify-content: flex-end;">
+                <a href="assets/pdf/Plantas_Ornamentales.pdf" target="_blank" class="btn" style="display: inline-flex; align-items: center; gap: 10px; background: var(--primary-dark); color: white; padding: 12px 24px; border-radius: var(--radius-pill); font-weight: 700; text-decoration: none; box-shadow: var(--shadow-sm); transition: var(--transition-fast);">
+                  <i class="fa-solid fa-file-pdf" style="font-size: 1.2rem; color: #ff5252;"></i>
+                  <span>Ver Documento (PDF) - Plantas Ornamentales</span>
+                </a>
+              </div>
+
             </div>
           </div>
 
@@ -9037,6 +9055,29 @@
   <button class="floating-index-btn" id="floatingIndexBtn" aria-label="Abrir Índice de Contenidos">
     <i class="fa-solid fa-list-ul"></i>
     <span>Índice</span>
+  </button>
+
+  <!-- Modal de Búsqueda Interactiva -->
+  <div class="search-modal" id="searchModal" aria-hidden="true">
+    <div class="search-modal-card">
+      <div class="search-header">
+        <div class="search-input-wrapper">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="searchInput" placeholder="Buscar por tema (ej. Lombriz, Edafología, Suelos, Botánica)..." autocomplete="off">
+        </div>
+        <button class="search-close-btn" id="searchCloseBtn" aria-label="Cerrar búsqueda">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="search-results-container" id="searchResults">
+        <div class="search-empty">Escribe al menos 2 caracteres para buscar en el programa de agricultura...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Botón Flotante Volver Arriba -->
+  <button class="back-to-top" id="backToTopBtn" aria-label="Volver arriba">
+    <i class="fa-solid fa-arrow-up"></i>
   </button>
 
   <script src="app.js"></script>

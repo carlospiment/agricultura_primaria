@@ -2328,5 +2328,143 @@ document.addEventListener('DOMContentLoaded', () => {
   initWordSearch62();
   initWordSearch63();
   initWordSearch64();
+  initThemeAndSearchControls();
 });
+
+/* ==========================================================================
+   CONTROLES INTERACTIVOS DE TEMA (MODO OSCURO), BUSCADOR Y VOLVER ARRIBA
+   ========================================================================== */
+function initThemeAndSearchControls() {
+  // Theme Toggle Functionality
+  const themeToggleBtn = document.getElementById('themeToggleBtn');
+  if (themeToggleBtn) {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    if (savedTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      const icon = themeToggleBtn.querySelector('i');
+      if (icon) icon.className = 'fa-solid fa-sun';
+    }
+
+    themeToggleBtn.addEventListener('click', () => {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      const icon = themeToggleBtn.querySelector('i');
+      if (icon) {
+        icon.className = newTheme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+      }
+    });
+  }
+
+  // Live Search Modal
+  const searchOpenBtn = document.getElementById('searchOpenBtn');
+  const searchModal = document.getElementById('searchModal');
+  const searchCloseBtn = document.getElementById('searchCloseBtn');
+  const searchInput = document.getElementById('searchInput');
+  const searchResultsContainer = document.getElementById('searchResults');
+
+  if (searchOpenBtn && searchModal && searchInput && searchResultsContainer) {
+    searchOpenBtn.addEventListener('click', () => {
+      searchModal.classList.add('active');
+      searchModal.setAttribute('aria-hidden', 'false');
+      setTimeout(() => searchInput.focus(), 150);
+    });
+
+    const closeSearch = () => {
+      searchModal.classList.remove('active');
+      searchModal.setAttribute('aria-hidden', 'true');
+      searchInput.value = '';
+      searchResultsContainer.innerHTML = '<div class="search-empty">Escribe al menos 2 caracteres para buscar en el programa de agricultura...</div>';
+    };
+
+    if (searchCloseBtn) searchCloseBtn.addEventListener('click', closeSearch);
+
+    searchModal.addEventListener('click', (e) => {
+      if (e.target === searchModal) closeSearch();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && searchModal.classList.contains('active')) {
+        closeSearch();
+      }
+    });
+
+    // Real-time Search Engine
+    searchInput.addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase().trim();
+      if (query.length < 2) {
+        searchResultsContainer.innerHTML = '<div class="search-empty">Escribe al menos 2 caracteres para buscar en el programa de agricultura...</div>';
+        return;
+      }
+
+      const sections = document.querySelectorAll('.view-section');
+      let matches = [];
+
+      sections.forEach(section => {
+        const secId = section.id;
+        if (secId === 'inicio') return;
+
+        const headings = section.querySelectorAll('h2, h3, h4');
+        headings.forEach(h => {
+          const text = h.textContent.trim();
+          if (text.toLowerCase().includes(query)) {
+            const parent = h.closest('.area-detail-card, .detail-section, .hero-card') || section;
+            const paragraph = parent.querySelector('p');
+            const snippet = paragraph ? paragraph.textContent.trim().substring(0, 110) + '...' : '';
+            matches.push({
+              title: text,
+              target: secId,
+              snippet: snippet
+            });
+          }
+        });
+      });
+
+      if (matches.length === 0) {
+        searchResultsContainer.innerHTML = `<div class="search-empty">No se encontraron resultados para "<strong>${query}</strong>". Prueba con palabras clave como <em>Lombriz, Edafología, Botánica, Suelos, Herramientas, Jardín</em>.</div>`;
+      } else {
+        searchResultsContainer.innerHTML = matches.slice(0, 10).map(m => `
+          <div class="search-result-item" data-target="${m.target}">
+            <i class="fa-solid fa-leaf search-icon"></i>
+            <div>
+              <strong class="search-title">${m.title}</strong>
+              <p class="search-snippet">${m.snippet}</p>
+            </div>
+          </div>
+        `).join('');
+
+        searchResultsContainer.querySelectorAll('.search-result-item').forEach(item => {
+          item.addEventListener('click', () => {
+            const targetId = item.getAttribute('data-target');
+            closeSearch();
+            window.location.hash = targetId;
+            const activeView = document.getElementById(targetId) || document.getElementById('inicio');
+            if (activeView) {
+              document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active'));
+              activeView.classList.add('active');
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+          });
+        });
+      }
+    });
+  }
+
+  // Back To Top Button
+  const backToTopBtn = document.getElementById('backToTopBtn');
+  if (backToTopBtn) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 350) {
+        backToTopBtn.classList.add('visible');
+      } else {
+        backToTopBtn.classList.remove('visible');
+      }
+    });
+
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+}
 
