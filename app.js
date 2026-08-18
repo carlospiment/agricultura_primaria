@@ -2332,31 +2332,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* ==========================================================================
-   CONTROLES INTERACTIVOS DE TEMA (MODO OSCURO), BUSCADOR Y VOLVER ARRIBA
+   CONTROLES INTERACTIVOS DE BUSCADOR Y VOLVER ARRIBA
    ========================================================================== */
 function initThemeAndSearchControls() {
-  // Theme Toggle Functionality
-  const themeToggleBtn = document.getElementById('themeToggleBtn');
-  if (themeToggleBtn) {
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    if (savedTheme === 'dark') {
-      document.documentElement.setAttribute('data-theme', 'dark');
-      const icon = themeToggleBtn.querySelector('i');
-      if (icon) icon.className = 'fa-solid fa-sun';
-    }
-
-    themeToggleBtn.addEventListener('click', () => {
-      const currentTheme = document.documentElement.getAttribute('data-theme');
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
-      const icon = themeToggleBtn.querySelector('i');
-      if (icon) {
-        icon.className = newTheme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
-      }
-    });
-  }
-
   // Live Search Modal
   const searchOpenBtn = document.getElementById('searchOpenBtn');
   const searchModal = document.getElementById('searchModal');
