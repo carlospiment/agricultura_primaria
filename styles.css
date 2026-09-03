@@ -420,10 +420,20 @@ main.main-content {
   gap: 24px;
 }
 
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
 .grid-4 {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 24px;
+}
+
+.grid-span-2 {
+  grid-column: span 2;
 }
 
 /* Feature & Area Cards */
@@ -1061,9 +1071,13 @@ div[id$="-word-list"] > div[data-word] span {
   }
 
   /* Grids en vertical: 1 columna completa */
-  .grid-2, .grid-4 {
+  .grid-2, .grid-3, .grid-4 {
     grid-template-columns: 1fr !important;
     gap: 14px !important;
+  }
+
+  .grid-2 > *, .grid-3 > *, .grid-4 > *, .grid-span-2 {
+    grid-column: span 1 !important;
   }
 
   /* Botones de Quiz en vertical: Ancho completo */
