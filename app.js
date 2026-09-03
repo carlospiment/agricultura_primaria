@@ -111,10 +111,14 @@ document.addEventListener('DOMContentLoaded', () => {
   if (mobileToggle) {
     mobileToggle.addEventListener('click', (e) => {
       e.stopPropagation();
-      if (navMenu.classList.contains('mobile-open')) {
-        closeMobileMenu();
+      if (mobileToggle.classList.contains('is-arrow')) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
-        openMobileMenu();
+        if (navMenu && navMenu.classList.contains('mobile-open')) {
+          closeMobileMenu();
+        } else {
+          openMobileMenu();
+        }
       }
     });
   }
@@ -2429,31 +2433,42 @@ function initThemeAndSearchControls() {
     });
   }
 
-  // Back To Top & Mobile Toggle Visibility Controller
+  // Single Unified Mobile Toggle & Scroll Controller (Option 3)
   const backToTopBtn = document.getElementById('backToTopBtn');
   const mobileToggleBtn = document.getElementById('mobileToggle');
 
   function updateMobileControlsOnScroll() {
     const isScrolledDown = window.scrollY > 300;
+    const isMobile = window.innerWidth <= 900;
+
+    if (mobileToggleBtn) {
+      const icon = mobileToggleBtn.querySelector('i');
+      if (isScrolledDown) {
+        mobileToggleBtn.classList.add('is-arrow');
+        mobileToggleBtn.setAttribute('aria-label', 'Volver arriba');
+        if (icon && !icon.classList.contains('fa-arrow-up')) {
+          icon.className = 'fa-solid fa-arrow-up';
+        }
+      } else {
+        mobileToggleBtn.classList.remove('is-arrow');
+        mobileToggleBtn.setAttribute('aria-label', 'Abrir menú');
+        if (icon && !icon.classList.contains('fa-bars')) {
+          icon.className = 'fa-solid fa-bars';
+        }
+      }
+    }
 
     if (backToTopBtn) {
-      if (isScrolledDown) {
+      if (!isMobile && isScrolledDown) {
         backToTopBtn.classList.add('visible');
       } else {
         backToTopBtn.classList.remove('visible');
       }
     }
-
-    if (mobileToggleBtn) {
-      if (isScrolledDown) {
-        mobileToggleBtn.classList.add('scrolled-hidden');
-      } else {
-        mobileToggleBtn.classList.remove('scrolled-hidden');
-      }
-    }
   }
 
   window.addEventListener('scroll', updateMobileControlsOnScroll);
+  window.addEventListener('resize', updateMobileControlsOnScroll);
   updateMobileControlsOnScroll();
 
   if (backToTopBtn) {
