@@ -1,0 +1,33 @@
+/* BASE CSS (Variables, Fonts, Keyframes) */
+:root {
+  /* Color Palette - Vibrant Educational Farming Theme */
+  --primary: #1b4332;
+  --primary-light: #2d6a4f;
+  --primary-dark: #081c15;
+  --accent: #52b788;
+  --accent-light: #74c69d;
+  --accent-glow: rgba(82, 183, 136, 0.3);
+  --gold: #e9c46a;
+  --warm-bg: #f8faf7;
+  --card-bg: #ffffff;
+  --text-main: #1d2d24;
+  --text-muted: #526359;
+  --border-color: #e2ebd9;
+
+  /* UI Tokens */
+  --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-heading: 'Outfit', sans-serif;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+  --radius-pill: 50px;
+  --shadow-sm: 0 4px 12px rgba(27, 67, 50, 0.05);
+  --shadow-md: 0 8px 24px rgba(27, 67, 50, 0.08);
+  --shadow-lg: 0 16px 40px rgba(27, 67, 50, 0.12);
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }

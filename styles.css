@@ -4,34 +4,8 @@
    Año: 2026
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700&display=swap');
 
-:root {
-  /* Color Palette - Vibrant Educational Farming Theme */
-  --primary: #1b4332;
-  --primary-light: #2d6a4f;
-  --primary-dark: #081c15;
-  --accent: #52b788;
-  --accent-light: #74c69d;
-  --accent-glow: rgba(82, 183, 136, 0.3);
-  --gold: #e9c46a;
-  --warm-bg: #f8faf7;
-  --card-bg: #ffffff;
-  --text-main: #1d2d24;
-  --text-muted: #526359;
-  --border-color: #e2ebd9;
-
-  /* UI Tokens */
-  --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-heading: 'Outfit', sans-serif;
-  --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-lg: 24px;
-  --radius-pill: 50px;
-  --shadow-sm: 0 4px 12px rgba(27, 67, 50, 0.05);
-  --shadow-md: 0 8px 24px rgba(27, 67, 50, 0.08);
-  --shadow-lg: 0 16px 40px rgba(27, 67, 50, 0.12);
-  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+/* :root moved to base.css */
 }
 
 [data-theme="dark"] {
@@ -297,16 +271,7 @@ main.main-content {
   display: block;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+/* keyframes moved to base.css */
 
 /* Hero Section (Inicio) */
 .hero-card {
@@ -798,17 +763,6 @@ footer.main-footer {
 
   .mobile-toggle i {
     transition: transform 0.3s ease, color 0.3s ease;
-  }
-
-  .mobile-toggle.is-arrow {
-    background: var(--primary-light);
-    color: #ffffff;
-    border-color: var(--primary);
-    box-shadow: 0 4px 12px rgba(45, 106, 79, 0.3);
-  }
-
-  .mobile-toggle.is-arrow i {
-    transform: translateY(-1px);
   }
 
   .mobile-toggle:hover {
@@ -1360,6 +1314,16 @@ div[id$="-word-list"] > div[data-word] span {
   box-shadow: var(--shadow-lg);
 }
 
+@media screen and (max-width: 900px) {
+  .back-to-top {
+    bottom: 86px;
+    right: 20px;
+    width: 44px;
+    height: 44px;
+    font-size: 1.1rem;
+  }
+}
+
 @media screen and (max-width: 600px) {
   .action-text {
     display: none;
@@ -1373,3 +1337,92 @@ div[id$="-word-list"] > div[data-word] span {
   }
 }
 
+/* ==========================================================================
+   PRINT STYLES (@media print)
+   ========================================================================== */
+@media print {
+  .navbar-header,
+  .main-footer,
+  .mobile-overlay,
+  .mobile-toggle,
+  .floating-index-btn,
+  .back-to-top,
+  .search-modal,
+  .hero-section {
+    display: none !important;
+  }
+
+  body, .app-container, .view-section, .area-detail-card, .detail-section, .card {
+    background: white !important;
+    color: black !important;
+    box-shadow: none !important;
+  }
+
+  .view-section {
+    display: none !important;
+  }
+  .view-section.active {
+    display: block !important;
+  }
+
+  input[type="text"], textarea {
+    border: none !important;
+    border-bottom: 1px solid black !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    resize: none !important;
+  }
+}
+
+/* ==========================================================================
+   SEMANTIC CARDS (Refactored from inline styles)
+   ========================================================================== */
+.semantic-card-standard {
+    background: var(--card-bg);
+    border-radius: var(--radius-md);
+    padding: 28px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+}
+.semantic-card-accent {
+    background: var(--card-bg);
+    border: 2px solid var(--accent);
+    border-radius: var(--radius-md);
+    padding: 32px;
+    box-shadow: var(--shadow-md);
+}
+.semantic-card-primary-light {
+    background: var(--card-bg);
+    border: 2px solid var(--primary-light);
+    border-radius: var(--radius-md);
+    padding: 32px;
+    box-shadow: var(--shadow-md);
+}
+.semantic-card-primary-dark {
+    background: var(--card-bg);
+    border: 2px solid var(--primary-dark);
+    border-radius: var(--radius-md);
+    padding: 32px;
+    box-shadow: var(--shadow-md);
+}
+.semantic-card-gradient {
+    background: linear-gradient(135deg, var(--card-bg) 0%, var(--warm-bg) 100%);
+    border: 2px solid var(--accent-light);
+    border-radius: var(--radius-md);
+    padding: 32px;
+    box-shadow: var(--shadow-md);
+}
+.semantic-card-warm {
+    background: var(--warm-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 28px;
+}
+.semantic-card-primary-top {
+    margin-top: 36px;
+    background: var(--card-bg);
+    border: 2px solid var(--primary-light);
+    border-radius: var(--radius-md);
+    padding: 28px;
+    box-shadow: var(--shadow-md);
+}
