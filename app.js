@@ -728,3 +728,72 @@ function initThemeAndSearchControls() {
   }
 }
 
+
+
+// ==========================================================================
+// CONTROLADOR DEL MÓDULO INTERACTIVO DE MÉTODOS AGRÍCOLAS (QUINTO GRADO - ÁREA 3)
+// ==========================================================================
+window.toggleModuloMetodosQuinto = function() {
+  const visor = document.getElementById('visorModuloMetodos');
+  const chevron = document.getElementById('chevronBtnMetodos');
+  const texto = document.getElementById('textoBtnMetodos');
+  if (!visor) return;
+
+  if (visor.style.display === 'none' || visor.style.display === '') {
+    visor.style.display = 'block';
+    if (texto) texto.textContent = 'Ocultar Guía y Bitácora';
+    if (chevron) chevron.style.transform = 'rotate(180deg)';
+    setTimeout(() => {
+      visor.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 100);
+  } else {
+    visor.style.display = 'none';
+    if (texto) texto.textContent = 'Ver Métodos y Bitácora';
+    if (chevron) chevron.style.transform = 'rotate(0deg)';
+  }
+};
+
+window.recargarIframeMetodos = function() {
+  const iframe = document.getElementById('iframeMetodosQuinto');
+  if (iframe) {
+    iframe.src = iframe.src;
+  }
+};
+
+window.toggleFullscreenMetodos = function() {
+  const visor = document.getElementById('visorModuloMetodos');
+  const icono = document.getElementById('iconoFullscreenMetodos');
+  if (!document.fullscreenElement) {
+    if (visor.requestFullscreen) {
+      visor.requestFullscreen();
+    } else if (visor.webkitRequestFullscreen) {
+      visor.webkitRequestFullscreen();
+    } else if (visor.msRequestFullscreen) {
+      visor.msRequestFullscreen();
+    }
+    if (icono) {
+      icono.classList.remove('fa-expand');
+      icono.classList.add('fa-compress');
+    }
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) {
+      document.msExitFullscreen();
+    }
+    if (icono) {
+      icono.classList.remove('fa-compress');
+      icono.classList.add('fa-expand');
+    }
+  }
+};
+
+document.addEventListener('fullscreenchange', () => {
+  const icono = document.getElementById('iconoFullscreenMetodos');
+  if (!document.fullscreenElement && icono) {
+    icono.classList.remove('fa-compress');
+    icono.classList.add('fa-expand');
+  }
+});

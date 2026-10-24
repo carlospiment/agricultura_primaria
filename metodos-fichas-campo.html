@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fichas de Campo y Registro Escolar | Quinto Grado MEDUCA</title>
+  <!-- Google Fonts & FontAwesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+
+    :root {
+      --primary: #2d6a4f;
+      --primary-light: #40916c;
+      --primary-dark: #1b4332;
+      --accent: #d8f3dc;
+      --accent-warm: #e9c46a;
+      --surface: #ffffff;
+      --background: #f8faf9;
+      --text-main: #1f2937;
+      --text-muted: #4b5563;
+      --border: #e5e7eb;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--background);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    /* Encabezado */
+    .header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      padding: 2rem 1.5rem;
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary-light));
+      color: #ffffff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .header h1 {
+      font-size: 2rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .header p {
+      font-size: 1.05rem;
+      max-width: 720px;
+      margin: 0 auto;
+      opacity: 0.95;
+    }
+
+    .navigation {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin: -1rem 0 2rem;
+    }
+
+    .navigation a {
+      display: inline-block;
+      padding: 0.7rem 1.2rem;
+      background-color: var(--primary);
+      color: #ffffff;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: var(--shadow);
+      transition: background-color 0.2s ease;
+    }
+
+    .navigation a:hover,
+    .navigation a:focus-visible {
+      background-color: var(--primary-dark);
+    }
+
+    /* Bloque Idea Principal */
+    .highlight-card {
+      background-color: var(--accent);
+      border-left: 5px solid var(--primary);
+      padding: 1.25rem 1.5rem;
+      border-radius: 8px;
+      margin-bottom: 2.5rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .highlight-card .icon {
+      font-size: 1.8rem;
+      line-height: 1;
+    }
+
+    .highlight-card h3 {
+      color: var(--primary-dark);
+      margin-bottom: 0.25rem;
+      font-size: 1.1rem;
+    }
+
+    .highlight-card p {
+      color: var(--text-main);
+      font-weight: 500;
+    }
+
+    /* Grilla de Etapas */
+    .section-title {
+      font-size: 1.4rem;
+      color: var(--primary-dark);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .card {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .card-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background-color: var(--accent);
+      color: var(--primary-dark);
+      font-weight: bold;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+    }
+
+    .card h3 {
+      font-size: 1.15rem;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      padding-right: 2rem;
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .video-link {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.4rem;
+      margin-bottom: 0.75rem;
+      color: var(--primary-dark);
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .video-link:hover,
+    .video-link:focus-visible {
+      text-decoration: underline;
+    }
+
+    .video-thumbnail {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border-radius: 8px;
+      background-color: #0d1f17;
+      color: #ffffff;
+      text-align: center;
+    }
+
+    .video-preview-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), filter 0.4s ease;
+      z-index: 1;
+      display: block;
+    }
+
+    .video-overlay-gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.25) 50%, rgba(0, 0, 0, 0.6) 100%);
+      z-index: 2;
+      transition: background 0.3s ease;
+    }
+
+    .video-link:hover .video-preview-img,
+    .bitacora-video-link:hover .video-preview-img {
+      transform: scale(1.06);
+      filter: brightness(1.08);
+    }
+
+    .video-link:hover .video-overlay-gradient,
+    .bitacora-video-link:hover .video-overlay-gradient {
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.15) 50%, rgba(0, 0, 0, 0.45) 100%);
+    }
+
+    .video-thumbnail-title {
+      position: absolute;
+      top: 0.75rem;
+      left: 0.85rem;
+      right: 0.85rem;
+      color: #ffffff;
+      font-size: clamp(0.9rem, 2.5vw, 1.15rem);
+      font-weight: 700;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
+      z-index: 3;
+      text-align: left;
+    }
+
+    .video-play-icon {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 3.4rem;
+      height: 3.4rem;
+      padding-left: 0.25rem;
+      border-radius: 50%;
+      background-color: #ff0000;
+      color: #ffffff;
+      font-size: 1.35rem;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .video-link:hover .video-play-icon,
+    .bitacora-video-link:hover .video-play-icon {
+      transform: scale(1.15);
+      background-color: #cc0000;
+      box-shadow: 0 6px 20px rgba(255, 0, 0, 0.55);
+    }
+
+    .video-badge-yt {
+      position: absolute;
+      bottom: 0.65rem;
+      right: 0.75rem;
+      z-index: 3;
+      background: rgba(0, 0, 0, 0.78);
+      color: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    }
+    .video-badge-yt i {
+      color: #ff0000;
+    }
+
+    .video-action,
+    .bitacora-video-caption {
+      display: block;
+      min-height: 44px;
+      padding: 0.65rem 0.9rem;
+      border-radius: 6px;
+      background-color: var(--primary);
+      color: #ffffff;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .video-action {
+      transition: background-color 0.2s ease;
+    }
+
+    .video-link:hover .video-action,
+    .video-link:focus-visible .video-action,
+    .bitacora-video-link:hover .bitacora-video-caption,
+    .bitacora-video-link:focus-visible .bitacora-video-caption {
+      background-color: var(--primary-dark);
+    }
+
+    .bitacora-video-caption {
+      border-radius: 0;
+    }
+
+    .card ul {
+      list-style-type: none;
+      padding-top: 0.5rem;
+      border-top: 1px dashed var(--border);
+      margin-top: auto;
+    }
+
+    .card ul li {
+      font-size: 0.9rem;
+      color: var(--text-main);
+      padding: 0.25rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .card ul li::before {
+      content: "✔";
+      color: var(--primary-light);
+      font-size: 0.75rem;
+    }
+
+    /* Sección Bitácora */
+    .bitacora-section {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      box-shadow: var(--shadow);
+    }
+
+    .bitacora-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .bitacora-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .tag {
+      display: inline-block;
+      background-color: #f3f4f6;
+      border: 1px solid var(--border);
+      padding: 0.35rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .tag-link {
+      text-decoration: none;
+    }
+
+    .tag-link:hover,
+    .tag-link:focus-visible {
+      background-color: var(--accent);
+      border-color: var(--primary-light);
+      color: var(--primary-dark);
+    }
+
+    .bitacora-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .bitacora-content h3 {
+      color: var(--primary-dark);
+      font-size: 1.05rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .bitacora-content ul,
+    .bitacora-content ol {
+      padding-left: 1.4rem;
+      color: var(--text-muted);
+    }
+
+    .bitacora-content li {
+      padding: 0.3rem 0;
+    }
+
+    .bitacora-content li::marker {
+      color: var(--primary-light);
+      font-weight: 700;
+    }
+
+    .bitacora-content strong {
+      color: var(--primary-dark);
+    }
+
+    .bitacora-video-caption {
+      border-radius: 0;
+    }
+
+    .bitacora-video-link {
+      display: block;
+      width: 100%;
+      overflow: hidden;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      color: #ffffff;
+      text-decoration: none;
+    }
+
+    .bitacora-video-link img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+    }
+
+    .bitacora-video-link:focus-visible {
+      outline: 3px solid var(--primary-light);
+      outline-offset: 3px;
+    }
+
+    .extra-section {
+      margin-top: 2.5rem;
+      scroll-margin-top: 1rem;
+    }
+
+    .extra-card {
+      margin-bottom: 1.25rem;
+      padding: 1.5rem;
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .extra-card h3 {
+      color: var(--primary-dark);
+      font-size: 1.1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .glossary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .glossary-entry {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--primary-light);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      box-shadow: var(--shadow);
+    }
+
+    .glossary-entry h3 {
+      color: var(--primary-dark);
+      font-size: 1rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .glossary-entry p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .diagram-card {
+      overflow-x: auto;
+      padding: 1rem;
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .diagram-card svg {
+      display: block;
+      width: 100%;
+      min-width: 900px;
+      height: auto;
+    }
+
+    .flow-connector {
+      fill: none;
+      stroke: var(--primary-light);
+      stroke-width: 3;
+    }
+
+    .flow-node {
+      fill: var(--accent);
+      stroke: var(--primary);
+      stroke-width: 2;
+    }
+
+    .flow-node-main {
+      fill: var(--primary-dark);
+      stroke: var(--primary-dark);
+    }
+
+    .flow-node-final {
+      fill: #e9c46a;
+      stroke: #9c6615;
+    }
+
+    .flow-label {
+      fill: var(--primary-dark);
+      font-size: 16px;
+      font-weight: 600;
+      text-anchor: middle;
+      dominant-baseline: middle;
+    }
+
+    .flow-label-main {
+      fill: #ffffff;
+      font-size: 19px;
+      font-weight: 700;
+    }
+
+    .mindmap-svg {
+      display: block;
+      width: 100%;
+      min-width: 850px;
+      height: auto;
+    }
+
+    .mind-branch {
+      fill: none;
+      stroke-width: 4;
+      stroke-linecap: round;
+    }
+
+    .branch-seed { stroke: #40916c; }
+    .branch-terrain { stroke: #e9a23b; }
+    .branch-crop { stroke: #6284c7; }
+    .branch-time { stroke: #be6b9b; }
+    .branch-followup { stroke: #829447; }
+
+    .mind-root {
+      fill: var(--primary-dark);
+      stroke: var(--primary-dark);
+      stroke-width: 2;
+    }
+
+    .mind-category { stroke-width: 2; }
+    .category-seed { fill: #d8f3dc; stroke: #40916c; }
+    .category-terrain { fill: #fff0d6; stroke: #e9a23b; }
+    .category-crop { fill: #e5ecfb; stroke: #6284c7; }
+    .category-time { fill: #f8e5ef; stroke: #be6b9b; }
+    .category-followup { fill: #edf0dc; stroke: #829447; }
+
+    .mind-leaf {
+      fill: #ffffff;
+      stroke-width: 2;
+    }
+
+    .mind-label {
+      fill: var(--primary-dark);
+      font-size: 16px;
+      font-weight: 600;
+      text-anchor: middle;
+      dominant-baseline: middle;
+    }
+
+    .mind-root-label {
+      fill: #ffffff;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .form-fields {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    .form-fields label,
+    .record-fields label {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      color: var(--primary-dark);
+      font-weight: 600;
+    }
+
+    .extra-card input,
+    .extra-card select,
+    .extra-card textarea {
+      width: 100%;
+      padding: 0.6rem;
+      border: 1px solid #cbd5d1;
+      border-radius: 6px;
+      font: inherit;
+      color: var(--text-main);
+    }
+
+    .extra-card textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .table-wrapper { overflow-x: auto; }
+
+    .record-table {
+      width: 100%;
+      min-width: 700px;
+      border-collapse: collapse;
+    }
+
+    .record-table th,
+    .record-table td {
+      padding: 0.65rem;
+      border: 1px solid var(--border);
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    .record-table th {
+      background-color: var(--accent);
+      color: var(--primary-dark);
+    }
+
+    .record-table input { min-width: 100px; }
+
+    .record-fields {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    .record-fields textarea { min-height: 90px; }
+
+    .checkbox-cell { text-align: center !important; }
+    .checkbox-cell input { width: 1.1rem; height: 1.1rem; accent-color: var(--primary); }
+
+    .analysis-question { margin-top: 1rem; }
+    .analysis-question:first-of-type { margin-top: 0; }
+    .analysis-question h3 { margin-bottom: 0.5rem; font-size: 1rem; }
+
+    .back-to-top {
+      display: inline-block;
+      margin-top: 1rem;
+      color: var(--primary-dark);
+      font-weight: 600;
+    }
+
+    .extra-section section[id] { scroll-margin-top: 1rem; }
+
+    .questions-box {
+      background: #fdfaf3;
+      border: 1px solid var(--accent-warm);
+      padding: 1rem;
+      border-radius: 8px;
+      margin-top: 1rem;
+    }
+
+    .questions-box strong {
+      color: #9c6615;
+    }
+
+
+    /* Mejoras de Tipografía e Interfaz */
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    }
+    h1, h2, h3, h4 {
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .sub-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      padding: 6px 16px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+
+    /* Barra de herramientas para el estudiante */
+    .student-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      background: #ffffff;
+      border: 1.5px solid var(--border);
+      padding: 12px 18px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 2rem;
+    }
+
+    .btn-tool {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-save {
+      background: var(--primary);
+      color: #ffffff;
+    }
+    .btn-save:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    .btn-print {
+      background: #0284c7;
+      color: #ffffff;
+    }
+    .btn-print:hover {
+      background: #0369a1;
+      transform: translateY(-2px);
+    }
+
+    .btn-reset {
+      background: #f1f5f9;
+      color: #64748b;
+      border: 1px solid #cbd5e1;
+    }
+    .btn-reset:hover {
+      background: #fee2e2;
+      color: #dc2626;
+      border-color: #fca5a5;
+    }
+
+    .save-status {
+      font-size: 0.85rem;
+      color: #16a34a;
+      font-weight: 700;
+      display: none;
+      align-items: center;
+      gap: 6px;
+    }
+    .save-status.visible {
+      display: inline-flex;
+    }
+
+    /* Indicador de desplazamiento para diagramas */
+    .scroll-hint {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      background: rgba(45, 106, 79, 0.08);
+      padding: 6px 12px;
+      border-radius: 6px;
+    }
+
+    /* Tarjetas Interactivas con Hover Suave */
+    .card {
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      border-color: var(--primary-light);
+    }
+
+    /* Estilos de Impresión */
+    @media print {
+      body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        padding: 0 !important;
+      }
+      .navigation, .student-toolbar, .back-to-top, .video-link, .bitacora-video-link, .scroll-hint {
+        display: none !important;
+      }
+      .card, .bitacora-section, .extra-card, .glossary-entry, .diagram-card {
+        box-shadow: none !important;
+        border: 1px solid #ccc !important;
+        break-inside: avoid;
+      }
+      .header {
+        background: none !important;
+        color: #000 !important;
+        border-bottom: 2px solid #2d6a4f !important;
+        border-radius: 0 !important;
+        padding: 10px 0 !important;
+      }
+    }
+  
+    /* Navegación por Subpáginas */
+    .navigation {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      margin: -1rem 0 2rem;
+    }
+
+    .navigation a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0.65rem 1.15rem;
+      background-color: #235d43;
+      color: #ffffff;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.92rem;
+      text-decoration: none;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+      transition: all 0.2s ease;
+      border: 2px solid transparent;
+    }
+
+    .navigation a:hover,
+    .navigation a:focus-visible {
+      background-color: #1b4332;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .navigation a.active {
+      background-color: #10b981;
+      color: #ffffff;
+      border-color: #ffffff;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+      font-weight: 700;
+    }
+
+    /* Footer de Navegación entre Subpáginas */
+    .subpage-nav-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 2px dashed var(--border);
+      flex-wrap: wrap;
+    }
+    .btn-subpage-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: var(--primary);
+      color: #ffffff;
+      border-radius: 8px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .btn-subpage-nav:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+    .btn-subpage-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 16px;
+      background: #f1f5f9;
+      color: #475569;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      border: 1px solid #cbd5e1;
+    }
+    .btn-subpage-home:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header class="header" id="inicio">
+      <div class="sub-badge">
+        <i class="fa-solid fa-graduation-cap"></i> MEDUCA 2026 • Quinto Grado • Área 3: Producción de Alimentos
+      </div>
+      <h1>🌱 Métodos Modernos de Producción Agrícola</h1>
+      <p>Procesos organizados para planificar, establecer y optimizar el desarrollo y rendimiento de los cultivos antes de sembrar.</p>
+    </header>
+
+    <nav class="navigation" aria-label="Navegación de Subpáginas">
+      <a href="metodos-etapas.html" class=""><i class="fa-solid fa-seedling"></i> 7 Etapas Clave</a>
+      <a href="metodos-semillero.html" class=""><i class="fa-solid fa-clipboard-list"></i> Semillero y Bitácora</a>
+      <a href="metodos-mapa-conceptual.html" class=""><i class="fa-solid fa-diagram-project"></i> Mapa Conceptual</a>
+      <a href="metodos-mapa-mental.html" class=""><i class="fa-solid fa-brain"></i> Mapa Mental</a>
+      <a href="metodos-glosario.html" class=""><i class="fa-solid fa-book"></i> Glosario</a>
+      <a href="metodos-fichas-campo.html" class=" active"><i class="fa-solid fa-pen-to-square"></i> Fichas de Campo</a>
+    </nav>
+
+        <!-- Barra de Herramientas Estudiantil -->
+    <div class="student-toolbar">
+      <button type="button" onclick="guardarDatosEstudiante()" class="btn-tool btn-save">
+        <i class="fa-solid fa-floppy-disk"></i> Guardar Bitácora
+      </button>
+      <button type="button" onclick="window.print()" class="btn-tool btn-print">
+        <i class="fa-solid fa-print"></i> Imprimir Fichas / PDF
+      </button>
+      <button type="button" onclick="limpiarDatosEstudiante()" class="btn-tool btn-reset">
+        <i class="fa-solid fa-rotate-left"></i> Limpiar Campos
+      </button>
+      <span id="saveStatus" class="save-status">
+        <i class="fa-solid fa-circle-check"></i> Registros guardados en este equipo
+      </span>
+    </div>
+<section class="extra-section" id="actividades-bitacora" aria-labelledby="actividades-title">
+      <h2 class="section-title" id="actividades-title">Actividades de bitácora agrícola</h2>
+      <section class="extra-card" aria-labelledby="actividad-1">
+        <h3 id="actividad-1">Actividad 1 — Observación de semillas</h3>
+        <p>Completar la información de la semilla observada:</p>
+        <div class="table-wrapper">
+          <table class="record-table">
+            <thead>
+              <tr>
+                <th scope="col">Semilla</th>
+                <th scope="col">Especie</th>
+                <th scope="col">Estado visual</th>
+                <th scope="col">Seleccionada</th>
+                <th scope="col">Motivo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type="text" aria-label="Semilla"></td>
+                <td><input type="text" aria-label="Especie"></td>
+                <td><input type="text" aria-label="Estado visual"></td>
+                <td class="checkbox-cell"><input type="checkbox" aria-label="Semilla seleccionada"></td>
+                <td><input type="text" aria-label="Motivo"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <section class="extra-card" aria-labelledby="actividad-2">
+        <h3 id="actividad-2">Actividad 2 — Preparación del semillero</h3>
+        <p>Según la especie seleccionada:</p>
+        <ol>
+          <li>Preparar recipientes.</li>
+          <li>Colocar sustrato apropiado.</li>
+          <li>Sembrar.</li>
+          <li>Identificar.</li>
+          <li>Registrar fecha.</li>
+          <li>Regar apropiadamente.</li>
+          <li>Ubicar según las necesidades de la especie.</li>
+        </ol>
+      </section>
+      <section class="extra-card" aria-labelledby="actividad-3">
+        <h3 id="actividad-3">Actividad 3 — Iniciar bitácora</h3>
+        <p>Registrar:</p>
+        <div class="record-fields">
+          <label>Fecha<input type="date"></label>
+          <label>Especie<input type="text"></label>
+          <label>Cantidad de semillas<input type="number" min="0"></label>
+          <label>Lugar<input type="text"></label>
+          <label>Observaciones iniciales<textarea></textarea></label>
+        </div>
+      </section>
+      
+    </section>
+
+    <section class="extra-section" id="registro-cultivo" aria-labelledby="cultivo-title">
+      <h2 class="section-title" id="cultivo-title">Registro del cultivo</h2>
+      <section class="extra-card" aria-labelledby="datos-cultivo">
+        <h3 id="datos-cultivo">Datos del cultivo</h3>
+        <div class="form-fields">
+          <label>Nombre del cultivo<input type="text"></label>
+          <label>Especie o variedad<input type="text"></label>
+          <label>Fecha de siembra<input type="date"></label>
+          <label>Lugar de cultivo<input type="text"></label>
+          <label>Número de semillas sembradas<input type="number" min="0"></label>
+          <label>Origen de las semillas<input type="text"></label>
+        </div>
+      </section>
+      <section class="extra-card" aria-labelledby="condiciones-cultivo">
+        <h3 id="condiciones-cultivo">Condiciones y necesidades</h3>
+        <div class="form-fields">
+          <label>Tipo de suelo<input type="text"></label>
+          <label>Necesidad de luz<input type="text"></label>
+          <label>Necesidad de agua<input type="text"></label>
+          <label>Época de siembra<input type="text"></label>
+          <label>Espacio disponible<input type="text"></label>
+          <label>Observaciones<textarea></textarea></label>
+        </div>
+      </section>
+      
+    </section>
+
+    <section class="extra-section" id="registro-germinacion" aria-labelledby="germinacion-title">
+      <h2 class="section-title" id="germinacion-title">Registro de germinación</h2>
+      <section class="extra-card" aria-labelledby="datos-semillas">
+        <h3 id="datos-semillas">Datos de las semillas</h3>
+        <div class="form-fields">
+          <label>Especie o cultivo<input type="text"></label>
+          <label>Fecha de siembra<input type="date"></label>
+          <label>Número de semillas sembradas<input type="number" min="0"></label>
+          <label>Tipo de semillero o recipiente<input type="text"></label>
+        </div>
+      </section>
+      <section class="extra-card" aria-labelledby="seguimiento-germinacion">
+        <h3 id="seguimiento-germinacion">Seguimiento de germinación</h3>
+        <div class="table-wrapper">
+          <table class="record-table">
+            <thead>
+              <tr>
+                <th scope="col">Fecha</th>
+                <th scope="col">Días desde siembra</th>
+                <th scope="col">Semillas germinadas</th>
+                <th scope="col">Porcentaje germinado</th>
+                <th scope="col">Observaciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type="date" aria-label="Fecha de observación de germinación"></td>
+                <td><input type="number" min="0" aria-label="Días desde siembra"></td>
+                <td><input type="number" min="0" aria-label="Semillas germinadas"></td>
+                <td><input type="text" aria-label="Porcentaje germinado"></td>
+                <td><input type="text" aria-label="Observaciones de germinación"></td>
+              </tr>
+              <tr>
+                <td><input type="date" aria-label="Fecha de observación de germinación"></td>
+                <td><input type="number" min="0" aria-label="Días desde siembra"></td>
+                <td><input type="number" min="0" aria-label="Semillas germinadas"></td>
+                <td><input type="text" aria-label="Porcentaje germinado"></td>
+                <td><input type="text" aria-label="Observaciones de germinación"></td>
+              </tr>
+              <tr>
+                <td><input type="date" aria-label="Fecha de observación de germinación"></td>
+                <td><input type="number" min="0" aria-label="Días desde siembra"></td>
+                <td><input type="number" min="0" aria-label="Semillas germinadas"></td>
+                <td><input type="text" aria-label="Porcentaje germinado"></td>
+                <td><input type="text" aria-label="Observaciones de germinación"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <section class="extra-card" aria-labelledby="analisis-germinacion">
+        <h3 id="analisis-germinacion">Observaciones</h3>
+        <div class="form-fields">
+          <label>¿Cuándo apareció la primera germinación?<input type="text"></label>
+          <label>¿Germinaron todas las semillas?<input type="text"></label>
+          <label>Cambios observados<textarea></textarea></label>
+          <label>Factores que pudieron influir<textarea></textarea></label>
+        </div>
+      </section>
+      
+    </section>
+
+    <section class="extra-section" id="registro-crecimiento" aria-labelledby="crecimiento-title">
+      <h2 class="section-title" id="crecimiento-title">Registro de crecimiento</h2>
+      <section class="extra-card" aria-labelledby="datos-planta">
+        <h3 id="datos-planta">Datos de la planta</h3>
+        <div class="form-fields">
+          <label>Cultivo o especie<input type="text"></label>
+          <label>Fecha de siembra<input type="date"></label>
+          <label>Lugar de observación<input type="text"></label>
+        </div>
+      </section>
+      <section class="extra-card" aria-labelledby="seguimiento-crecimiento">
+        <h3 id="seguimiento-crecimiento">Seguimiento del crecimiento</h3>
+        <div class="table-wrapper">
+          <table class="record-table">
+            <thead>
+              <tr>
+                <th scope="col">Fecha</th>
+                <th scope="col">Días desde siembra</th>
+                <th scope="col">Altura aproximada</th>
+                <th scope="col">Número de hojas</th>
+                <th scope="col">Cambios observados</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type="date" aria-label="Fecha de observación del crecimiento"></td>
+                <td><input type="number" min="0" aria-label="Días desde siembra"></td>
+                <td><input type="text" aria-label="Altura aproximada"></td>
+                <td><input type="number" min="0" aria-label="Número de hojas"></td>
+                <td><input type="text" aria-label="Cambios observados"></td>
+              </tr>
+              <tr>
+                <td><input type="date" aria-label="Fecha de observación del crecimiento"></td>
+                <td><input type="number" min="0" aria-label="Días desde siembra"></td>
+                <td><input type="text" aria-label="Altura aproximada"></td>
+                <td><input type="number" min="0" aria-label="Número de hojas"></td>
+                <td><input type="text" aria-label="Cambios observados"></td>
+              </tr>
+              <tr>
+                <td><input type="date" aria-label="Fecha de observación del crecimiento"></td>
+                <td><input type="number" min="0" aria-label="Días desde siembra"></td>
+                <td><input type="text" aria-label="Altura aproximada"></td>
+                <td><input type="number" min="0" aria-label="Número de hojas"></td>
+                <td><input type="text" aria-label="Cambios observados"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <section class="extra-card" aria-labelledby="notas-crecimiento">
+        <h3 id="notas-crecimiento">Observaciones generales</h3>
+        <label>Describe los cambios en la planta<textarea></textarea></label>
+      </section>
+      
+    </section>
+
+    <section class="extra-section" id="registro-cuidados" aria-labelledby="cuidados-title">
+      <h2 class="section-title" id="cuidados-title">Registro de cuidados y riego</h2>
+      <section class="extra-card" aria-labelledby="rutina-cuidados">
+        <h3 id="rutina-cuidados">Cuidados realizados</h3>
+        <div class="form-fields">
+          <label>Cultivo o especie<input type="text"></label>
+          <label>Fecha del cuidado<input type="date"></label>
+          <label>Tipo de cuidado
+            <select>
+              <option value="">Seleccionar</option>
+              <option>Riego</option>
+              <option>Control de malezas</option>
+              <option>Revisión de plagas</option>
+              <option>Abono o fertilización</option>
+              <option>Otro</option>
+            </select>
+          </label>
+          <label>Cantidad de agua o detalle<input type="text"></label>
+          <label>Estado del suelo<input type="text"></label>
+          <label>Observaciones<textarea></textarea></label>
+        </div>
+      </section>
+      <section class="extra-card" aria-labelledby="historial-cuidados">
+        <h3 id="historial-cuidados">Historial de riego y cuidados</h3>
+        <div class="table-wrapper">
+          <table class="record-table">
+            <thead>
+              <tr>
+                <th scope="col">Fecha</th>
+                <th scope="col">Riego realizado</th>
+                <th scope="col">Otros cuidados</th>
+                <th scope="col">Condición observada</th>
+                <th scope="col">Notas</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type="date" aria-label="Fecha del cuidado"></td>
+                <td><input type="text" aria-label="Riego realizado"></td>
+                <td><input type="text" aria-label="Otros cuidados"></td>
+                <td><input type="text" aria-label="Condición observada"></td>
+                <td><input type="text" aria-label="Notas del cuidado"></td>
+              </tr>
+              <tr>
+                <td><input type="date" aria-label="Fecha del cuidado"></td>
+                <td><input type="text" aria-label="Riego realizado"></td>
+                <td><input type="text" aria-label="Otros cuidados"></td>
+                <td><input type="text" aria-label="Condición observada"></td>
+                <td><input type="text" aria-label="Notas del cuidado"></td>
+              </tr>
+              <tr>
+                <td><input type="date" aria-label="Fecha del cuidado"></td>
+                <td><input type="text" aria-label="Riego realizado"></td>
+                <td><input type="text" aria-label="Otros cuidados"></td>
+                <td><input type="text" aria-label="Condición observada"></td>
+                <td><input type="text" aria-label="Notas del cuidado"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      
+    </section>
+
+    <section class="extra-section" id="registro-observaciones" aria-labelledby="observaciones-title">
+      <h2 class="section-title" id="observaciones-title">Registro de observaciones</h2>
+      <section class="extra-card" aria-labelledby="datos-generales">
+        <h3 id="datos-generales">Datos generales</h3>
+        <div class="form-fields">
+          <label>Nombre del estudiante/equipo<input type="text"></label>
+          <label>Cultivo<input type="text"></label>
+          <label>Fecha de siembra<input type="date"></label>
+          <label>Número de semillas sembradas<input type="number" min="0"></label>
+        </div>
+      </section>
+      <section class="extra-card" aria-labelledby="registro-general">
+        <h3 id="registro-general">Registro</h3>
+        <div class="table-wrapper">
+          <table class="record-table">
+            <thead>
+              <tr>
+                <th scope="col">Fecha</th>
+                <th scope="col">Días desde siembra</th>
+                <th scope="col">Semillas germinadas</th>
+                <th scope="col">Altura aproximada</th>
+                <th scope="col">Número de hojas</th>
+                <th scope="col">Riego/cuidado</th>
+                <th scope="col">Observaciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type="date" aria-label="Fecha del registro"></td>
+                <td><input type="number" min="0" aria-label="Días desde siembra"></td>
+                <td><input type="number" min="0" aria-label="Semillas germinadas"></td>
+                <td><input type="text" aria-label="Altura aproximada"></td>
+                <td><input type="number" min="0" aria-label="Número de hojas"></td>
+                <td><input type="text" aria-label="Riego o cuidado"></td>
+                <td><input type="text" aria-label="Observaciones del registro"></td>
+              </tr>
+              <tr>
+                <td><input type="date" aria-label="Fecha del registro"></td>
+                <td><input type="number" min="0" aria-label="Días desde siembra"></td>
+                <td><input type="number" min="0" aria-label="Semillas germinadas"></td>
+                <td><input type="text" aria-label="Altura aproximada"></td>
+                <td><input type="number" min="0" aria-label="Número de hojas"></td>
+                <td><input type="text" aria-label="Riego o cuidado"></td>
+                <td><input type="text" aria-label="Observaciones del registro"></td>
+              </tr>
+              <tr>
+                <td><input type="date" aria-label="Fecha del registro"></td>
+                <td><input type="number" min="0" aria-label="Días desde siembra"></td>
+                <td><input type="number" min="0" aria-label="Semillas germinadas"></td>
+                <td><input type="text" aria-label="Altura aproximada"></td>
+                <td><input type="number" min="0" aria-label="Número de hojas"></td>
+                <td><input type="text" aria-label="Riego o cuidado"></td>
+                <td><input type="text" aria-label="Observaciones del registro"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <section class="extra-card" aria-labelledby="preguntas-analisis">
+        <h3 id="preguntas-analisis">Preguntas de análisis</h3>
+        <div class="analysis-question">
+          <h3>¿Cuándo observamos la primera germinación?</h3>
+          <textarea aria-label="Respuesta: primera germinación"></textarea>
+        </div>
+        <div class="analysis-question">
+          <h3>¿Germinaron todas las semillas?</h3>
+          <textarea aria-label="Respuesta: germinaron todas las semillas"></textarea>
+        </div>
+        <div class="analysis-question">
+          <h3>¿Qué cambios observamos?</h3>
+          <textarea aria-label="Respuesta: cambios observados"></textarea>
+        </div>
+        <div class="analysis-question">
+          <h3>¿Qué cuidados realizamos?</h3>
+          <textarea aria-label="Respuesta: cuidados realizados"></textarea>
+        </div>
+      </section>
+      
+    </section>
+
+    <div class="subpage-nav-footer">
+  <a href="metodos-glosario.html" class="btn-subpage-nav"><i class="fa-solid fa-arrow-left"></i> Anterior: Glosario</a>
+  <a href="metodos-etapas.html" class="btn-subpage-home"><i class="fa-solid fa-house"></i> Inicio del Módulo</a>
+  <a href="metodos-etapas.html" class="btn-subpage-nav">Siguiente: 7 Etapas Clave (Reiniciar) <i class="fa-solid fa-arrow-right"></i></a>
+</div>
+  </div>
+
+  <script>
+    // ========================================================
+    // AUTO-GUARDADO Y GESTIÓN DE LA BITÁCORA ESCOLAR
+    // ========================================================
+    const STORAGE_KEY = 'meduca_quinto_metodos_agricolas_v2';
+
+    function autoSave() {
+      const data = {};
+      document.querySelectorAll('input, select, textarea').forEach((el, index) => {
+        const key = el.id || ('campo_' + index);
+        if (el.type === 'checkbox') {
+          data[key] = el.checked;
+        } else {
+          data[key] = el.value;
+        }
+      });
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      
+      const status = document.getElementById('saveStatus');
+      if (status) {
+        status.classList.add('visible');
+        clearTimeout(window._saveTimer);
+        window._saveTimer = setTimeout(() => {
+          status.classList.remove('visible');
+        }, 2500);
+      }
+    }
+
+    function restoreData() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      try {
+        const data = JSON.parse(raw);
+        document.querySelectorAll('input, select, textarea').forEach((el, index) => {
+          const key = el.id || ('campo_' + index);
+          if (data[key] !== undefined) {
+            if (el.type === 'checkbox') {
+              el.checked = data[key];
+            } else {
+              el.value = data[key];
+            }
+          }
+        });
+      } catch (err) {
+        console.error('Error restaurando datos de bitácora:', err);
+      }
+    }
+
+    function guardarDatosEstudiante() {
+      autoSave();
+      alert('✅ ¡Tus registros de campo y respuestas han sido guardados con éxito en este navegador!');
+    }
+
+    function limpiarDatosEstudiante() {
+      if (confirm('¿Estás seguro de que deseas limpiar todas las respuestas y observaciones ingresadas en las fichas?')) {
+        localStorage.removeItem(STORAGE_KEY);
+        document.querySelectorAll('input, select, textarea').forEach(el => {
+          if (el.type === 'checkbox') el.checked = false;
+          else el.value = '';
+        });
+        alert('Tus campos han sido restablecidos.');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      restoreData();
+      document.querySelectorAll('input, select, textarea').forEach(el => {
+        el.addEventListener('input', autoSave);
+        el.addEventListener('change', autoSave);
+      });
+    });
+  </script>
+</body>
+</html>

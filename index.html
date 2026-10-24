@@ -5759,6 +5759,66 @@
 
               </div>
 
+              <!-- ======================================================== -->
+              <!-- ACCESO AL MÓDULO INTERACTIVO DENTRO DEL MISMO BLOQUE     -->
+              <!-- ======================================================== -->
+              <div class="modulo-metodos-trigger-wrapper" style="margin-top: 26px; padding-top: 22px; border-top: 2px dashed var(--border-color);">
+                <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; background: linear-gradient(135deg, rgba(45, 106, 79, 0.08), rgba(82, 183, 136, 0.12)); border: 1.5px solid rgba(45, 106, 79, 0.25); border-radius: var(--radius-md); padding: 20px 24px; box-shadow: var(--shadow-sm);">
+                  
+                  <div style="display: flex; align-items: center; gap: 14px; max-width: 680px;">
+                    <div style="width: 52px; height: 52px; border-radius: 12px; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0; box-shadow: 0 4px 12px rgba(27,67,50,0.25);">
+                      <i class="fa-solid fa-seedling"></i>
+                    </div>
+                    <div>
+                      <h4 style="margin: 0 0 4px 0; font-size: 1.2rem; color: var(--primary-dark); font-family: var(--font-heading);">
+                        Guía Multimedia: Métodos Modernos y Bitácora Escolar
+                      </h4>
+                      <p style="margin: 0; font-size: 0.92rem; color: var(--text-muted); line-height: 1.5;">
+                        Accede a las 7 etapas de producción con videos explicativos, guía práctica para semillero con cartón de huevos, mapas conceptual y mental, y fichas de campo con guardado automático.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                    <button type="button" id="btnToggleMetodos" onclick="toggleModuloMetodosQuinto()" style="background: var(--primary); color: white; border: none; padding: 11px 22px; border-radius: var(--radius-pill); font-weight: 700; font-size: 0.95rem; cursor: pointer; display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 4px 12px rgba(27,67,50,0.2); transition: var(--transition);">
+                      <i class="fa-solid fa-book-open"></i>
+                      <span id="textoBtnMetodos">Ver Métodos y Bitácora</span>
+                      <i id="chevronBtnMetodos" class="fa-solid fa-chevron-down" style="font-size: 0.85rem; transition: transform 0.3s ease;"></i>
+                    </button>
+
+                    <a href="metodos-etapas.html" target="_blank" rel="noopener noreferrer" style="background: white; color: var(--primary-dark); border: 1.5px solid var(--primary-light); padding: 10px 18px; border-radius: var(--radius-pill); font-weight: 600; font-size: 0.9rem; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: var(--transition);" title="Abrir en pestaña nueva">
+                      <i class="fa-solid fa-arrow-up-right-from-square"></i> Nueva Pestaña
+                    </a>
+                  </div>
+
+                </div>
+
+                <!-- PANEL VISOR INTEGRADO DENTRO DEL MISMO BLOQUE -->
+                <div id="visorModuloMetodos" style="display: none; margin-top: 18px; border-radius: var(--radius-md); overflow: hidden; border: 2px solid var(--primary-light); background: #ffffff; box-shadow: var(--shadow-md);">
+                  <!-- Barra Superior de Control -->
+                  <div style="background: var(--primary-dark); color: white; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; flex-wrap: wrap; gap: 10px;">
+                    <span style="display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 0.95rem;">
+                      <i class="fa-solid fa-layer-group" style="color: var(--accent);"></i>
+                      Visor: Métodos Modernos de Producción Agrícola (5.° Grado)
+                    </span>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                      <button type="button" onclick="recargarIframeMetodos()" style="background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); color: white; border-radius: 6px; padding: 5px 12px; cursor: pointer; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px;" title="Recargar contenido">
+                        <i class="fa-solid fa-rotate-right"></i> Recargar
+                      </button>
+                      <button type="button" onclick="toggleFullscreenMetodos()" style="background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); color: white; border-radius: 6px; padding: 5px 12px; cursor: pointer; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px;" title="Pantalla completa">
+                        <i class="fa-solid fa-expand" id="iconoFullscreenMetodos"></i> Maximizar
+                      </button>
+                      <button type="button" onclick="toggleModuloMetodosQuinto()" style="background: #dc2626; border: none; color: white; border-radius: 6px; padding: 5px 14px; cursor: pointer; font-size: 0.85rem; font-weight: 700; display: inline-flex; align-items: center; gap: 6px;" title="Cerrar visor">
+                        <i class="fa-solid fa-xmark"></i> Cerrar
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Iframe Seguro y Responsivo -->
+                  <iframe id="iframeMetodosQuinto" src="metodos-etapas.html" style="width: 100%; height: 860px; border: none; display: block;" loading="lazy" title="Módulo Métodos Modernos de Producción Agrícola"></iframe>
+                </div>
+              </div>
+
             </div>
           </div>
 
