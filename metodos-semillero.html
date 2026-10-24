@@ -897,6 +897,342 @@
       color: #0f172a;
     }
 
+  
+    /* ==========================================================
+       ESTILOS DEL MÓDULO SEMILLERO Y BITÁCORA INTERACTIVA
+       ========================================================== */
+    .semillero-hero-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow);
+    }
+
+    .semillero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.75rem;
+      margin-top: 1.25rem;
+      align-items: start;
+    }
+
+    @media (max-width: 768px) {
+      .semillero-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .semillero-steps {
+      list-style: none;
+      padding: 0;
+      counter-reset: step-counter;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .semillero-step-item {
+      counter-increment: step-counter;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: #f8faf9;
+      border: 1px solid var(--border);
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-size: 0.93rem;
+      line-height: 1.5;
+    }
+
+    .semillero-step-item::before {
+      content: counter(step-counter);
+      background: var(--primary);
+      color: #ffffff;
+      font-weight: 700;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+
+    /* Botones de navegación de la Bitácora */
+    .bitacora-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      margin: 1.25rem 0 1.5rem 0;
+    }
+
+    .bitacora-nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background-color: #f3f4f6;
+      border: 1.5px solid var(--border);
+      padding: 0.55rem 1.15rem;
+      border-radius: 25px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text-main);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      font-family: inherit;
+      outline: none;
+    }
+
+    .bitacora-nav-btn:hover {
+      background-color: var(--accent);
+      border-color: var(--primary-light);
+      color: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    .bitacora-nav-btn.active {
+      background-color: var(--primary);
+      border-color: var(--primary-dark);
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(45, 106, 79, 0.35);
+      transform: translateY(-2px);
+    }
+
+    .bitacora-nav-btn-all {
+      background-color: #f0fdf4;
+      border-color: #86efac;
+      color: #166534;
+    }
+
+    .bitacora-nav-btn-all.active {
+      background-color: #166534;
+      border-color: #14532d;
+      color: #ffffff;
+    }
+
+    /* Paneles de Contenido de la Bitácora */
+    .bitacora-cards-container {
+      margin-top: 1rem;
+    }
+
+    .bitacora-card-detail {
+      display: none;
+      background: #ffffff;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      margin-bottom: 1.75rem;
+      box-shadow: var(--shadow);
+      animation: tabFadeIn 0.3s ease forwards;
+    }
+
+    .bitacora-card-detail.active {
+      display: block;
+    }
+
+    @keyframes tabFadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .bitacora-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.9rem;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .bitacora-card-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--primary-dark);
+      font-size: 1.35rem;
+      margin: 0;
+    }
+
+    .bitacora-card-badge {
+      background: var(--accent);
+      color: var(--primary-dark);
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 5px 14px;
+      border-radius: 20px;
+      border: 1px solid rgba(45, 106, 79, 0.2);
+    }
+
+    .bitacora-grid-info {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+      margin: 1.25rem 0;
+    }
+
+    .bitacora-info-card {
+      background: #f8faf9;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.15rem;
+    }
+
+    .bitacora-info-card h4 {
+      color: var(--primary-dark);
+      font-size: 1.02rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .bitacora-interactive-box {
+      background: linear-gradient(135deg, #f0fdf4 0%, #f8fafc 100%);
+      border: 1.5px solid #86efac;
+      border-radius: 12px;
+      padding: 1.35rem;
+      margin: 1.25rem 0;
+    }
+
+    .bitacora-interactive-box h4 {
+      color: var(--primary-dark);
+      font-size: 1.1rem;
+      margin-bottom: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .bitacora-calc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 14px;
+      align-items: flex-end;
+    }
+
+    .bitacora-input-group label {
+      display: block;
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 5px;
+    }
+
+    .bitacora-input-group input,
+    .bitacora-input-group select {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      background: #ffffff;
+    }
+
+    .bitacora-input-group input:focus,
+    .bitacora-input-group select:focus {
+      border-color: var(--primary);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.15);
+    }
+
+    .bitacora-btn-calc {
+      background: var(--primary);
+      color: #ffffff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .bitacora-btn-calc:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .bitacora-calc-result {
+      margin-top: 14px;
+      padding: 12px 16px;
+      background: #ffffff;
+      border-left: 4px solid var(--primary);
+      border-radius: 8px;
+      font-size: 0.93rem;
+      line-height: 1.6;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+      display: none;
+    }
+
+    .bitacora-example-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      font-size: 0.9rem;
+      background: #ffffff;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .bitacora-example-table th {
+      background: #f1f5f9;
+      color: var(--primary-dark);
+      text-align: left;
+      padding: 10px 14px;
+      border-bottom: 2px solid var(--border);
+      font-weight: 700;
+    }
+
+    .bitacora-example-table td {
+      padding: 9px 14px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+
+    .bitacora-example-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .bitacora-example-table tr:hover td {
+      background: #fafaf9;
+    }
+
+    .bitacora-btn-to-ficha {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: var(--primary-dark);
+      border: 1.5px solid var(--primary-light);
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      text-decoration: none;
+      margin-top: 1.25rem;
+      transition: all 0.2s;
+    }
+
+    .bitacora-btn-to-ficha:hover {
+      background: var(--primary);
+      color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(45, 106, 79, 0.25);
+    }
+
   </style>
 </head>
 <body>
@@ -916,35 +1252,578 @@
       <a href="metodos-fichas-campo.html" class=""><i class="fa-solid fa-pen-to-square"></i> Fichas de Campo</a>
     </nav>
 
-    <section class="bitacora-section" id="bitacora">
+    <!-- PROYECTO 1: SEMILLERO PEDAGÓGICO EN CARTÓN DE HUEVOS -->
+    <section class="semillero-hero-card" id="guia-semillero" aria-labelledby="semillero-title">
       <div class="bitacora-header">
-        <span style="font-size: 1.5rem;">📋</span>
-        <h2 style="font-size: 1.3rem; color: var(--primary-dark);">Bitácora Agrícola</h2>
+        <span style="font-size: 1.6rem;">🌱</span>
+        <h2 id="semillero-title" style="font-size: 1.4rem; color: var(--primary-dark); margin: 0;">
+          Proyecto Práctico: Semillero en Cartón de Huevos
+        </h2>
       </div>
-      <p style="color: var(--text-muted);">Registro sistemático de campo para documentar cada evento durante el ciclo vegetativo:</p>
-      
-      <div class="bitacora-tags">
-        <a class="tag tag-link" href="#actividades-bitacora">📅 Fecha</a>
-        <a class="tag tag-link" href="#registro-cultivo">🌾 Cultivo</a>
-        <a class="tag tag-link" href="#registro-germinacion">🌱 Germinación</a>
-        <a class="tag tag-link" href="#registro-crecimiento">📈 Crecimiento</a>
-        <a class="tag tag-link" href="#registro-cuidados">💧 Cuidados y Riego</a>
-        <a class="tag tag-link" href="#registro-observaciones">📝 Observaciones</a>
+      <p style="color: var(--text-muted); font-size: 0.98rem; line-height: 1.6; margin-top: 0.5rem;">
+        El semillero es un área protegida donde se brindan condiciones ideales de humedad, temperatura y nutrientes a las semillas para maximizar su germinación y obtener plántulas vigorosas antes de llevarlas al terreno definitivo. Usar un cartón de huevos es una técnica moderna, ecológica y de bajo costo.
+      </p>
+
+      <div class="semillero-grid">
+        <!-- Columna 1: Video y Materiales -->
+        <div>
+          <!-- Video Thumbnail Card -->
+          <a class="video-link" href="https://m.youtube.com/watch?v=fCRA6i1fTRA" target="_blank" rel="noopener noreferrer" aria-label="Ver video explicativo sobre siembra en semillero en YouTube" style="display: block; margin-bottom: 1.25rem;">
+            <span class="video-thumbnail" aria-hidden="true">
+              <img src="assets/images/video_semillero.jpg" alt="Elaboración de semillero en cartón de huevos" class="video-preview-img" onerror="this.src='https://img.youtube.com/vi/fCRA6i1fTRA/maxresdefault.jpg'">
+              <div class="video-overlay-gradient"></div>
+              <span class="video-thumbnail-title">Video Guía: Semillero en Cartón de Huevos</span>
+              <span class="video-play-icon"><i class="fa-solid fa-play"></i></span>
+              <span class="video-badge-yt"><i class="fa-brands fa-youtube"></i> YouTube</span>
+            </span>
+          </a>
+
+          <div style="background: #f8faf9; border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem;">
+            <h3 style="font-size: 1.05rem; color: var(--primary-dark); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 8px;">
+              <i class="fa-solid fa-basket-shopping" style="color: var(--primary-light);"></i> Materiales Necesarios
+            </h3>
+            <ul style="padding-left: 1.4rem; color: var(--text-muted); font-size: 0.92rem; line-height: 1.6;">
+              <li><strong>Cubeta o cartón de huevos</strong> vacío (biodegradable).</li>
+              <li><strong>Semillas de ají criollo</strong> o hortaliza, secas y seleccionadas.</li>
+              <li><strong>Punzón, clavo o lápiz</strong> para perforar el drenaje.</li>
+              <li><strong>Sustrato fértil</strong> (tierra negra + compost o cáscaras de huevo trituradas).</li>
+              <li><strong>Pala pequeña</strong> o cuchara para llenar los alvéolos.</li>
+              <li><strong>Atomizador o regadera fina</strong> para no desenterrar las semillas.</li>
+              <li><strong>Marcador o paletas de madera</strong> para rotular fechas y especie.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Columna 2: Pasos de Elaboración -->
+        <div>
+          <h3 style="font-size: 1.05rem; color: var(--primary-dark); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 8px;">
+            <i class="fa-solid fa-list-check" style="color: var(--primary-light);"></i> Pasos para Elaborar el Semillero
+          </h3>
+          <ol class="semillero-steps">
+            <li class="semillero-step-item">
+              <div>
+                <strong>Perforar la base:</strong> Haz un pequeño orificio en el fondo de cada cavidad del cartón para asegurar el drenaje y evitar que el agua se estanque.
+              </div>
+            </li>
+            <li class="semillero-step-item">
+              <div>
+                <strong>Llenar con sustrato:</strong> Coloca la tierra fértil hasta dejar aproximadamente 1 cm libre antes del borde, presionando suavemente sin apelmazar.
+              </div>
+            </li>
+            <li class="semillero-step-item">
+              <div>
+                <strong>Sembrar las semillas:</strong> Coloca 1 o 2 semillas de ají por alvéolo a una profundidad de entre 0.5 y 1 cm (aproximadamente el doble del tamaño de la semilla).
+              </div>
+            </li>
+            <li class="semillero-step-item">
+              <div>
+                <strong>Cubrir y regar:</strong> Tapa con una fina capa de tierra cernida y humedece con atomizador de gota fina para mantener la humedad sin mover la semilla.
+              </div>
+            </li>
+            <li class="semillero-step-item">
+              <div>
+                <strong>Identificar y ubicar:</strong> Coloca una etiqueta con la fecha de siembra y pon el semillero en un lugar cálido, ventilado y con luz indirecta.
+              </div>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN PRINCIPAL: BITÁCORA AGRÍCOLA CON BOTONES INTERACTIVOS -->
+    <section class="bitacora-section" id="bitacora" aria-labelledby="bitacora-title">
+      <div class="bitacora-header">
+        <span style="font-size: 1.6rem;">📋</span>
+        <div>
+          <h2 id="bitacora-title" style="font-size: 1.4rem; color: var(--primary-dark); margin: 0;">
+            Bitácora Agrícola
+          </h2>
+          <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 4px;">
+            Registro sistemático de campo para documentar cada evento durante el ciclo vegetativo:
+          </p>
+        </div>
       </div>
 
-      <div class="bitacora-content">
-        <section aria-labelledby="materiales-semilleros">
-          <h3 id="materiales-semilleros">Materiales necesarios</h3>
-          <ul>
-            <li><strong>Cubeta o cartón de huevos</strong> vacío.</li>
-            <li><strong>Semillas de ají</strong>, seleccionadas y secas.</li>
-            <li><strong>Puntilla, clavo o punzón</strong> para perforar.</li>
-            <li><strong>Tierra fértil o sustrato</strong>, preferiblemente abonado (puedes agregar cáscaras de huevo trituradas).</li>
-            <li><strong>Pala pequeña</strong> o cuchara.</li>
-            <li><strong>Agua</strong>, idealmente en atomizador o regadera de gota fina.</li>
-            <li><strong>Marcador o etiquetas</strong> para identificar el cultivo.</li>
-          </ul>
-        </section>
+      <!-- BOTONES DE NAVEGACIÓN (TAGS/BOTONES) -->
+      <div class="bitacora-tags" role="tablist" aria-label="Categorías de la Bitácora Agrícola">
+        <button type="button" class="bitacora-nav-btn active" role="tab" aria-selected="true" aria-controls="card-fecha" data-tab="fecha" onclick="switchBitacoraTab('fecha', this)">
+          📅 Fecha
+        </button>
+        <button type="button" class="bitacora-nav-btn" role="tab" aria-selected="false" aria-controls="card-cultivo" data-tab="cultivo" onclick="switchBitacoraTab('cultivo', this)">
+          🌾 Cultivo
+        </button>
+        <button type="button" class="bitacora-nav-btn" role="tab" aria-selected="false" aria-controls="card-germinacion" data-tab="germinacion" onclick="switchBitacoraTab('germinacion', this)">
+          🌱 Germinación
+        </button>
+        <button type="button" class="bitacora-nav-btn" role="tab" aria-selected="false" aria-controls="card-crecimiento" data-tab="crecimiento" onclick="switchBitacoraTab('crecimiento', this)">
+          📈 Crecimiento
+        </button>
+        <button type="button" class="bitacora-nav-btn" role="tab" aria-selected="false" aria-controls="card-cuidados" data-tab="cuidados" onclick="switchBitacoraTab('cuidados', this)">
+          💧 Cuidados y Riego
+        </button>
+        <button type="button" class="bitacora-nav-btn" role="tab" aria-selected="false" aria-controls="card-observaciones" data-tab="observaciones" onclick="switchBitacoraTab('observaciones', this)">
+          📝 Observaciones
+        </button>
+        <button type="button" class="bitacora-nav-btn bitacora-nav-btn-all" data-tab="all" onclick="switchBitacoraTab('all', this)" title="Ver todas las secciones simultáneamente">
+          👁️ Ver Todas
+        </button>
+      </div>
+
+      <!-- CONTENEDOR DE PANELES DE CONTENIDO DETALLADO -->
+      <div class="bitacora-cards-container">
+
+        <!-- ==========================================
+             1. PANEL: FECHA Y CRONOGRAMA
+             ========================================== -->
+        <article class="bitacora-card-detail active" id="card-fecha" role="tabpanel" aria-labelledby="tab-fecha">
+          <div class="bitacora-card-header">
+            <h3 class="bitacora-card-title" id="tab-fecha">
+              <span>📅</span> 1. Registro de Fechas y Cronograma Agrícola
+            </h3>
+            <span class="bitacora-card-badge">Paso 1 • Planificación Temporal</span>
+          </div>
+
+          <p style="color: var(--text-main); font-size: 0.98rem; line-height: 1.6;">
+            En la agricultura moderna, el <strong>tiempo es el recurso más valioso</strong>. Registrar las fechas exactas permite predecir cuándo emergerán las primeras plántulas, cuándo estarán listas para trasplantarse al huerto escolar y calcular los <strong>DDS (Días Después de la Siembra)</strong> para no atrasar las labores de nutrición y riego.
+          </p>
+
+          <div class="bitacora-grid-info">
+            <div class="bitacora-info-card">
+              <h4><i class="fa-solid fa-clock-rotate-left" style="color: var(--primary);"></i> ¿Qué debes registrar?</h4>
+              <ul style="padding-left: 1.2rem; font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">
+                <li><strong>Fecha de siembra:</strong> Día exacto en que colocas la semilla en el cartón de huevos.</li>
+                <li><strong>Día del primer brote:</strong> Fecha en que aparece la primera radícula o tallo sobre la tierra (normalmente día 5 a 8 en ají).</li>
+                <li><strong>Fecha estimada de trasplante:</strong> Cuando las plántulas alcancen entre 25 y 30 días de desarrollo.</li>
+                <li><strong>Condición climática del día:</strong> Soleado, nublado o lluvioso.</li>
+              </ul>
+            </div>
+
+            <div class="bitacora-info-card">
+              <h4><i class="fa-solid fa-calendar-check" style="color: var(--primary);"></i> Cronología típica del ají</h4>
+              <ul style="padding-left: 1.2rem; font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">
+                <li><strong>Día 1:</strong> Siembra y primer riego por aspersión.</li>
+                <li><strong>Días 5 a 8:</strong> Emergencia y despliegue de cotiledones.</li>
+                <li><strong>Días 15 a 18:</strong> Aparición del primer par de hojas verdaderas.</li>
+                <li><strong>Días 25 a 30:</strong> 4 a 6 hojas verdaderas (¡Listas para trasplantar!).</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- CALCULADORA DE FECHAS -->
+          <div class="bitacora-interactive-box">
+            <h4><i class="fa-solid fa-calculator" style="color: var(--primary);"></i> Calculadora Dinámica de Cronograma Agrícola</h4>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 12px;">
+              Ingresa la fecha en que sembraste tus semillas de ají para calcular automáticamente tu calendario de germinación y trasplante:
+            </p>
+            <div class="bitacora-calc-grid">
+              <div class="bitacora-input-group">
+                <label for="inputFechaSiembra">Fecha de siembra en semillero:</label>
+                <input type="date" id="inputFechaSiembra" value="2026-05-15">
+              </div>
+              <button type="button" class="bitacora-btn-calc" onclick="calcularFechaSiembra()">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> Calcular Cronograma
+              </button>
+            </div>
+            <div id="resultadoFechaSiembra" class="bitacora-calc-result"></div>
+          </div>
+
+          <!-- Tabla de Ejemplo de Campo -->
+          <h4 style="color: var(--primary-dark); font-size: 1rem; margin: 1.25rem 0 0.5rem 0;">
+            <i class="fa-solid fa-table" style="color: var(--primary-light);"></i> Ejemplo modelo de registro en la bitácora escolar:
+          </h4>
+          <table class="bitacora-example-table">
+            <thead>
+              <tr>
+                <th>Evento</th>
+                <th>Fecha Anotada</th>
+                <th>DDS (Días)</th>
+                <th>Estado Observado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Siembra</strong></td>
+                <td>15 de mayo de 2026</td>
+                <td>Día 0</td>
+                <td>Sustrato húmedo, 2 semillas por alvéolo</td>
+              </tr>
+              <tr>
+                <td><strong>Emergencia</strong></td>
+                <td>21 de mayo de 2026</td>
+                <td>Día 6</td>
+                <td>Brotes visibles de 1.5 cm en 18 alvéolos</td>
+              </tr>
+              <tr>
+                <td><strong>1.er Par Hojas</strong></td>
+                <td>30 de mayo de 2026</td>
+                <td>Día 15</td>
+                <td>Hojas verdaderas con buen verdor</td>
+              </tr>
+              <tr>
+                <td><strong>Trasplante</strong></td>
+                <td>12 de junio de 2026</td>
+                <td>Día 28</td>
+                <td>Plántulas de 12 cm listas para el huerto</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <a href="metodos-fichas-campo.html#actividades-bitacora" class="bitacora-btn-to-ficha">
+            <i class="fa-solid fa-pen-to-square"></i> Abrir Ficha de Campo para registrar mis Fechas
+          </a>
+        </article>
+
+        <!-- ==========================================
+             2. PANEL: CULTIVO Y VARIEDAD
+             ========================================== -->
+        <article class="bitacora-card-detail" id="card-cultivo" role="tabpanel" aria-labelledby="tab-cultivo">
+          <div class="bitacora-card-header">
+            <h3 class="bitacora-card-title" id="tab-cultivo">
+              <span>🌾</span> 2. Identificación del Cultivo y Selección de Semillas
+            </h3>
+            <span class="bitacora-card-badge">Paso 2 • Taxonomía y Variedad</span>
+          </div>
+
+          <p style="color: var(--text-main); font-size: 0.98rem; line-height: 1.6;">
+            Cada cultivo posee características botánicas únicas y requerimientos específicos de suelo, profundidad de siembra y luz. Identificar la <strong>especie, variedad y origen de la semilla</strong> garantiza que el estudiante comprenda el ciclo de vida del vegetal que está cuidando.
+          </p>
+
+          <div class="bitacora-grid-info">
+            <div class="bitacora-info-card">
+              <h4><i class="fa-solid fa-seedling" style="color: var(--primary);"></i> Ficha Técnica: Ají Criollo Panameño</h4>
+              <ul style="padding-left: 1.2rem; font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">
+                <li><strong>Nombre común:</strong> Ají criollo / Ají dulce.</li>
+                <li><strong>Nombre científico:</strong> <em>Capsicum chinense</em> / <em>Capsicum annuum</em>.</li>
+                <li><strong>Familia botánica:</strong> Solanáceas (pariente del tomate y la berenjena).</li>
+                <li><strong>Tipo de semilla:</strong> Dicotiledónea, aplanada, color amarillo claro.</li>
+                <li><strong>Profundidad de siembra:</strong> 0.5 a 1 cm (no enterrar demasiado profundo).</li>
+                <li><strong>Clima ideal:</strong> Cálido tropical (22 °C a 30 °C).</li>
+              </ul>
+            </div>
+
+            <div class="bitacora-info-card">
+              <h4><i class="fa-solid fa-award" style="color: var(--primary);"></i> Criterios de Selección de Semillas</h4>
+              <ul style="padding-left: 1.2rem; font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">
+                <li><strong>Pureza física:</strong> Sin restos de pulpa, piedras o tierra.</li>
+                <li><strong>Sanidad:</strong> Semillas sin manchas negras, moho o picaduras de insectos.</li>
+                <li><strong>Vigor y madurez:</strong> Extraídas de frutos completamente maduros y secadas a la sombra.</li>
+                <li><strong>Procedencia:</strong> Frutos cosechados de plantas sanas de la comunidad o semilla certificada.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Tarjeta de Rótulo Modelo -->
+          <div class="bitacora-interactive-box" style="background: #fffbeb; border-color: #fde68a;">
+            <h4 style="color: #92400e;">
+              <i class="fa-solid fa-tag" style="color: #d97706;"></i> Modelo de Rótulo Escolar para el Semillero
+            </h4>
+            <p style="font-size: 0.9rem; color: #78350f; margin-bottom: 10px;">
+              Cada bandeja o cubeta debe contar con su etiqueta de identificación para no confundir cultivos:
+            </p>
+            <div style="background: #ffffff; border: 2px dashed #d97706; border-radius: 8px; padding: 12px 18px; font-family: monospace; font-size: 0.95rem; color: #1e293b;">
+              🏷️ <strong>ESCUELA:</strong> CEBG República de Panamá<br>
+              🌾 <strong>CULTIVO:</strong> Ají Criollo Dulce &nbsp;|&nbsp; <strong>VARIEDAD:</strong> Nativa local<br>
+              📅 <strong>FECHA DE SIEMBRA:</strong> 15 / Mayo / 2026<br>
+              🌱 <strong>TOTAL SEMILLAS:</strong> 24 semillas (2 por alvéolo)<br>
+              👨‍🌾 <strong>RESPONSABLES:</strong> Equipo de 5.° Grado
+            </div>
+          </div>
+
+          <a href="metodos-fichas-campo.html#registro-cultivo" class="bitacora-btn-to-ficha">
+            <i class="fa-solid fa-pen-to-square"></i> Abrir Ficha de Cultivo para registrar mis Datos
+          </a>
+        </article>
+
+        <!-- ==========================================
+             3. PANEL: GERMINACIÓN
+             ========================================== -->
+        <article class="bitacora-card-detail" id="card-germinacion" role="tabpanel" aria-labelledby="tab-germinacion">
+          <div class="bitacora-card-header">
+            <h3 class="bitacora-card-title" id="tab-germinacion">
+              <span>🌱</span> 3. Proceso y Porcentaje de Germinación
+            </h3>
+            <span class="bitacora-card-badge">Paso 3 • Evaluación Científica</span>
+          </div>
+
+          <p style="color: var(--text-main); font-size: 0.98rem; line-height: 1.6;">
+            La <strong>germinación</strong> es el despertar de la semilla: absorbe agua (imbibición), reactiva su metabolismo, rompe la cáscara exterior y hace emerger la radícula (raíz primaria) y los cotiledones. Evaluar el <strong>Porcentaje de Germinación (%G)</strong> permite saber si el lote de semillas es de buena calidad.
+          </p>
+
+          <div class="bitacora-grid-info">
+            <div class="bitacora-info-card">
+              <h4><i class="fa-solid fa-square-root-variable" style="color: var(--primary);"></i> La Fórmula Matemática del %G</h4>
+              <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">
+                En 5.° grado aplicamos la siguiente relación matemática:
+              </p>
+              <div style="background: #ffffff; padding: 10px 14px; border-radius: 8px; border: 1.5px solid var(--border); text-align: center; font-weight: 700; color: var(--primary-dark); font-size: 1.05rem; margin: 8px 0;">
+                % Germinación = (Semillas Germinadas ÷ Semillas Sembradas) × 100
+              </div>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 6px;">
+                <em>Ejemplo:</em> Si sembraste 20 semillas y nacieron 18: (18 ÷ 20) × 100 = <strong>90% de germinación</strong>.
+              </p>
+            </div>
+
+            <div class="bitacora-info-card">
+              <h4><i class="fa-solid fa-shield-halved" style="color: var(--primary);"></i> Escala de Calidad de la Semilla</h4>
+              <ul style="padding-left: 1.2rem; font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">
+                <li><strong style="color: #15803d;">85% a 100%: Excelente.</strong> Gran vigor y semilla muy fresca.</li>
+                <li><strong style="color: #b45309;">70% a 84%: Bueno.</strong> Aceptable para huerto escolar.</li>
+                <li><strong style="color: #b91c1c;">Menor al 70%: Bajo.</strong> La semilla estaba vieja, hubo exceso de agua o se sembró muy hondo.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- CALCULADORA DE GERMINACIÓN -->
+          <div class="bitacora-interactive-box">
+            <h4><i class="fa-solid fa-calculator" style="color: var(--primary);"></i> Simulador y Calculadora de Germinación Escolar</h4>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 12px;">
+              Ingresa los datos reales de tu semillero para evaluar el rendimiento de tus semillas:
+            </p>
+            <div class="bitacora-calc-grid">
+              <div class="bitacora-input-group">
+                <label for="inputSembradas">Total de semillas sembradas:</label>
+                <input type="number" id="inputSembradas" value="24" min="1" max="500">
+              </div>
+              <div class="bitacora-input-group">
+                <label for="inputGerminadas">Semillas que germinaron (brotaron):</label>
+                <input type="number" id="inputGerminadas" value="21" min="0" max="500">
+              </div>
+              <button type="button" class="bitacora-btn-calc" onclick="calcularPorcentajeGerminacion()">
+                <i class="fa-solid fa-chart-pie"></i> Calcular % de Éxito
+              </button>
+            </div>
+            <div id="resultadoGerminacion" class="bitacora-calc-result"></div>
+          </div>
+
+          <a href="metodos-fichas-campo.html#registro-germinacion" class="bitacora-btn-to-ficha">
+            <i class="fa-solid fa-pen-to-square"></i> Abrir Ficha de Germinación para anotar mis Plántulas
+          </a>
+        </article>
+
+        <!-- ==========================================
+             4. PANEL: CRECIMIENTO
+             ========================================== -->
+        <article class="bitacora-card-detail" id="card-crecimiento" role="tabpanel" aria-labelledby="tab-crecimiento">
+          <div class="bitacora-card-header">
+            <h3 class="bitacora-card-title" id="tab-crecimiento">
+              <span>📈</span> 4. Monitoreo de Crecimiento y Mediciones
+            </h3>
+            <span class="bitacora-card-badge">Paso 4 • Método Científico</span>
+          </div>
+
+          <p style="color: var(--text-main); font-size: 0.98rem; line-height: 1.6;">
+            El crecimiento vegetal se mide de forma cuantitativa utilizando una <strong>regla escolar en centímetros</strong>. Cada semana se registra la altura del tallo, el número de hojas verdaderas y el grosor del cuello para determinar el momento exacto en que la planta está fuerte para resistir el trasplante.
+          </p>
+
+          <div class="bitacora-grid-info">
+            <div class="bitacora-info-card">
+              <h4><i class="fa-solid fa-ruler-vertical" style="color: var(--primary);"></i> ¿Cómo medir la plántula?</h4>
+              <ol style="padding-left: 1.2rem; font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">
+                <li>Coloca la regla en la base del sustrato (sin hundirla para no quebrar raíces).</li>
+                <li>Mide verticalmente hasta el <strong>ápice o brote más alto</strong>.</li>
+                <li>Cuenta las <strong>hojas verdaderas</strong> (no cuentes los dos primeros cotiledones redondos).</li>
+                <li>Observa el tallo: debe ser firme y verde, nunca transparente ni doblado.</li>
+              </ol>
+            </div>
+
+            <div class="bitacora-info-card">
+              <h4><i class="fa-solid fa-tree" style="color: var(--primary);"></i> ¿Cuándo está lista para trasplante?</h4>
+              <ul style="padding-left: 1.2rem; font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">
+                <li><strong>Altura ideal:</strong> Entre 10 y 15 centímetros de altura.</li>
+                <li><strong>Follaje:</strong> Mínimo 4 a 6 hojas verdaderas bien formadas.</li>
+                <li><strong>Grosor del tallo:</strong> Similar al grosor de un fósforo o palito de paleta.</li>
+                <li><strong>Sistema radicular:</strong> Raíces blancas y firmes que retienen el pan de tierra.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- TABLA CRONOLÓGICA DE CRECIMIENTO -->
+          <h4 style="color: var(--primary-dark); font-size: 1rem; margin: 1.25rem 0 0.5rem 0;">
+            <i class="fa-solid fa-chart-line" style="color: var(--primary-light);"></i> Guía semanal de desarrollo esperado del ají:
+          </h4>
+          <table class="bitacora-example-table">
+            <thead>
+              <tr>
+                <th>Semana</th>
+                <th>Altura Promedio</th>
+                <th>Hojas Desarrolladas</th>
+                <th>Estado y Cuidados</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Semana 1</strong></td>
+                <td>1.0 a 2.5 cm</td>
+                <td>2 cotiledones</td>
+                <td>Brotes tiernos, proteger de gotas fuertes</td>
+              </tr>
+              <tr>
+                <td><strong>Semana 2</strong></td>
+                <td>3.0 a 5.5 cm</td>
+                <td>1.er par de hojas verdaderas</td>
+                <td>Mover a luz solar suave matutina</td>
+              </tr>
+              <tr>
+                <td><strong>Semana 3</strong></td>
+                <td>6.0 a 9.5 cm</td>
+                <td>2.º par de hojas verdaderas</td>
+                <td>Tallo engrosando, aplicar bioabono suave</td>
+              </tr>
+              <tr>
+                <td><strong>Semana 4</strong></td>
+                <td>10.0 a 15.0 cm</td>
+                <td>4 a 6 hojas verdaderas</td>
+                <td><strong>¡Lista para trasplante definitivo al huerto!</strong></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <a href="metodos-fichas-campo.html#registro-crecimiento" class="bitacora-btn-to-ficha">
+            <i class="fa-solid fa-pen-to-square"></i> Abrir Ficha de Crecimiento para anotar mis Mediciones
+          </a>
+        </article>
+
+        <!-- ==========================================
+             5. PANEL: CUIDADOS Y RIEGO
+             ========================================== -->
+        <article class="bitacora-card-detail" id="card-cuidados" role="tabpanel" aria-labelledby="tab-cuidados">
+          <div class="bitacora-card-header">
+            <h3 class="bitacora-card-title" id="tab-cuidados">
+              <span>💧</span> 5. Cuidados, Riego y Manejo Cultural
+            </h3>
+            <span class="bitacora-card-badge">Paso 5 • Sanidad Vegetal</span>
+          </div>
+
+          <p style="color: var(--text-main); font-size: 0.98rem; line-height: 1.6;">
+            El semillero requiere <strong>atención diaria</strong>. Un descuido en el riego o un exceso de agua puede arruinar semanas de trabajo. La regla de oro en semilleros es: <em>mantener el sustrato húmedo como una esponja escurrida, nunca encharcado</em>.
+          </p>
+
+          <div class="bitacora-grid-info">
+            <div class="bitacora-info-card">
+              <h4><i class="fa-solid fa-shower" style="color: var(--primary);"></i> Protocolo de Riego Escolar</h4>
+              <ul style="padding-left: 1.2rem; font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">
+                <li><strong>Herramienta:</strong> Atomizador manual o regadera de orificios diminutos.</li>
+                <li><strong>Horario preferido:</strong> Temprano en la mañana (6:30 a 8:00 AM) o al caer la tarde (4:30 a 5:30 PM).</li>
+                <li><strong>Nunca regar al mediodía:</strong> Las gotas actúan como lupas bajo el sol intenso y queman las hojas tiernas.</li>
+                <li><strong>Prueba del tacto:</strong> Toca la tierra con la yema del dedo; si sale limpia y seca, riega; si se siente húmeda y fresca, espera.</li>
+              </ul>
+            </div>
+
+            <div class="bitacora-info-card">
+              <h4><i class="fa-solid fa-sun" style="color: var(--primary);"></i> Luz, Sombra y Ventilación</h4>
+              <ul style="padding-left: 1.2rem; font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">
+                <li><strong>Días 1 a 4 (oscuridad/semisombra):</strong> Lugar cálido y protegido del viento seco.</li>
+                <li><strong>Días 5 en adelante:</strong> Trasladar a luz solar directa suave (3 a 4 horas matutinas) para que el tallo no se estire débilmente buscando la luz.</li>
+                <li><strong>Ventilación:</strong> Asegurar buena circulación de aire para evitar hongos como el <em>damping-off</em> (mal del talluelo).</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- CHECKLIST DE TAREAS DIARIAS -->
+          <div class="bitacora-interactive-box" style="background: #f0fdfa; border-color: #5eead4;">
+            <h4 style="color: #0f766e;">
+              <i class="fa-solid fa-clipboard-check" style="color: #14b8a6;"></i> Checklist de Labores Diarias del Estudiante
+            </h4>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; margin-top: 10px;">
+              <label style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: #134e4a; cursor: pointer;">
+                <input type="checkbox"> Verificar humedad matutina del sustrato
+              </label>
+              <label style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: #134e4a; cursor: pointer;">
+                <input type="checkbox"> Aplicar riego con atomizador fino
+              </label>
+              <label style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: #134e4a; cursor: pointer;">
+                <input type="checkbox"> Retirar manualmente hierbas invasoras pequeñas
+              </label>
+              <label style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: #134e4a; cursor: pointer;">
+                <input type="checkbox"> Proteger de lluvias torrenciales o vientos
+              </label>
+              <label style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: #134e4a; cursor: pointer;">
+                <input type="checkbox"> Girar la bandeja para iluminación uniforme
+              </label>
+              <label style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: #134e4a; cursor: pointer;">
+                <input type="checkbox"> Anotar incidencias en la bitácora
+              </label>
+            </div>
+          </div>
+
+          <a href="metodos-fichas-campo.html#registro-cuidados" class="bitacora-btn-to-ficha">
+            <i class="fa-solid fa-pen-to-square"></i> Abrir Ficha de Cuidados para registrar mis Riegos
+          </a>
+        </article>
+
+        <!-- ==========================================
+             6. PANEL: OBSERVACIONES
+             ========================================== -->
+        <article class="bitacora-card-detail" id="card-observaciones" role="tabpanel" aria-labelledby="tab-observaciones">
+          <div class="bitacora-card-header">
+            <h3 class="bitacora-card-title" id="tab-observaciones">
+              <span>📝</span> 6. Observaciones de Campo y Autodiagnóstico
+            </h3>
+            <span class="bitacora-card-badge">Paso 6 • Toma de Decisiones</span>
+          </div>
+
+          <p style="color: var(--text-main); font-size: 0.98rem; line-height: 1.6;">
+            Un buen agricultor es un <strong>observador permanente</strong>. Documentar las anomalías (cambios de color en las hojas, presencia de insectos o plántulas marchitas) permite aplicar correctivos a tiempo antes de que todo el semillero se enferme.
+          </p>
+
+          <!-- TABLA DE AUTODIAGNÓSTICO -->
+          <h4 style="color: var(--primary-dark); font-size: 1rem; margin: 1.25rem 0 0.5rem 0;">
+            <i class="fa-solid fa-stethoscope" style="color: var(--primary-light);"></i> Guía de Autodiagnóstico Agrícola Escolar:
+          </h4>
+          <table class="bitacora-example-table">
+            <thead>
+              <tr>
+                <th>Síntoma Visible</th>
+                <th>Causa Probable</th>
+                <th>Acción Correctiva Recomendada</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Tallos muy largos, flacos y pálidos</strong></td>
+                <td><em>Ahilamiento o etiolación:</em> La planta no recibe suficiente luz solar.</td>
+                <td>Mover de inmediato a un sitio con mayor iluminación indirecta y sol matutino.</td>
+              </tr>
+              <tr>
+                <td><strong>Hojas inferiores amarillas y caídas</strong></td>
+                <td><em>Exceso de agua:</em> Las raíces se están asfixiando por encharcamiento.</td>
+                <td>Espaciar los riegos, revisar los orificios de drenaje y dejar secar la superficie.</td>
+              </tr>
+              <tr>
+                <td><strong>Plántula cortada o doblada en la base</strong></td>
+                <td><em>Hongo del talluelo (damping-off)</em> o ataque de babosa/grillo.</td>
+                <td>Retirar la plántula enferma, ventilar el área y espolvorear ceniza de leña o canela.</td>
+              </tr>
+              <tr>
+                <td><strong>Hojas con pequeños agujeros</strong></td>
+                <td>Presencia de orugas tiernas o escarabajos.</td>
+                <td>Revisar el envés de las hojas y retirarlas a mano con guantes o pinzas.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="bitacora-grid-info">
+            <div class="bitacora-info-card">
+              <h4><i class="fa-solid fa-check-circle" style="color: #15803d;"></i> Ejemplo de buena anotación</h4>
+              <p style="font-size: 0.9rem; color: #166534; background: #f0fdf4; padding: 10px; border-radius: 6px; border: 1px solid #bbf7d0; font-style: italic;">
+                "Día 14: Se observaron 3 plántulas con ligera curvatura hacia la ventana. Se rotó la bandeja 180° y se regó con 150 ml de agua reposada. Hojas verdes oscuras sin plagas."
+              </p>
+            </div>
+            <div class="bitacora-info-card">
+              <h4><i class="fa-solid fa-times-circle" style="color: #b91c1c;"></i> Ejemplo de anotación insuficiente</h4>
+              <p style="font-size: 0.9rem; color: #991b1b; background: #fef2f2; padding: 10px; border-radius: 6px; border: 1px solid #fecaca; font-style: italic;">
+                "Todo bien hoy. Regué un poco." (No indica qué cantidad, qué estado tenían las hojas ni si hubo novedades).
+              </p>
+            </div>
+          </div>
+
+          <a href="metodos-fichas-campo.html#registro-observaciones" class="bitacora-btn-to-ficha">
+            <i class="fa-solid fa-pen-to-square"></i> Abrir Ficha de Observaciones para redactar mis Notas
+          </a>
+        </article>
+
+      </div>
+    </section>
 
     <div class="subpage-nav-footer">
   <a href="metodos-etapas.html" class="btn-subpage-nav"><i class="fa-solid fa-arrow-left"></i> Anterior: 7 Etapas Clave</a>
@@ -954,5 +1833,144 @@
   </div>
 
   
+
+  <script>
+    // ========================================================
+    // INTERACTIVIDAD DE PESTAÑAS Y HERRAMIENTAS DE LA BITÁCORA
+    // ========================================================
+    function switchBitacoraTab(tabId, el) {
+      const buttons = document.querySelectorAll('.bitacora-nav-btn');
+      const cards = document.querySelectorAll('.bitacora-card-detail');
+      
+      buttons.forEach(btn => {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-selected', 'false');
+      });
+      
+      if (tabId === 'all') {
+        if (el) {
+          el.classList.add('active');
+          el.setAttribute('aria-selected', 'true');
+        }
+        cards.forEach(card => card.classList.add('active'));
+        return;
+      }
+
+      if (el) {
+        el.classList.add('active');
+        el.setAttribute('aria-selected', 'true');
+      }
+      
+      cards.forEach(card => {
+        if (card.id === 'card-' + tabId) {
+          card.classList.add('active');
+        } else {
+          card.classList.remove('active');
+        }
+      });
+
+      const targetCard = document.getElementById('card-' + tabId);
+      if (targetCard) {
+        targetCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+
+    // Calculadora Dinámica de Cronograma Agrícola
+    function calcularFechaSiembra() {
+      const input = document.getElementById('inputFechaSiembra').value;
+      const resultBox = document.getElementById('resultadoFechaSiembra');
+      if (!input) {
+        alert('Por favor selecciona una fecha de siembra válida.');
+        return;
+      }
+      const partes = input.split('-');
+      const fecha = new Date(parseInt(partes[0]), parseInt(partes[1]) - 1, parseInt(partes[2]));
+      
+      const fechaGermMin = new Date(fecha);
+      fechaGermMin.setDate(fechaGermMin.getDate() + 5);
+      
+      const fechaGermMax = new Date(fecha);
+      fechaGermMax.setDate(fechaGermMax.getDate() + 8);
+      
+      const fechaHojas = new Date(fecha);
+      fechaHojas.setDate(fechaHojas.getDate() + 15);
+
+      const fechaTrasplante = new Date(fecha);
+      fechaTrasplante.setDate(fechaTrasplante.getDate() + 28);
+      
+      const hoy = new Date();
+      hoy.setHours(0,0,0,0);
+      const diffTime = hoy - fecha;
+      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+      
+      const options = { day: 'numeric', month: 'long', year: 'numeric' };
+      
+      resultBox.style.display = 'block';
+      resultBox.innerHTML = `
+        <strong>📅 Cronograma Estimado para tu Ají Criollo:</strong><br>
+        • <strong>Días transcurridos (DDS):</strong> ${diffDays >= 0 ? diffDays + ' día(s) desde la siembra' : 'Fecha programada para el futuro'}.<br>
+        • <strong>Ventana de Germinación esperada:</strong> del ${fechaGermMin.toLocaleDateString('es-PA', options)} al ${fechaGermMax.toLocaleDateString('es-PA', options)} (días 5 a 8).<br>
+        • <strong>Aparición del 1.er par de hojas verdaderas:</strong> alrededor del ${fechaHojas.toLocaleDateString('es-PA', options)}.<br>
+        • <strong>Fecha recomendada para Trasplante al Huerto:</strong> aproximadamente el ${fechaTrasplante.toLocaleDateString('es-PA', options)} (4 semanas después).
+      `;
+    }
+
+    // Calculadora de Porcentaje de Germinación Escolar
+    function calcularPorcentajeGerminacion() {
+      const sembradas = parseInt(document.getElementById('inputSembradas').value);
+      const germinadas = parseInt(document.getElementById('inputGerminadas').value);
+      const resultBox = document.getElementById('resultadoGerminacion');
+      
+      if (isNaN(sembradas) || isNaN(germinadas) || sembradas <= 0) {
+        alert('Por favor ingresa números válidos (semillas sembradas mayor a 0).');
+        return;
+      }
+      if (germinadas > sembradas) {
+        alert('El número de semillas germinadas no puede superar el total de semillas sembradas.');
+        return;
+      }
+      
+      const porcentaje = ((germinadas / sembradas) * 100).toFixed(1);
+      let evaluacion = '';
+      let color = '';
+      
+      if (porcentaje >= 85) {
+        evaluacion = '🌟 <strong>¡Excelente Vigor Germinativo!</strong> El lote de semillas es de altísima calidad y las condiciones de humedad y temperatura fueron óptimas.';
+        color = '#15803d';
+      } else if (porcentaje >= 70) {
+        evaluacion = '👍 <strong>Buen Porcentaje de Germinación.</strong> Suficiente para las necesidades del huerto escolar. Continúa el cuidado diario.';
+        color = '#ca8a04';
+      } else {
+        evaluacion = '⚠️ <strong>Porcentaje Bajo.</strong> Menos del 70% germinó. Revisa si hubo exceso de humedad (pudrición), si la semilla estaba vieja o si se sembró a demasiada profundidad.';
+        color = '#b91c1c';
+      }
+      
+      resultBox.style.display = 'block';
+      resultBox.style.borderLeftColor = color;
+      resultBox.innerHTML = `
+        <strong>Resultado: ${porcentaje}% de Germinación</strong> (${germinadas} plántulas logradas de ${sembradas} semillas sembradas).<br>
+        ${evaluacion}
+      `;
+    }
+
+    // Detectar hash en la URL para abrir automáticamente la pestaña correspondiente
+    window.addEventListener('DOMContentLoaded', () => {
+      const hash = window.location.hash.replace('#', '');
+      const hashMap = {
+        'registro-fecha': 'fecha',
+        'actividades-bitacora': 'fecha',
+        'registro-cultivo': 'cultivo',
+        'registro-germinacion': 'germinacion',
+        'registro-crecimiento': 'crecimiento',
+        'registro-cuidados': 'cuidados',
+        'registro-observaciones': 'observaciones'
+      };
+      if (hashMap[hash]) {
+        const btn = document.querySelector(`[data-tab="${hashMap[hash]}"]`);
+        if (btn) switchBitacoraTab(hashMap[hash], btn);
+      }
+    });
+  </script>
+
 </body>
 </html>
