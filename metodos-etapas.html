@@ -37,18 +37,26 @@
       background-color: var(--background);
       color: var(--text-main);
       line-height: 1.6;
-      padding: 2rem 1rem;
+      padding: 1.5rem 0;
+      width: 100%;
+      margin: 0;
+      box-sizing: border-box;
     }
 
     .container {
-      max-width: 960px;
+      width: 100%;
+      max-width: 100%;
       margin: 0 auto;
+      padding: 0 1.5rem;
+      box-sizing: border-box;
     }
 
     /* Encabezado */
     .header {
+      width: 100%;
+      box-sizing: border-box;
       text-align: center;
-      margin-bottom: 2.5rem;
+      margin-bottom: 2rem;
       padding: 2rem 1.5rem;
       background: linear-gradient(135deg, var(--primary-dark), var(--primary-light));
       color: #ffffff;
@@ -63,7 +71,7 @@
 
     .header p {
       font-size: 1.05rem;
-      max-width: 720px;
+      max-width: 960px;
       margin: 0 auto;
       opacity: 0.95;
     }
@@ -132,9 +140,10 @@
     }
 
     .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      width: 100%;
       margin-bottom: 2.5rem;
     }
 
@@ -142,11 +151,56 @@
       background-color: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 1.5rem;
+      padding: 1.5rem 1.75rem;
       box-shadow: var(--shadow);
+      position: relative;
+      width: 100%;
+      box-sizing: border-box;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      border-color: var(--primary-light);
+    }
+
+    .card-header-block {
+      margin-bottom: 1rem;
+      padding-right: 3rem;
+    }
+
+    .card-body-row {
+      display: grid;
+      grid-template-columns: minmax(280px, 480px) 1fr;
+      gap: 1.75rem;
+      align-items: start;
+    }
+
+    .card-info-col {
       display: flex;
       flex-direction: column;
-      position: relative;
+      justify-content: center;
+    }
+
+    .checklist-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 0.6rem 1.5rem;
+      list-style-type: none;
+      padding: 0.5rem 0 0 0;
+      border-top: 1px dashed var(--border);
+      margin-top: 0.5rem;
+    }
+
+    @media (max-width: 850px) {
+      .card-body-row {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .checklist-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     .card-badge {
@@ -897,11 +951,101 @@
       color: #0f172a;
     }
 
+  
+    /* Optimizacion para dispositivos moviles - Ancho Completo Ajustado */
+    @media (max-width: 768px) {
+      body {
+        padding: 0.5rem 0;
+        width: 100%;
+      }
+      .container {
+        padding: 0 0.6rem;
+        width: 100%;
+        max-width: 100%;
+      }
+      .header {
+        margin-bottom: 0.85rem;
+        padding: 0.85rem 0.75rem;
+        border-radius: 10px;
+        width: 100%;
+      }
+      .header h1 {
+        font-size: 1.25rem;
+        margin-bottom: 0.25rem;
+      }
+      .header p {
+        font-size: 0.82rem;
+        line-height: 1.35;
+        max-width: 100%;
+      }
+      .navigation {
+        margin: -0.25rem 0 1rem;
+        gap: 0.4rem;
+        display: flex;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        padding-bottom: 6px;
+        -webkit-overflow-scrolling: touch;
+        width: 100%;
+      }
+      .navigation a {
+        padding: 0.45rem 0.8rem;
+        font-size: 0.8rem;
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+      .highlight-card {
+        padding: 0.85rem 1rem;
+        margin-bottom: 1.25rem;
+        width: 100%;
+      }
+      .card, .semillero-hero-card, .bitacora-card-detail, .extra-card {
+        padding: 1.15rem 1rem !important;
+        width: 100% !important;
+      }
+      .card-body-row {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .card-header-block {
+        padding-right: 2.2rem;
+      }
+      .card-badge {
+        top: 0.75rem;
+        right: 0.75rem;
+        width: 26px;
+        height: 26px;
+        font-size: 0.8rem;
+      }
+      .btn-subpage-home, .btn-subpage-nav {
+        padding: 0.5rem 0.9rem;
+        font-size: 0.82rem;
+      }
+      .subpage-nav-footer {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+      }
+      .subpage-nav-footer a {
+        justify-content: center;
+        text-align: center;
+      }
+    }
+
   </style>
 </head>
 <body>
 
   <div class="container">
+    <!-- BOTÓN PARA REGRESAR A ÁREA 3 (TEMA 1) -->
+    <div style="margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+      <a href="index.html#quinto-area3-tema1" target="_top" onclick="regresarArea3Tema1(event)" class="btn-subpage-home" style="background: var(--primary); color: #ffffff; text-decoration: none; padding: 8px 18px; border-radius: var(--radius-pill); font-weight: 700; font-size: 0.88rem; display: inline-flex; align-items: center; gap: 8px; box-shadow: var(--shadow);">
+        <i class="fa-solid fa-arrow-left"></i> Regresar al Área 3 (Tema 1)
+      </a>
+      <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">5.° Grado • Educación Agropecuaria</span>
+    </div>
+
     <header class="header" id="inicio">
       <h1>🌱 Métodos Modernos de Producción Agrícola</h1>
       <p>Procesos organizados para planificar, establecer y optimizar el desarrollo y rendimiento de los cultivos antes de sembrar.</p>
@@ -931,126 +1075,207 @@
       <!-- 1. Semillas -->
       <article class="card">
         <span class="card-badge">1</span>
-        <h3>Selección de Semillas</h3>
-        <p>Escoger semillas apropiadas según las condiciones del lugar.</p>
-        <a class="video-link" href="https://m.youtube.com/watch?v=JdrqJuW2Ato&amp;t=75s" target="_blank" rel="noopener noreferrer" aria-label="Abrir video sobre selección de semillas en YouTube">
-          <span class="video-thumbnail" aria-hidden="true">
-            <img src="assets/images/video_semillas.jpg" alt="Selección de semillas" class="video-preview-img" onerror="this.src='https://img.youtube.com/vi/JdrqJuW2Ato/maxresdefault.jpg'">
-            <div class="video-overlay-gradient"></div>
-            <span class="video-thumbnail-title">Selección de semillas</span>
-            <span class="video-play-icon"><i class="fa-solid fa-play"></i></span>
-            <span class="video-badge-yt"><i class="fa-brands fa-youtube"></i> YouTube</span>
-          </span>
-        </a>
-        <ul>
-          <li>Especie definida</li>
-          <li>Estado y vigor de la semilla</li>
-          <li>Ausencia de daños visibles</li>
-          <li>Procedencia confiable</li>
-          <li>Condiciones del lugar de siembra</li>
-        </ul>
+        <div class="card-header-block">
+          <h3>Selección de Semillas</h3>
+          <p>Escoger semillas certificadas o criollas vigorosas según las condiciones ecológicas del lugar.</p>
+        </div>
+        <div class="card-body-row">
+          <div class="card-media-col">
+            <a class="video-link" href="https://m.youtube.com/watch?v=JdrqJuW2Ato&amp;t=75s" target="_blank" rel="noopener noreferrer" aria-label="Abrir video sobre selección de semillas en YouTube">
+              <span class="video-thumbnail" aria-hidden="true">
+                <img src="assets/images/video_semillas.jpg" alt="Selección de semillas" class="video-preview-img" onerror="this.src='https://img.youtube.com/vi/JdrqJuW2Ato/maxresdefault.jpg'">
+                <div class="video-overlay-gradient"></div>
+                <span class="video-thumbnail-title">Selección de semillas</span>
+                <span class="video-play-icon"><i class="fa-solid fa-play"></i></span>
+                <span class="video-badge-yt"><i class="fa-brands fa-youtube"></i> YouTube</span>
+              </span>
+            </a>
+          </div>
+          <div class="card-info-col">
+            <h4 style="font-size: 0.95rem; color: var(--primary-dark); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 8px;">
+              <i class="fa-solid fa-clipboard-check" style="color: var(--primary-light);"></i> Criterios clave para la selección:
+            </h4>
+            <ul>
+              <li><strong>Especie definida:</strong> Adaptada a la zona y con alta demanda nutricional.</li>
+              <li><strong>Estado y vigor:</strong> Semillas con alto porcentaje de germinación y pureza.</li>
+              <li><strong>Ausencia de daños:</strong> Libres de picaduras de insectos, moho o roturas.</li>
+              <li><strong>Procedencia confiable:</strong> Semilleristas certificados o cosechas limpias.</li>
+              <li><strong>Condiciones del lugar:</strong> Requerimientos de suelo, luz y agua.</li>
+            </ul>
+          </div>
+        </div>
       </article>
 
       <!-- 2. Germinación -->
       <article class="card">
         <span class="card-badge">2</span>
-        <h3>Germinación</h3>
-        <p>Proceso mediante el cual la semilla despierta y origina una nueva planta al interactuar con condiciones óptimas de humedad, temperatura y oxígeno.</p>
-        <a class="video-link" href="https://m.youtube.com/watch?v=fCRA6i1fTRA" target="_blank" rel="noopener noreferrer" aria-label="Abrir video sobre germinación en YouTube">
-          <span class="video-thumbnail" aria-hidden="true">
-            <img src="assets/images/video_germinacion.jpg" alt="Germinación" class="video-preview-img" onerror="this.src='https://img.youtube.com/vi/fCRA6i1fTRA/maxresdefault.jpg'">
-            <div class="video-overlay-gradient"></div>
-            <span class="video-thumbnail-title">Germinación</span>
-            <span class="video-play-icon"><i class="fa-solid fa-play"></i></span>
-            <span class="video-badge-yt"><i class="fa-brands fa-youtube"></i> YouTube</span>
-          </span>
-        </a>
+        <div class="card-header-block">
+          <h3>Germinación</h3>
+          <p>Proceso biológico mediante el cual la semilla despierta del letargo y origina una plántula vigorosa bajo condiciones óptimas.</p>
+        </div>
+        <div class="card-body-row">
+          <div class="card-media-col">
+            <a class="video-link" href="https://m.youtube.com/watch?v=fCRA6i1fTRA" target="_blank" rel="noopener noreferrer" aria-label="Abrir video sobre germinación en YouTube">
+              <span class="video-thumbnail" aria-hidden="true">
+                <img src="assets/images/video_germinacion.jpg" alt="Germinación" class="video-preview-img" onerror="this.src='https://img.youtube.com/vi/fCRA6i1fTRA/maxresdefault.jpg'">
+                <div class="video-overlay-gradient"></div>
+                <span class="video-thumbnail-title">Germinación</span>
+                <span class="video-play-icon"><i class="fa-solid fa-play"></i></span>
+                <span class="video-badge-yt"><i class="fa-brands fa-youtube"></i> YouTube</span>
+              </span>
+            </a>
+          </div>
+          <div class="card-info-col">
+            <h4 style="font-size: 0.95rem; color: var(--primary-dark); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 8px;">
+              <i class="fa-solid fa-seedling" style="color: var(--primary-light);"></i> Factores determinantes para el éxito:
+            </h4>
+            <ul>
+              <li><strong>Humedad constante:</strong> Sustrato húmedo como esponja escurrida, sin encharcamientos.</li>
+              <li><strong>Temperatura adecuada:</strong> Calor suave para activar las enzimas internas.</li>
+              <li><strong>Oxigenación:</strong> Sustrato poroso que permita la respiración radicular.</li>
+              <li><strong>Prueba previa:</strong> Monitorear la tasa de brote antes de sembrar a gran escala.</li>
+            </ul>
+          </div>
+        </div>
       </article>
 
       <!-- 3. Semillero -->
       <article class="card">
         <span class="card-badge">3</span>
-        <h3>Semillero</h3>
-        <p>Espacio protegido para cuidar y monitorear plántulas en sus primeras etapas.</p>
-        <a class="video-link" href="https://www.youtube.com/watch?v=g22DA12UIV4" target="_blank" rel="noopener noreferrer" aria-label="Abrir video sobre semillero en cartón de huevos en YouTube">
-          <span class="video-thumbnail" aria-hidden="true">
-            <img src="assets/images/video_semillero.jpg" alt="Semillero en cartón de huevos" class="video-preview-img" onerror="this.src='https://img.youtube.com/vi/g22DA12UIV4/maxresdefault.jpg'">
-            <div class="video-overlay-gradient"></div>
-            <span class="video-thumbnail-title">Semillero en cartón de huevos</span>
-            <span class="video-play-icon"><i class="fa-solid fa-play"></i></span>
-            <span class="video-badge-yt"><i class="fa-brands fa-youtube"></i> YouTube</span>
-          </span>
-        </a>
-        <ul>
-          <li>Fecha de siembra</li>
-          <li>Porcentaje de germinación</li>
-          <li>Desarrollo radicular y foliar</li>
-          <li>Crecimiento de las plántulas</li>
-        </ul>
+        <div class="card-header-block">
+          <h3>Semillero</h3>
+          <p>Espacio protegido para cuidar y monitorear las plántulas en sus primeras etapas antes de llevarlas al terreno definitivo.</p>
+        </div>
+        <div class="card-body-row">
+          <div class="card-media-col">
+            <a class="video-link" href="https://www.youtube.com/watch?v=g22DA12UIV4" target="_blank" rel="noopener noreferrer" aria-label="Abrir video sobre semillero en cartón de huevos en YouTube">
+              <span class="video-thumbnail" aria-hidden="true">
+                <img src="assets/images/video_semillero.jpg" alt="Semillero en cartón de huevos" class="video-preview-img" onerror="this.src='https://img.youtube.com/vi/g22DA12UIV4/maxresdefault.jpg'">
+                <div class="video-overlay-gradient"></div>
+                <span class="video-thumbnail-title">Semillero en cartón de huevos</span>
+                <span class="video-play-icon"><i class="fa-solid fa-play"></i></span>
+                <span class="video-badge-yt"><i class="fa-brands fa-youtube"></i> YouTube</span>
+              </span>
+            </a>
+          </div>
+          <div class="card-info-col">
+            <h4 style="font-size: 0.95rem; color: var(--primary-dark); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 8px;">
+              <i class="fa-solid fa-clipboard-list" style="color: var(--primary-light);"></i> Cuidados y registro en bitácora:
+            </h4>
+            <ul>
+              <li><strong>Fecha y rotulación:</strong> Identificar la especie sembrada y el día exacto de siembra.</li>
+              <li><strong>Porcentaje de germinación:</strong> Contar brotes para evaluar la calidad de la semilla.</li>
+              <li><strong>Desarrollo foliar y radicular:</strong> Crecimiento del tallo y aparición de hojas verdaderas.</li>
+              <li><strong>Aclimatación:</strong> Exponer gradualmente a la luz antes del trasplante final.</li>
+            </ul>
+            <div style="margin-top: 12px;">
+              <a href="metodos-semillero.html" style="background: var(--primary); color: white; text-decoration: none; padding: 7px 16px; border-radius: var(--radius-pill); font-size: 0.85rem; font-weight: 700; display: inline-flex; align-items: center; gap: 6px;">
+                <i class="fa-solid fa-clipboard-list"></i> Ver Guía Práctica de Semillero y Bitácora <i class="fa-solid fa-arrow-right" style="font-size: 0.75rem;"></i>
+              </a>
+            </div>
+          </div>
+        </div>
       </article>
 
       <!-- 4. Terreno -->
       <article class="card">
         <span class="card-badge">4</span>
-        <h3>Selección del Terreno</h3>
-        <p>Evaluación minuciosa de las características físicas y geográficas del área.</p>
-        <ul>
-          <li>Disponibilidad de luz solar</li>
-          <li>Fuente y acceso de agua</li>
-          <li>Calidad y tipo de suelo</li>
-          <li>Capacidad de drenaje</li>
-          <li>Espacio y vías de acceso</li>
-        </ul>
+        <div class="card-header-block">
+          <h3>Selección del Terreno</h3>
+          <p>Evaluación minuciosa de las características físicas, geográficas y edafológicas del área de cultivo.</p>
+        </div>
+        <div class="card-body-row">
+          <div class="card-info-col" style="grid-column: 1 / -1;">
+            <h4 style="font-size: 0.95rem; color: var(--primary-dark); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 8px;">
+              <i class="fa-solid fa-map-location-dot" style="color: var(--primary-light);"></i> Aspectos fundamentales a evaluar:
+            </h4>
+            <ul class="checklist-grid">
+              <li><strong>Luz solar directa:</strong> Mínimo 6 horas de exposición diaria.</li>
+              <li><strong>Fuente de agua:</strong> Acceso permanente y de buena calidad para riego.</li>
+              <li><strong>Calidad del suelo:</strong> Textura franco-arenosa o franco-arcillosa rica en materia orgánica.</li>
+              <li><strong>Capacidad de drenaje:</strong> Evitar zonas bajas propensas a inundaciones.</li>
+              <li><strong>Vías y accesibilidad:</strong> Fácil tránsito para herramientas y estudiantes.</li>
+            </ul>
+          </div>
+        </div>
       </article>
 
       <!-- 5. Preparación -->
       <article class="card">
         <span class="card-badge">5</span>
-        <h3>Preparación del Terreno</h3>
-        <p>Acondicionamiento del suelo antes del trasplante o siembra definitiva.</p>
-        <a class="video-link" href="https://m.youtube.com/watch?v=pCpUWrY6QIw" target="_blank" rel="noopener noreferrer" aria-label="Abrir video sobre preparación del terreno en YouTube">
-          <span class="video-thumbnail" aria-hidden="true">
-            <img src="assets/images/video_terreno.jpg" alt="Preparación del terreno" class="video-preview-img" onerror="this.src='https://img.youtube.com/vi/pCpUWrY6QIw/maxresdefault.jpg'">
-            <div class="video-overlay-gradient"></div>
-            <span class="video-thumbnail-title">Preparación del terreno</span>
-            <span class="video-play-icon"><i class="fa-solid fa-play"></i></span>
-            <span class="video-badge-yt"><i class="fa-brands fa-youtube"></i> YouTube</span>
-          </span>
-        </a>
-        <ul>
-          <li>Limpieza de residuos</li>
-          <li>Control inicial de malezas</li>
-          <li>Remoción y aireación del suelo</li>
-          <li>Organización y trazado del área</li>
-        </ul>
+        <div class="card-header-block">
+          <h3>Preparación del Terreno</h3>
+          <p>Acondicionamiento del suelo antes del trasplante o siembra definitiva para garantizar un enraizamiento profundo.</p>
+        </div>
+        <div class="card-body-row">
+          <div class="card-media-col">
+            <a class="video-link" href="https://m.youtube.com/watch?v=pCpUWrY6QIw" target="_blank" rel="noopener noreferrer" aria-label="Abrir video sobre preparación del terreno en YouTube">
+              <span class="video-thumbnail" aria-hidden="true">
+                <img src="assets/images/video_terreno.jpg" alt="Preparación del terreno" class="video-preview-img" onerror="this.src='https://img.youtube.com/vi/pCpUWrY6QIw/maxresdefault.jpg'">
+                <div class="video-overlay-gradient"></div>
+                <span class="video-thumbnail-title">Preparación del terreno</span>
+                <span class="video-play-icon"><i class="fa-solid fa-play"></i></span>
+                <span class="video-badge-yt"><i class="fa-brands fa-youtube"></i> YouTube</span>
+              </span>
+            </a>
+          </div>
+          <div class="card-info-col">
+            <h4 style="font-size: 0.95rem; color: var(--primary-dark); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 8px;">
+              <i class="fa-solid fa-trowel" style="color: var(--primary-light);"></i> Pasos técnicos de acondicionamiento:
+            </h4>
+            <ul>
+              <li><strong>Limpieza de residuos:</strong> Retirar piedras, malezas y desechos inorgánicos.</li>
+              <li><strong>Descompactado y volteo:</strong> Remover la tierra a 25-30 cm para airear el suelo.</li>
+              <li><strong>Incorporación de abono:</strong> Mezclar compost, humus o gallinaza curada.</li>
+              <li><strong>Nivelación y camellones:</strong> Formar surcos o camas altas para facilitar el drenaje.</li>
+            </ul>
+          </div>
+        </div>
       </article>
 
       <!-- 6. Selección de Cultivo -->
       <article class="card">
         <span class="card-badge">6</span>
-        <h3>Selección del Cultivo</h3>
-        <p>Elegir la variedad adecuada para maximizar el éxito agronómico.</p>
-        <ul>
-          <li>Adaptación al clima local</li>
-          <li>Compatibilidad con el terreno</li>
-          <li>Época del año</li>
-          <li>Disponibilidad de agua</li>
-          <li>Espacio requerido</li>
-        </ul>
+        <div class="card-header-block">
+          <h3>Selección del Cultivo</h3>
+          <p>Elegir la variedad vegetal adecuada para maximizar el rendimiento escolar, la nutrición del comedor y la resistencia local.</p>
+        </div>
+        <div class="card-body-row">
+          <div class="card-info-col" style="grid-column: 1 / -1;">
+            <h4 style="font-size: 0.95rem; color: var(--primary-dark); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 8px;">
+              <i class="fa-solid fa-wheat-awn" style="color: var(--primary-light);"></i> Variables agronómicas a considerar:
+            </h4>
+            <ul class="checklist-grid">
+              <li><strong>Adaptación bioclimática:</strong> Hortalizas resistentes a las temperaturas de la región.</li>
+              <li><strong>Ciclo vegetativo:</strong> Preferir cultivos de ciclo corto (ají, tomate, culantro, habichuela).</li>
+              <li><strong>Demanda del comedor:</strong> Variedades ricas en vitaminas para la merienda escolar.</li>
+              <li><strong>Espacio requerido:</strong> Distanciamiento óptimo entre hileras y plantas.</li>
+              <li><strong>Resistencia natural:</strong> Variedades criollas con menor vulnerabilidad a plagas.</li>
+            </ul>
+          </div>
+        </div>
       </article>
 
       <!-- 7. Época de Siembra y Cosecha -->
       <article class="card">
         <span class="card-badge">7</span>
-        <h3>Siembra y Cosecha</h3>
-        <p>Planificación temporal para sincronizar ciclos productivos.</p>
-        <div class="questions-box">
-          <strong>Preguntas de planificación:</strong>
-          <ul style="border: none; padding-top: 0.25rem;">
-            <li>¿Qué sembramos?</li>
-            <li>¿Cuándo sembramos?</li>
-            <li>¿Cuándo esperamos cosechar?</li>
-          </ul>
+        <div class="card-header-block">
+          <h3>Épocas de Siembra y Cosecha</h3>
+          <p>Planificación temporal rigurosa para sincronizar los ciclos productivos con los calendarios agrícolas estacionales y el calendario lectivo.</p>
+        </div>
+        <div class="card-body-row">
+          <div class="card-info-col" style="grid-column: 1 / -1;">
+            <div class="questions-box" style="margin: 0; background: var(--warm-bg); border-left: 4px solid var(--accent-warm); padding: 1.25rem; border-radius: 8px;">
+              <strong style="color: var(--primary-dark); font-size: 1rem; display: flex; align-items: center; gap: 8px;">
+                <i class="fa-solid fa-calendar-days" style="color: #d97706;"></i> Preguntas rectoras de planificación estacional:
+              </strong>
+              <ul class="checklist-grid" style="border: none; padding-top: 0.75rem; margin-top: 0.5rem;">
+                <li><strong>¿Qué sembramos?</strong> Variedad adecuada para la temporada lluviosa o seca.</li>
+                <li><strong>¿Cuándo sembramos?</strong> Inicio de lluvias o fechas con disponibilidad de riego.</li>
+                <li><strong>¿Cuándo cosechamos?</strong> Tiempo exacto para recolectar antes del receso escolar.</li>
+              </ul>
+            </div>
+          </div>
         </div>
       </article>
 
@@ -1058,11 +1283,26 @@
 
     <div class="subpage-nav-footer">
   <div></div>
+    <a href="index.html#quinto-area3-tema1" target="_top" class="btn-subpage-home" onclick="regresarArea3Tema1(event)" style="background: var(--primary-dark); color: #ffffff;">
+    <i class="fa-solid fa-arrow-left"></i> Regresar al Área 3 (Tema 1)
+  </a>
   <a href="metodos-etapas.html" class="btn-subpage-home"><i class="fa-solid fa-house"></i> Inicio del Módulo</a>
   <a href="metodos-semillero.html" class="btn-subpage-nav">Siguiente: Semillero y Bitácora <i class="fa-solid fa-arrow-right"></i></a>
 </div>
   </div>
 
   
+
+  <script>
+    function regresarArea3Tema1(e) {
+      if (e) e.preventDefault();
+      if (window.parent && window.parent !== window && typeof window.parent.regresarQuintoTema1 === 'function') {
+        window.parent.regresarQuintoTema1();
+      } else {
+        window.top.location.href = "index.html#quinto-area3-tema1";
+      }
+    }
+  </script>
+
 </body>
 </html>

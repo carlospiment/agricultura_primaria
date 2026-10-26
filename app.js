@@ -55,19 +55,36 @@ document.addEventListener('DOMContentLoaded', () => {
       view.classList.remove('active');
     });
 
-    // Find requested view element
-    const activeView = document.getElementById(targetId) || document.getElementById('inicio');
+    // Find requested element or its parent view
+    let targetEl = document.getElementById(targetId);
+    let activeView = targetEl;
+    if (activeView && !activeView.classList.contains('view-section')) {
+      activeView = activeView.closest('.view-section');
+    }
+    if (!activeView) {
+      activeView = document.getElementById('inicio');
+    }
+
     if (activeView) {
       activeView.classList.add('active');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (targetEl && targetEl !== activeView) {
+        setTimeout(() => {
+          targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 150);
+        setTimeout(() => {
+          targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 450);
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     }
 
     // Update Navbar Active state
-    const currentBaseRoute = targetId.split('-')[0]; // e.g. 'tercero' from 'tercero-area1'
+    const currentBaseRoute = activeView ? activeView.id.split('-')[0] : targetId.split('-')[0];
     
     document.querySelectorAll('.nav-link').forEach(link => {
       const linkRoute = link.getAttribute('data-target');
-      if (linkRoute === currentBaseRoute || linkRoute === targetId) {
+      if (linkRoute === currentBaseRoute || (activeView && linkRoute === activeView.id)) {
         link.classList.add('active');
       } else {
         link.classList.remove('active');
@@ -736,20 +753,53 @@ function initThemeAndSearchControls() {
 window.toggleModuloMetodosQuinto = function() {
   const visor = document.getElementById('visorModuloMetodos');
   const chevron = document.getElementById('chevronBtnMetodos');
-  const texto = document.getElementById('textoBtnMetodos');
   if (!visor) return;
 
   if (visor.style.display === 'none' || visor.style.display === '') {
     visor.style.display = 'block';
-    if (texto) texto.textContent = 'Ocultar Guía y Bitácora';
     if (chevron) chevron.style.transform = 'rotate(180deg)';
     setTimeout(() => {
       visor.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }, 100);
   } else {
     visor.style.display = 'none';
-    if (texto) texto.textContent = 'Ver Métodos y Bitácora';
     if (chevron) chevron.style.transform = 'rotate(0deg)';
+  }
+};
+
+window.regresarQuintoTema1 = function() {
+  const visor = document.getElementById('visorModuloMetodos');
+  const chevron = document.getElementById('chevronBtnMetodos');
+  if (visor) {
+    visor.style.display = 'none';
+  }
+  if (chevron) {
+    chevron.style.transform = 'rotate(0deg)';
+  }
+
+  // Ensure view quinto-area3 is active
+  const allViews = document.querySelectorAll('.view-section');
+  allViews.forEach(v => v.classList.remove('active'));
+  const area3 = document.getElementById('quinto-area3');
+  if (area3) area3.classList.add('active');
+
+  // Scroll to Tema 1
+  const tema1 = document.getElementById('quinto-area3-tema1');
+  if (tema1) {
+    setTimeout(() => {
+      tema1.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 60);
+  } else {
+    const card = document.getElementById('cardTriggerMetodosQuinto');
+    if (card) {
+      card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  if (history.pushState) {
+    history.pushState(null, null, '#quinto-area3-tema1');
+  } else {
+    window.location.hash = 'quinto-area3-tema1';
   }
 };
 

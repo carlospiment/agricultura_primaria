@@ -1426,3 +1426,20 @@ div[id$="-word-list"] > div[data-word] span {
     padding: 28px;
     box-shadow: var(--shadow-md);
 }
+
+/* Trigger interactivo del modulo de metodos agricolas */
+.card-trigger-metodos {
+    user-select: none;
+}
+.card-trigger-metodos:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(27, 67, 50, 0.15) !important;
+    border-color: var(--primary) !important;
+}
+.card-trigger-metodos:active {
+    transform: translateY(0);
+}
+.card-trigger-metodos:focus-visible {
+    outline: 3px solid var(--primary-light);
+    outline-offset: 2px;
+}
