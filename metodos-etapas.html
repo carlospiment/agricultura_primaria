@@ -1,1308 +1,1529 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>7 Etapas Clave - Métodos Modernos | Quinto Grado MEDUCA</title>
-  <!-- Google Fonts & FontAwesome Icons -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <style>
-
-    :root {
-      --primary: #2d6a4f;
-      --primary-light: #40916c;
-      --primary-dark: #1b4332;
-      --accent: #d8f3dc;
-      --accent-warm: #e9c46a;
-      --surface: #ffffff;
-      --background: #f8faf9;
-      --text-main: #1f2937;
-      --text-muted: #4b5563;
-      --border: #e5e7eb;
-      --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-      --radius: 12px;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background-color: var(--background);
-      color: var(--text-main);
-      line-height: 1.6;
-      padding: 1.5rem 0;
-      width: 100%;
-      margin: 0;
-      box-sizing: border-box;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 100%;
-      margin: 0 auto;
-      padding: 0 1.5rem;
-      box-sizing: border-box;
-    }
-
-    /* Encabezado */
-    .header {
-      width: 100%;
-      box-sizing: border-box;
-      text-align: center;
-      margin-bottom: 2rem;
-      padding: 2rem 1.5rem;
-      background: linear-gradient(135deg, var(--primary-dark), var(--primary-light));
-      color: #ffffff;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-    }
-
-    .header h1 {
-      font-size: 2rem;
-      margin-bottom: 0.75rem;
-    }
-
-    .header p {
-      font-size: 1.05rem;
-      max-width: 960px;
-      margin: 0 auto;
-      opacity: 0.95;
-    }
-
-    .navigation {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      margin: -1rem 0 2rem;
-    }
-
-    .navigation a {
-      display: inline-block;
-      padding: 0.7rem 1.2rem;
-      background-color: var(--primary);
-      color: #ffffff;
-      border-radius: 8px;
-      font-weight: 600;
-      text-decoration: none;
-      box-shadow: var(--shadow);
-      transition: background-color 0.2s ease;
-    }
-
-    .navigation a:hover,
-    .navigation a:focus-visible {
-      background-color: var(--primary-dark);
-    }
-
-    /* Bloque Idea Principal */
-    .highlight-card {
-      background-color: var(--accent);
-      border-left: 5px solid var(--primary);
-      padding: 1.25rem 1.5rem;
-      border-radius: 8px;
-      margin-bottom: 2.5rem;
-      display: flex;
-      align-items: flex-start;
-      gap: 1rem;
-    }
-
-    .highlight-card .icon {
-      font-size: 1.8rem;
-      line-height: 1;
-    }
-
-    .highlight-card h3 {
-      color: var(--primary-dark);
-      margin-bottom: 0.25rem;
-      font-size: 1.1rem;
-    }
-
-    .highlight-card p {
-      color: var(--text-main);
-      font-weight: 500;
-    }
-
-    /* Grilla de Etapas */
-    .section-title {
-      font-size: 1.4rem;
-      color: var(--primary-dark);
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .grid {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-      width: 100%;
-      margin-bottom: 2.5rem;
-    }
-
-    .card {
-      background-color: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.5rem 1.75rem;
-      box-shadow: var(--shadow);
-      position: relative;
-      width: 100%;
-      box-sizing: border-box;
-      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-      border-color: var(--primary-light);
-    }
-
-    .card-header-block {
-      margin-bottom: 1rem;
-      padding-right: 3rem;
-    }
-
-    .card-body-row {
-      display: grid;
-      grid-template-columns: minmax(280px, 480px) 1fr;
-      gap: 1.75rem;
-      align-items: start;
-    }
-
-    .card-info-col {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .checklist-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 0.6rem 1.5rem;
-      list-style-type: none;
-      padding: 0.5rem 0 0 0;
-      border-top: 1px dashed var(--border);
-      margin-top: 0.5rem;
-    }
-
-    @media (max-width: 850px) {
-      .card-body-row {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-      }
-      .checklist-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .card-badge {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background-color: var(--accent);
-      color: var(--primary-dark);
-      font-weight: bold;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.85rem;
-    }
-
-    .card h3 {
-      font-size: 1.15rem;
-      color: var(--primary);
-      margin-bottom: 0.5rem;
-      padding-right: 2rem;
-    }
-
-    .card p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      margin-bottom: 0.75rem;
-    }
-
-    .video-link {
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-      gap: 0.4rem;
-      margin-bottom: 0.75rem;
-      color: var(--primary-dark);
-      font-size: 0.9rem;
-      font-weight: 600;
-      text-decoration: none;
-    }
-
-    .video-link:hover,
-    .video-link:focus-visible {
-      text-decoration: underline;
-    }
-
-    .video-thumbnail {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      overflow: hidden;
-      border-radius: 8px;
-      background-color: #0d1f17;
-      color: #ffffff;
-      text-align: center;
-    }
-
-    .video-preview-img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), filter 0.4s ease;
-      z-index: 1;
-      display: block;
-    }
-
-    .video-overlay-gradient {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.25) 50%, rgba(0, 0, 0, 0.6) 100%);
-      z-index: 2;
-      transition: background 0.3s ease;
-    }
-
-    .video-link:hover .video-preview-img,
-    .bitacora-video-link:hover .video-preview-img {
-      transform: scale(1.06);
-      filter: brightness(1.08);
-    }
-
-    .video-link:hover .video-overlay-gradient,
-    .bitacora-video-link:hover .video-overlay-gradient {
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.15) 50%, rgba(0, 0, 0, 0.45) 100%);
-    }
-
-    .video-thumbnail-title {
-      position: absolute;
-      top: 0.75rem;
-      left: 0.85rem;
-      right: 0.85rem;
-      color: #ffffff;
-      font-size: clamp(0.9rem, 2.5vw, 1.15rem);
-      font-weight: 700;
-      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
-      z-index: 3;
-      text-align: left;
-    }
-
-    .video-play-icon {
-      position: relative;
-      z-index: 3;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 3.4rem;
-      height: 3.4rem;
-      padding-left: 0.25rem;
-      border-radius: 50%;
-      background-color: #ff0000;
-      color: #ffffff;
-      font-size: 1.35rem;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
-      transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .video-link:hover .video-play-icon,
-    .bitacora-video-link:hover .video-play-icon {
-      transform: scale(1.15);
-      background-color: #cc0000;
-      box-shadow: 0 6px 20px rgba(255, 0, 0, 0.55);
-    }
-
-    .video-badge-yt {
-      position: absolute;
-      bottom: 0.65rem;
-      right: 0.75rem;
-      z-index: 3;
-      background: rgba(0, 0, 0, 0.78);
-      color: #ffffff;
-      font-size: 0.78rem;
-      font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.4);
-    }
-    .video-badge-yt i {
-      color: #ff0000;
-    }
-
-    .video-action,
-    .bitacora-video-caption {
-      display: block;
-      min-height: 44px;
-      padding: 0.65rem 0.9rem;
-      border-radius: 6px;
-      background-color: var(--primary);
-      color: #ffffff;
-      text-align: center;
-      font-weight: 600;
-    }
-
-    .video-action {
-      transition: background-color 0.2s ease;
-    }
-
-    .video-link:hover .video-action,
-    .video-link:focus-visible .video-action,
-    .bitacora-video-link:hover .bitacora-video-caption,
-    .bitacora-video-link:focus-visible .bitacora-video-caption {
-      background-color: var(--primary-dark);
-    }
-
-    .bitacora-video-caption {
-      border-radius: 0;
-    }
-
-    .card ul {
-      list-style-type: none;
-      padding-top: 0.5rem;
-      border-top: 1px dashed var(--border);
-      margin-top: auto;
-    }
-
-    .card ul li {
-      font-size: 0.9rem;
-      color: var(--text-main);
-      padding: 0.25rem 0;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .card ul li::before {
-      content: "✔";
-      color: var(--primary-light);
-      font-size: 0.75rem;
-    }
-
-    /* Sección Bitácora */
-    .bitacora-section {
-      background-color: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.75rem;
-      box-shadow: var(--shadow);
-    }
-
-    .bitacora-header {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 0.75rem;
-    }
-
-    .bitacora-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 1rem;
-    }
-
-    .tag {
-      display: inline-block;
-      background-color: #f3f4f6;
-      border: 1px solid var(--border);
-      padding: 0.35rem 0.75rem;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: var(--text-muted);
-    }
-
-    .tag-link {
-      text-decoration: none;
-    }
-
-    .tag-link:hover,
-    .tag-link:focus-visible {
-      background-color: var(--accent);
-      border-color: var(--primary-light);
-      color: var(--primary-dark);
-    }
-
-    .bitacora-content {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-      margin-top: 1.5rem;
-    }
-
-    .bitacora-content h3 {
-      color: var(--primary-dark);
-      font-size: 1.05rem;
-      margin-bottom: 0.75rem;
-    }
-
-    .bitacora-content ul,
-    .bitacora-content ol {
-      padding-left: 1.4rem;
-      color: var(--text-muted);
-    }
-
-    .bitacora-content li {
-      padding: 0.3rem 0;
-    }
-
-    .bitacora-content li::marker {
-      color: var(--primary-light);
-      font-weight: 700;
-    }
-
-    .bitacora-content strong {
-      color: var(--primary-dark);
-    }
-
-    .bitacora-video-caption {
-      border-radius: 0;
-    }
-
-    .bitacora-video-link {
-      display: block;
-      width: 100%;
-      overflow: hidden;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      color: #ffffff;
-      text-decoration: none;
-    }
-
-    .bitacora-video-link img {
-      display: block;
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      object-fit: cover;
-    }
-
-    .bitacora-video-link:focus-visible {
-      outline: 3px solid var(--primary-light);
-      outline-offset: 3px;
-    }
-
-    .extra-section {
-      margin-top: 2.5rem;
-      scroll-margin-top: 1rem;
-    }
-
-    .extra-card {
-      margin-bottom: 1.25rem;
-      padding: 1.5rem;
-      background-color: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-    }
-
-    .extra-card h3 {
-      color: var(--primary-dark);
-      font-size: 1.1rem;
-      margin-bottom: 0.75rem;
-    }
-
-    .glossary-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1rem;
-    }
-
-    .glossary-entry {
-      background-color: var(--surface);
-      border: 1px solid var(--border);
-      border-left: 4px solid var(--primary-light);
-      border-radius: 8px;
-      padding: 1rem 1.25rem;
-      box-shadow: var(--shadow);
-    }
-
-    .glossary-entry h3 {
-      color: var(--primary-dark);
-      font-size: 1rem;
-      margin-bottom: 0.35rem;
-    }
-
-    .glossary-entry p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-    }
-
-    .diagram-card {
-      overflow-x: auto;
-      padding: 1rem;
-      background-color: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-    }
-
-    .diagram-card svg {
-      display: block;
-      width: 100%;
-      min-width: 900px;
-      height: auto;
-    }
-
-    .flow-connector {
-      fill: none;
-      stroke: var(--primary-light);
-      stroke-width: 3;
-    }
-
-    .flow-node {
-      fill: var(--accent);
-      stroke: var(--primary);
-      stroke-width: 2;
-    }
-
-    .flow-node-main {
-      fill: var(--primary-dark);
-      stroke: var(--primary-dark);
-    }
-
-    .flow-node-final {
-      fill: #e9c46a;
-      stroke: #9c6615;
-    }
-
-    .flow-label {
-      fill: var(--primary-dark);
-      font-size: 16px;
-      font-weight: 600;
-      text-anchor: middle;
-      dominant-baseline: middle;
-    }
-
-    .flow-label-main {
-      fill: #ffffff;
-      font-size: 19px;
-      font-weight: 700;
-    }
-
-    .mindmap-svg {
-      display: block;
-      width: 100%;
-      min-width: 850px;
-      height: auto;
-    }
-
-    .mind-branch {
-      fill: none;
-      stroke-width: 4;
-      stroke-linecap: round;
-    }
-
-    .branch-seed { stroke: #40916c; }
-    .branch-terrain { stroke: #e9a23b; }
-    .branch-crop { stroke: #6284c7; }
-    .branch-time { stroke: #be6b9b; }
-    .branch-followup { stroke: #829447; }
-
-    .mind-root {
-      fill: var(--primary-dark);
-      stroke: var(--primary-dark);
-      stroke-width: 2;
-    }
-
-    .mind-category { stroke-width: 2; }
-    .category-seed { fill: #d8f3dc; stroke: #40916c; }
-    .category-terrain { fill: #fff0d6; stroke: #e9a23b; }
-    .category-crop { fill: #e5ecfb; stroke: #6284c7; }
-    .category-time { fill: #f8e5ef; stroke: #be6b9b; }
-    .category-followup { fill: #edf0dc; stroke: #829447; }
-
-    .mind-leaf {
-      fill: #ffffff;
-      stroke-width: 2;
-    }
-
-    .mind-label {
-      fill: var(--primary-dark);
-      font-size: 16px;
-      font-weight: 600;
-      text-anchor: middle;
-      dominant-baseline: middle;
-    }
-
-    .mind-root-label {
-      fill: #ffffff;
-      font-size: 20px;
-      font-weight: 700;
-    }
-
-    .form-fields {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1rem;
-    }
-
-    .form-fields label,
-    .record-fields label {
-      display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
-      color: var(--primary-dark);
-      font-weight: 600;
-    }
-
-    .extra-card input,
-    .extra-card select,
-    .extra-card textarea {
-      width: 100%;
-      padding: 0.6rem;
-      border: 1px solid #cbd5d1;
-      border-radius: 6px;
-      font: inherit;
-      color: var(--text-main);
-    }
-
-    .extra-card textarea {
-      min-height: 90px;
-      resize: vertical;
-    }
-
-    .table-wrapper { overflow-x: auto; }
-
-    .record-table {
-      width: 100%;
-      min-width: 700px;
-      border-collapse: collapse;
-    }
-
-    .record-table th,
-    .record-table td {
-      padding: 0.65rem;
-      border: 1px solid var(--border);
-      text-align: left;
-      vertical-align: middle;
-    }
-
-    .record-table th {
-      background-color: var(--accent);
-      color: var(--primary-dark);
-    }
-
-    .record-table input { min-width: 100px; }
-
-    .record-fields {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1rem;
-    }
-
-    .record-fields textarea { min-height: 90px; }
-
-    .checkbox-cell { text-align: center !important; }
-    .checkbox-cell input { width: 1.1rem; height: 1.1rem; accent-color: var(--primary); }
-
-    .analysis-question { margin-top: 1rem; }
-    .analysis-question:first-of-type { margin-top: 0; }
-    .analysis-question h3 { margin-bottom: 0.5rem; font-size: 1rem; }
-
-    .back-to-top {
-      display: inline-block;
-      margin-top: 1rem;
-      color: var(--primary-dark);
-      font-weight: 600;
-    }
-
-    .extra-section section[id] { scroll-margin-top: 1rem; }
-
-    .questions-box {
-      background: #fdfaf3;
-      border: 1px solid var(--accent-warm);
-      padding: 1rem;
-      border-radius: 8px;
-      margin-top: 1rem;
-    }
-
-    .questions-box strong {
-      color: #9c6615;
-    }
-
-
-    /* Mejoras de Tipografía e Interfaz */
-    body {
-      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-    }
-    h1, h2, h3, h4 {
-      font-family: 'Outfit', sans-serif;
-    }
-
-    /* Barra de herramientas para el estudiante */
-    .student-toolbar {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      background: #ffffff;
-      border: 1.5px solid var(--border);
-      padding: 12px 18px;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      margin-bottom: 2rem;
-    }
-
-    .btn-tool {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 16px;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      font-weight: 700;
-      cursor: pointer;
-      border: none;
-      transition: all 0.2s ease;
-    }
-
-    .btn-save {
-      background: var(--primary);
-      color: #ffffff;
-    }
-    .btn-save:hover {
-      background: var(--primary-dark);
-      transform: translateY(-2px);
-    }
-
-    .btn-print {
-      background: #0284c7;
-      color: #ffffff;
-    }
-    .btn-print:hover {
-      background: #0369a1;
-      transform: translateY(-2px);
-    }
-
-    .btn-reset {
-      background: #f1f5f9;
-      color: #64748b;
-      border: 1px solid #cbd5e1;
-    }
-    .btn-reset:hover {
-      background: #fee2e2;
-      color: #dc2626;
-      border-color: #fca5a5;
-    }
-
-    .save-status {
-      font-size: 0.85rem;
-      color: #16a34a;
-      font-weight: 700;
-      display: none;
-      align-items: center;
-      gap: 6px;
-    }
-    .save-status.visible {
-      display: inline-flex;
-    }
-
-    /* Indicador de desplazamiento para diagramas */
-    .scroll-hint {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      font-weight: 600;
-      margin-bottom: 8px;
-      background: rgba(45, 106, 79, 0.08);
-      padding: 6px 12px;
-      border-radius: 6px;
-    }
-
-    /* Tarjetas Interactivas con Hover Suave */
-    .card {
-      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-    }
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-      border-color: var(--primary-light);
-    }
-
-    /* Estilos de Impresión */
-    @media print {
-      body {
-        background: #ffffff !important;
-        color: #000000 !important;
-        padding: 0 !important;
-      }
-      .navigation, .student-toolbar, .back-to-top, .video-link, .bitacora-video-link, .scroll-hint {
-        display: none !important;
-      }
-      .card, .bitacora-section, .extra-card, .glossary-entry, .diagram-card {
-        box-shadow: none !important;
-        border: 1px solid #ccc !important;
-        break-inside: avoid;
-      }
-      .header {
-        background: none !important;
-        color: #000 !important;
-        border-bottom: 2px solid #2d6a4f !important;
-        border-radius: 0 !important;
-        padding: 10px 0 !important;
-      }
-    }
-  
-    /* Navegación por Subpáginas */
-    .navigation {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 0.65rem;
-      margin: -1rem 0 2rem;
-    }
-
-    .navigation a {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 0.65rem 1.15rem;
-      background-color: #235d43;
-      color: #ffffff;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 0.92rem;
-      text-decoration: none;
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-      transition: all 0.2s ease;
-      border: 2px solid transparent;
-    }
-
-    .navigation a:hover,
-    .navigation a:focus-visible {
-      background-color: #1b4332;
-      transform: translateY(-2px);
-      box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
-    }
-
-    .navigation a.active {
-      background-color: #10b981;
-      color: #ffffff;
-      border-color: #ffffff;
-      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
-      font-weight: 700;
-    }
-
-    /* Footer de Navegación entre Subpáginas */
-    .subpage-nav-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      margin-top: 3rem;
-      padding-top: 1.5rem;
-      border-top: 2px dashed var(--border);
-      flex-wrap: wrap;
-    }
-    .btn-subpage-nav {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 20px;
-      background: var(--primary);
-      color: #ffffff;
-      border-radius: 8px;
-      font-weight: 700;
-      text-decoration: none;
-      transition: all 0.2s ease;
-    }
-    .btn-subpage-nav:hover {
-      background: var(--primary-dark);
-      transform: translateY(-2px);
-    }
-    .btn-subpage-home {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 10px 16px;
-      background: #f1f5f9;
-      color: #475569;
-      border-radius: 8px;
-      font-weight: 600;
-      text-decoration: none;
-      border: 1px solid #cbd5e1;
-    }
-    .btn-subpage-home:hover {
-      background: #e2e8f0;
-      color: #0f172a;
-    }
-
-  
-    /* Optimizacion para dispositivos moviles - Ancho Completo Ajustado */
-    @media (max-width: 768px) {
-      body {
-        padding: 0.5rem 0;
-        width: 100%;
-      }
-      .container {
-        padding: 0 0.6rem;
-        width: 100%;
-        max-width: 100%;
-      }
-      .header {
-        margin-bottom: 0.85rem;
-        padding: 0.85rem 0.75rem;
-        border-radius: 10px;
-        width: 100%;
-      }
-      .header h1 {
-        font-size: 1.25rem;
-        margin-bottom: 0.25rem;
-      }
-      .header p {
-        font-size: 0.82rem;
-        line-height: 1.35;
-        max-width: 100%;
-      }
-      .navigation {
-        margin: -0.25rem 0 1rem;
-        gap: 0.4rem;
-        display: flex;
-        overflow-x: auto;
-        flex-wrap: nowrap;
-        justify-content: flex-start;
-        padding-bottom: 6px;
-        -webkit-overflow-scrolling: touch;
-        width: 100%;
-      }
-      .navigation a {
-        padding: 0.45rem 0.8rem;
-        font-size: 0.8rem;
-        white-space: nowrap;
-        flex-shrink: 0;
-      }
-      .highlight-card {
-        padding: 0.85rem 1rem;
-        margin-bottom: 1.25rem;
-        width: 100%;
-      }
-      .card, .semillero-hero-card, .bitacora-card-detail, .extra-card {
-        padding: 1.15rem 1rem !important;
-        width: 100% !important;
-      }
-      .card-body-row {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-      }
-      .card-header-block {
-        padding-right: 2.2rem;
-      }
-      .card-badge {
-        top: 0.75rem;
-        right: 0.75rem;
-        width: 26px;
-        height: 26px;
-        font-size: 0.8rem;
-      }
-      .btn-subpage-home, .btn-subpage-nav {
-        padding: 0.5rem 0.9rem;
-        font-size: 0.82rem;
-      }
-      .subpage-nav-footer {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 8px;
-      }
-      .subpage-nav-footer a {
-        justify-content: center;
-        text-align: center;
-      }
-    }
-
-  </style>
-</head>
-<body>
-
-  <div class="container">
-    <!-- BOTÓN PARA REGRESAR A ÁREA 3 (TEMA 1) -->
-    <div style="margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
-      <a href="index.html#quinto-area3-tema1" target="_top" onclick="regresarArea3Tema1(event)" class="btn-subpage-home" style="background: var(--primary); color: #ffffff; text-decoration: none; padding: 8px 18px; border-radius: var(--radius-pill); font-weight: 700; font-size: 0.88rem; display: inline-flex; align-items: center; gap: 8px; box-shadow: var(--shadow);">
-        <i class="fa-solid fa-arrow-left"></i> Regresar al Área 3 (Tema 1)
-      </a>
-      <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">5.° Grado • Educación Agropecuaria</span>
-    </div>
-
-    <header class="header" id="inicio">
-      <h1>🌱 Métodos Modernos de Producción Agrícola</h1>
-      <p>Procesos organizados para planificar, establecer y optimizar el desarrollo y rendimiento de los cultivos antes de sembrar.</p>
-    </header>
-
-    <nav class="navigation" aria-label="Navegación de Subpáginas">
-      <a href="metodos-etapas.html" class=" active"><i class="fa-solid fa-seedling"></i> 7 Etapas Clave</a>
-      <a href="metodos-semillero.html" class=""><i class="fa-solid fa-clipboard-list"></i> Semillero y Bitácora</a>
-      <a href="metodos-mapa-conceptual.html" class=""><i class="fa-solid fa-diagram-project"></i> Mapa Conceptual</a>
-      <a href="metodos-mapa-mental.html" class=""><i class="fa-solid fa-brain"></i> Mapa Mental</a>
-      <a href="metodos-glosario.html" class=""><i class="fa-solid fa-book"></i> Glosario</a>
-      <a href="metodos-fichas-campo.html" class=""><i class="fa-solid fa-pen-to-square"></i> Fichas de Campo</a>
-    </nav>
-
-    <section class="highlight-card">
-      <div class="icon">💡</div>
-      <div>
-        <h3>Idea Principal</h3>
-        <p>La producción agrícola planificada comienza seleccionando correctamente las semillas, el terreno, el cultivo y la época; además requiere observación y registro constante durante su desarrollo.</p>
-      </div>
-    </section>
-
-    <!-- Fases y Decisiones -->
-    <h2 class="section-title" id="etapas">Decisiones y Etapas Clave</h2>
-    <main class="grid">
-
-      <!-- 1. Semillas -->
-      <article class="card">
-        <span class="card-badge">1</span>
-        <div class="card-header-block">
-          <h3>Selección de Semillas</h3>
-          <p>Escoger semillas certificadas o criollas vigorosas según las condiciones ecológicas del lugar.</p>
-        </div>
-        <div class="card-body-row">
-          <div class="card-media-col">
-            <a class="video-link" href="https://m.youtube.com/watch?v=JdrqJuW2Ato&amp;t=75s" target="_blank" rel="noopener noreferrer" aria-label="Abrir video sobre selección de semillas en YouTube">
-              <span class="video-thumbnail" aria-hidden="true">
-                <img src="assets/images/video_semillas.jpg" alt="Selección de semillas" class="video-preview-img" onerror="this.src='https://img.youtube.com/vi/JdrqJuW2Ato/maxresdefault.jpg'">
-                <div class="video-overlay-gradient"></div>
-                <span class="video-thumbnail-title">Selección de semillas</span>
-                <span class="video-play-icon"><i class="fa-solid fa-play"></i></span>
-                <span class="video-badge-yt"><i class="fa-brands fa-youtube"></i> YouTube</span>
-              </span>
-            </a>
-          </div>
-          <div class="card-info-col">
-            <h4 style="font-size: 0.95rem; color: var(--primary-dark); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 8px;">
-              <i class="fa-solid fa-clipboard-check" style="color: var(--primary-light);"></i> Criterios clave para la selección:
-            </h4>
-            <ul>
-              <li><strong>Especie definida:</strong> Adaptada a la zona y con alta demanda nutricional.</li>
-              <li><strong>Estado y vigor:</strong> Semillas con alto porcentaje de germinación y pureza.</li>
-              <li><strong>Ausencia de daños:</strong> Libres de picaduras de insectos, moho o roturas.</li>
-              <li><strong>Procedencia confiable:</strong> Semilleristas certificados o cosechas limpias.</li>
-              <li><strong>Condiciones del lugar:</strong> Requerimientos de suelo, luz y agua.</li>
-            </ul>
-          </div>
-        </div>
-      </article>
-
-      <!-- 2. Germinación -->
-      <article class="card">
-        <span class="card-badge">2</span>
-        <div class="card-header-block">
-          <h3>Germinación</h3>
-          <p>Proceso biológico mediante el cual la semilla despierta del letargo y origina una plántula vigorosa bajo condiciones óptimas.</p>
-        </div>
-        <div class="card-body-row">
-          <div class="card-media-col">
-            <a class="video-link" href="https://m.youtube.com/watch?v=fCRA6i1fTRA" target="_blank" rel="noopener noreferrer" aria-label="Abrir video sobre germinación en YouTube">
-              <span class="video-thumbnail" aria-hidden="true">
-                <img src="assets/images/video_germinacion.jpg" alt="Germinación" class="video-preview-img" onerror="this.src='https://img.youtube.com/vi/fCRA6i1fTRA/maxresdefault.jpg'">
-                <div class="video-overlay-gradient"></div>
-                <span class="video-thumbnail-title">Germinación</span>
-                <span class="video-play-icon"><i class="fa-solid fa-play"></i></span>
-                <span class="video-badge-yt"><i class="fa-brands fa-youtube"></i> YouTube</span>
-              </span>
-            </a>
-          </div>
-          <div class="card-info-col">
-            <h4 style="font-size: 0.95rem; color: var(--primary-dark); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 8px;">
-              <i class="fa-solid fa-seedling" style="color: var(--primary-light);"></i> Factores determinantes para el éxito:
-            </h4>
-            <ul>
-              <li><strong>Humedad constante:</strong> Sustrato húmedo como esponja escurrida, sin encharcamientos.</li>
-              <li><strong>Temperatura adecuada:</strong> Calor suave para activar las enzimas internas.</li>
-              <li><strong>Oxigenación:</strong> Sustrato poroso que permita la respiración radicular.</li>
-              <li><strong>Prueba previa:</strong> Monitorear la tasa de brote antes de sembrar a gran escala.</li>
-            </ul>
-          </div>
-        </div>
-      </article>
-
-      <!-- 3. Semillero -->
-      <article class="card">
-        <span class="card-badge">3</span>
-        <div class="card-header-block">
-          <h3>Semillero</h3>
-          <p>Espacio protegido para cuidar y monitorear las plántulas en sus primeras etapas antes de llevarlas al terreno definitivo.</p>
-        </div>
-        <div class="card-body-row">
-          <div class="card-media-col">
-            <a class="video-link" href="https://www.youtube.com/watch?v=g22DA12UIV4" target="_blank" rel="noopener noreferrer" aria-label="Abrir video sobre semillero en cartón de huevos en YouTube">
-              <span class="video-thumbnail" aria-hidden="true">
-                <img src="assets/images/video_semillero.jpg" alt="Semillero en cartón de huevos" class="video-preview-img" onerror="this.src='https://img.youtube.com/vi/g22DA12UIV4/maxresdefault.jpg'">
-                <div class="video-overlay-gradient"></div>
-                <span class="video-thumbnail-title">Semillero en cartón de huevos</span>
-                <span class="video-play-icon"><i class="fa-solid fa-play"></i></span>
-                <span class="video-badge-yt"><i class="fa-brands fa-youtube"></i> YouTube</span>
-              </span>
-            </a>
-          </div>
-          <div class="card-info-col">
-            <h4 style="font-size: 0.95rem; color: var(--primary-dark); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 8px;">
-              <i class="fa-solid fa-clipboard-list" style="color: var(--primary-light);"></i> Cuidados y registro en bitácora:
-            </h4>
-            <ul>
-              <li><strong>Fecha y rotulación:</strong> Identificar la especie sembrada y el día exacto de siembra.</li>
-              <li><strong>Porcentaje de germinación:</strong> Contar brotes para evaluar la calidad de la semilla.</li>
-              <li><strong>Desarrollo foliar y radicular:</strong> Crecimiento del tallo y aparición de hojas verdaderas.</li>
-              <li><strong>Aclimatación:</strong> Exponer gradualmente a la luz antes del trasplante final.</li>
-            </ul>
-            <div style="margin-top: 12px;">
-              <a href="metodos-semillero.html" style="background: var(--primary); color: white; text-decoration: none; padding: 7px 16px; border-radius: var(--radius-pill); font-size: 0.85rem; font-weight: 700; display: inline-flex; align-items: center; gap: 6px;">
-                <i class="fa-solid fa-clipboard-list"></i> Ver Guía Práctica de Semillero y Bitácora <i class="fa-solid fa-arrow-right" style="font-size: 0.75rem;"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- 4. Terreno -->
-      <article class="card">
-        <span class="card-badge">4</span>
-        <div class="card-header-block">
-          <h3>Selección del Terreno</h3>
-          <p>Evaluación minuciosa de las características físicas, geográficas y edafológicas del área de cultivo.</p>
-        </div>
-        <div class="card-body-row">
-          <div class="card-info-col" style="grid-column: 1 / -1;">
-            <h4 style="font-size: 0.95rem; color: var(--primary-dark); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 8px;">
-              <i class="fa-solid fa-map-location-dot" style="color: var(--primary-light);"></i> Aspectos fundamentales a evaluar:
-            </h4>
-            <ul class="checklist-grid">
-              <li><strong>Luz solar directa:</strong> Mínimo 6 horas de exposición diaria.</li>
-              <li><strong>Fuente de agua:</strong> Acceso permanente y de buena calidad para riego.</li>
-              <li><strong>Calidad del suelo:</strong> Textura franco-arenosa o franco-arcillosa rica en materia orgánica.</li>
-              <li><strong>Capacidad de drenaje:</strong> Evitar zonas bajas propensas a inundaciones.</li>
-              <li><strong>Vías y accesibilidad:</strong> Fácil tránsito para herramientas y estudiantes.</li>
-            </ul>
-          </div>
-        </div>
-      </article>
-
-      <!-- 5. Preparación -->
-      <article class="card">
-        <span class="card-badge">5</span>
-        <div class="card-header-block">
-          <h3>Preparación del Terreno</h3>
-          <p>Acondicionamiento del suelo antes del trasplante o siembra definitiva para garantizar un enraizamiento profundo.</p>
-        </div>
-        <div class="card-body-row">
-          <div class="card-media-col">
-            <a class="video-link" href="https://m.youtube.com/watch?v=pCpUWrY6QIw" target="_blank" rel="noopener noreferrer" aria-label="Abrir video sobre preparación del terreno en YouTube">
-              <span class="video-thumbnail" aria-hidden="true">
-                <img src="assets/images/video_terreno.jpg" alt="Preparación del terreno" class="video-preview-img" onerror="this.src='https://img.youtube.com/vi/pCpUWrY6QIw/maxresdefault.jpg'">
-                <div class="video-overlay-gradient"></div>
-                <span class="video-thumbnail-title">Preparación del terreno</span>
-                <span class="video-play-icon"><i class="fa-solid fa-play"></i></span>
-                <span class="video-badge-yt"><i class="fa-brands fa-youtube"></i> YouTube</span>
-              </span>
-            </a>
-          </div>
-          <div class="card-info-col">
-            <h4 style="font-size: 0.95rem; color: var(--primary-dark); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 8px;">
-              <i class="fa-solid fa-trowel" style="color: var(--primary-light);"></i> Pasos técnicos de acondicionamiento:
-            </h4>
-            <ul>
-              <li><strong>Limpieza de residuos:</strong> Retirar piedras, malezas y desechos inorgánicos.</li>
-              <li><strong>Descompactado y volteo:</strong> Remover la tierra a 25-30 cm para airear el suelo.</li>
-              <li><strong>Incorporación de abono:</strong> Mezclar compost, humus o gallinaza curada.</li>
-              <li><strong>Nivelación y camellones:</strong> Formar surcos o camas altas para facilitar el drenaje.</li>
-            </ul>
-          </div>
-        </div>
-      </article>
-
-      <!-- 6. Selección de Cultivo -->
-      <article class="card">
-        <span class="card-badge">6</span>
-        <div class="card-header-block">
-          <h3>Selección del Cultivo</h3>
-          <p>Elegir la variedad vegetal adecuada para maximizar el rendimiento escolar, la nutrición del comedor y la resistencia local.</p>
-        </div>
-        <div class="card-body-row">
-          <div class="card-info-col" style="grid-column: 1 / -1;">
-            <h4 style="font-size: 0.95rem; color: var(--primary-dark); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 8px;">
-              <i class="fa-solid fa-wheat-awn" style="color: var(--primary-light);"></i> Variables agronómicas a considerar:
-            </h4>
-            <ul class="checklist-grid">
-              <li><strong>Adaptación bioclimática:</strong> Hortalizas resistentes a las temperaturas de la región.</li>
-              <li><strong>Ciclo vegetativo:</strong> Preferir cultivos de ciclo corto (ají, tomate, culantro, habichuela).</li>
-              <li><strong>Demanda del comedor:</strong> Variedades ricas en vitaminas para la merienda escolar.</li>
-              <li><strong>Espacio requerido:</strong> Distanciamiento óptimo entre hileras y plantas.</li>
-              <li><strong>Resistencia natural:</strong> Variedades criollas con menor vulnerabilidad a plagas.</li>
-            </ul>
-          </div>
-        </div>
-      </article>
-
-      <!-- 7. Época de Siembra y Cosecha -->
-      <article class="card">
-        <span class="card-badge">7</span>
-        <div class="card-header-block">
-          <h3>Épocas de Siembra y Cosecha</h3>
-          <p>Planificación temporal rigurosa para sincronizar los ciclos productivos con los calendarios agrícolas estacionales y el calendario lectivo.</p>
-        </div>
-        <div class="card-body-row">
-          <div class="card-info-col" style="grid-column: 1 / -1;">
-            <div class="questions-box" style="margin: 0; background: var(--warm-bg); border-left: 4px solid var(--accent-warm); padding: 1.25rem; border-radius: 8px;">
-              <strong style="color: var(--primary-dark); font-size: 1rem; display: flex; align-items: center; gap: 8px;">
-                <i class="fa-solid fa-calendar-days" style="color: #d97706;"></i> Preguntas rectoras de planificación estacional:
-              </strong>
-              <ul class="checklist-grid" style="border: none; padding-top: 0.75rem; margin-top: 0.5rem;">
-                <li><strong>¿Qué sembramos?</strong> Variedad adecuada para la temporada lluviosa o seca.</li>
-                <li><strong>¿Cuándo sembramos?</strong> Inicio de lluvias o fechas con disponibilidad de riego.</li>
-                <li><strong>¿Cuándo cosechamos?</strong> Tiempo exacto para recolectar antes del receso escolar.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </article>
-
-    </main>
-
-    <div class="subpage-nav-footer">
-  <div></div>
-    <a href="index.html#quinto-area3-tema1" target="_top" class="btn-subpage-home" onclick="regresarArea3Tema1(event)" style="background: var(--primary-dark); color: #ffffff;">
-    <i class="fa-solid fa-arrow-left"></i> Regresar al Área 3 (Tema 1)
-  </a>
-  <a href="metodos-etapas.html" class="btn-subpage-home"><i class="fa-solid fa-house"></i> Inicio del Módulo</a>
-  <a href="metodos-semillero.html" class="btn-subpage-nav">Siguiente: Semillero y Bitácora <i class="fa-solid fa-arrow-right"></i></a>
-</div>
-  </div>
-
-  
-
-  <script>
-    function regresarArea3Tema1(e) {
-      if (e) e.preventDefault();
-      if (window.parent && window.parent !== window && typeof window.parent.regresarQuintoTema1 === 'function') {
-        window.parent.regresarQuintoTema1();
-      } else {
-        window.top.location.href = "index.html#quinto-area3-tema1";
-      }
-    }
-  </script>
-
-</body>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>7 Etapas Clave - Métodos Modernos | Quinto Grado MEDUCA</title>
+  <!-- Google Fonts & FontAwesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+
+    :root {
+      --primary: #2d6a4f;
+      --primary-light: #40916c;
+      --primary-dark: #1b4332;
+      --accent: #d8f3dc;
+      --accent-warm: #e9c46a;
+      --surface: #ffffff;
+      --background: #f8faf9;
+      --text-main: #1f2937;
+      --text-muted: #4b5563;
+      --border: #e5e7eb;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--background);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 1.5rem 0;
+      width: 100%;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      box-sizing: border-box;
+    }
+
+    /* Encabezado */
+    .header {
+      width: 100%;
+      box-sizing: border-box;
+      text-align: center;
+      margin-bottom: 2rem;
+      padding: 2rem 1.5rem;
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary-light));
+      color: #ffffff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .header h1 {
+      font-size: 2rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .header p {
+      font-size: 1.05rem;
+      max-width: 960px;
+      margin: 0 auto;
+      opacity: 0.95;
+    }
+
+    .navigation {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin: -1rem 0 2rem;
+    }
+
+    .navigation a {
+      display: inline-block;
+      padding: 0.7rem 1.2rem;
+      background-color: var(--primary);
+      color: #ffffff;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: var(--shadow);
+      transition: background-color 0.2s ease;
+    }
+
+    .navigation a:hover,
+    .navigation a:focus-visible {
+      background-color: var(--primary-dark);
+    }
+
+    /* Bloque Idea Principal */
+    .highlight-card {
+      background-color: var(--accent);
+      border-left: 5px solid var(--primary);
+      padding: 1.25rem 1.5rem;
+      border-radius: 8px;
+      margin-bottom: 2.5rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .highlight-card .icon {
+      font-size: 1.8rem;
+      line-height: 1;
+    }
+
+    .highlight-card h3 {
+      color: var(--primary-dark);
+      margin-bottom: 0.25rem;
+      font-size: 1.1rem;
+    }
+
+    .highlight-card p {
+      color: var(--text-main);
+      font-weight: 500;
+    }
+
+    /* Grilla de Etapas */
+    .section-title {
+      font-size: 1.4rem;
+      color: var(--primary-dark);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      width: 100%;
+      margin-bottom: 2.5rem;
+    }
+
+    .card {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem 1.75rem;
+      box-shadow: var(--shadow);
+      position: relative;
+      width: 100%;
+      box-sizing: border-box;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      border-color: var(--primary-light);
+    }
+
+    .card-header-block {
+      margin-bottom: 1rem;
+      padding-right: 3rem;
+    }
+
+    .card-body-row {
+      display: grid;
+      grid-template-columns: minmax(280px, 480px) 1fr;
+      gap: 1.75rem;
+      align-items: start;
+    }
+
+    .card-info-col {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .checklist-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 0.6rem 1.5rem;
+      list-style-type: none;
+      padding: 0.5rem 0 0 0;
+      border-top: 1px dashed var(--border);
+      margin-top: 0.5rem;
+    }
+
+    @media (max-width: 850px) {
+      .card-body-row {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .checklist-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background-color: var(--accent);
+      color: var(--primary-dark);
+      font-weight: bold;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+    }
+
+    .card h3 {
+      font-size: 1.15rem;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      padding-right: 2rem;
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .video-link {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.4rem;
+      margin-bottom: 0.75rem;
+      color: var(--primary-dark);
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .video-link:hover,
+    .video-link:focus-visible {
+      text-decoration: underline;
+    }
+
+    .video-thumbnail {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border-radius: 8px;
+      background-color: #0d1f17;
+      color: #ffffff;
+      text-align: center;
+    }
+
+    .video-preview-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), filter 0.4s ease;
+      z-index: 1;
+      display: block;
+    }
+
+    .video-overlay-gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.25) 50%, rgba(0, 0, 0, 0.6) 100%);
+      z-index: 2;
+      transition: background 0.3s ease;
+    }
+
+    .video-link:hover .video-preview-img,
+    .bitacora-video-link:hover .video-preview-img {
+      transform: scale(1.06);
+      filter: brightness(1.08);
+    }
+
+    .video-link:hover .video-overlay-gradient,
+    .bitacora-video-link:hover .video-overlay-gradient {
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.15) 50%, rgba(0, 0, 0, 0.45) 100%);
+    }
+
+    .video-thumbnail-title {
+      position: absolute;
+      top: 0.75rem;
+      left: 0.85rem;
+      right: 0.85rem;
+      color: #ffffff;
+      font-size: clamp(0.9rem, 2.5vw, 1.15rem);
+      font-weight: 700;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
+      z-index: 3;
+      text-align: left;
+    }
+
+    .video-play-icon {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 3.4rem;
+      height: 3.4rem;
+      padding-left: 0.25rem;
+      border-radius: 50%;
+      background-color: #ff0000;
+      color: #ffffff;
+      font-size: 1.35rem;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .video-link:hover .video-play-icon,
+    .bitacora-video-link:hover .video-play-icon {
+      transform: scale(1.15);
+      background-color: #cc0000;
+      box-shadow: 0 6px 20px rgba(255, 0, 0, 0.55);
+    }
+
+    .video-badge-yt {
+      position: absolute;
+      bottom: 0.65rem;
+      right: 0.75rem;
+      z-index: 3;
+      background: rgba(0, 0, 0, 0.78);
+      color: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    }
+    .video-badge-yt i {
+      color: #ff0000;
+    }
+
+    .video-action,
+    .bitacora-video-caption {
+      display: block;
+      min-height: 44px;
+      padding: 0.65rem 0.9rem;
+      border-radius: 6px;
+      background-color: var(--primary);
+      color: #ffffff;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .video-action {
+      transition: background-color 0.2s ease;
+    }
+
+    .video-link:hover .video-action,
+    .video-link:focus-visible .video-action,
+    .bitacora-video-link:hover .bitacora-video-caption,
+    .bitacora-video-link:focus-visible .bitacora-video-caption {
+      background-color: var(--primary-dark);
+    }
+
+    .bitacora-video-caption {
+      border-radius: 0;
+    }
+
+    .card ul {
+      list-style-type: none;
+      padding-top: 0.5rem;
+      border-top: 1px dashed var(--border);
+      margin-top: auto;
+    }
+
+    .card ul li {
+      font-size: 0.9rem;
+      color: var(--text-main);
+      padding: 0.25rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .card ul li::before {
+      content: "✔";
+      color: var(--primary-light);
+      font-size: 0.75rem;
+    }
+
+    /* Sección Bitácora */
+    .bitacora-section {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      box-shadow: var(--shadow);
+    }
+
+    .bitacora-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .bitacora-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .tag {
+      display: inline-block;
+      background-color: #f3f4f6;
+      border: 1px solid var(--border);
+      padding: 0.35rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .tag-link {
+      text-decoration: none;
+    }
+
+    .tag-link:hover,
+    .tag-link:focus-visible {
+      background-color: var(--accent);
+      border-color: var(--primary-light);
+      color: var(--primary-dark);
+    }
+
+    .bitacora-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .bitacora-content h3 {
+      color: var(--primary-dark);
+      font-size: 1.05rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .bitacora-content ul,
+    .bitacora-content ol {
+      padding-left: 1.4rem;
+      color: var(--text-muted);
+    }
+
+    .bitacora-content li {
+      padding: 0.3rem 0;
+    }
+
+    .bitacora-content li::marker {
+      color: var(--primary-light);
+      font-weight: 700;
+    }
+
+    .bitacora-content strong {
+      color: var(--primary-dark);
+    }
+
+    .bitacora-video-caption {
+      border-radius: 0;
+    }
+
+    .bitacora-video-link {
+      display: block;
+      width: 100%;
+      overflow: hidden;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      color: #ffffff;
+      text-decoration: none;
+    }
+
+    .bitacora-video-link img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+    }
+
+    .bitacora-video-link:focus-visible {
+      outline: 3px solid var(--primary-light);
+      outline-offset: 3px;
+    }
+
+    .extra-section {
+      margin-top: 2.5rem;
+      scroll-margin-top: 1rem;
+    }
+
+    .extra-card {
+      margin-bottom: 1.25rem;
+      padding: 1.5rem;
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .extra-card h3 {
+      color: var(--primary-dark);
+      font-size: 1.1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .glossary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .glossary-entry {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--primary-light);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      box-shadow: var(--shadow);
+    }
+
+    .glossary-entry h3 {
+      color: var(--primary-dark);
+      font-size: 1rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .glossary-entry p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .diagram-card {
+      overflow-x: auto;
+      padding: 1rem;
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .diagram-card svg {
+      display: block;
+      width: 100%;
+      min-width: 900px;
+      height: auto;
+    }
+
+    .flow-connector {
+      fill: none;
+      stroke: var(--primary-light);
+      stroke-width: 3;
+    }
+
+    .flow-node {
+      fill: var(--accent);
+      stroke: var(--primary);
+      stroke-width: 2;
+    }
+
+    .flow-node-main {
+      fill: var(--primary-dark);
+      stroke: var(--primary-dark);
+    }
+
+    .flow-node-final {
+      fill: #e9c46a;
+      stroke: #9c6615;
+    }
+
+    .flow-label {
+      fill: var(--primary-dark);
+      font-size: 16px;
+      font-weight: 600;
+      text-anchor: middle;
+      dominant-baseline: middle;
+    }
+
+    .flow-label-main {
+      fill: #ffffff;
+      font-size: 19px;
+      font-weight: 700;
+    }
+
+    .mindmap-svg {
+      display: block;
+      width: 100%;
+      min-width: 850px;
+      height: auto;
+    }
+
+    .mind-branch {
+      fill: none;
+      stroke-width: 4;
+      stroke-linecap: round;
+    }
+
+    .branch-seed { stroke: #40916c; }
+    .branch-terrain { stroke: #e9a23b; }
+    .branch-crop { stroke: #6284c7; }
+    .branch-time { stroke: #be6b9b; }
+    .branch-followup { stroke: #829447; }
+
+    .mind-root {
+      fill: var(--primary-dark);
+      stroke: var(--primary-dark);
+      stroke-width: 2;
+    }
+
+    .mind-category { stroke-width: 2; }
+    .category-seed { fill: #d8f3dc; stroke: #40916c; }
+    .category-terrain { fill: #fff0d6; stroke: #e9a23b; }
+    .category-crop { fill: #e5ecfb; stroke: #6284c7; }
+    .category-time { fill: #f8e5ef; stroke: #be6b9b; }
+    .category-followup { fill: #edf0dc; stroke: #829447; }
+
+    .mind-leaf {
+      fill: #ffffff;
+      stroke-width: 2;
+    }
+
+    .mind-label {
+      fill: var(--primary-dark);
+      font-size: 16px;
+      font-weight: 600;
+      text-anchor: middle;
+      dominant-baseline: middle;
+    }
+
+    .mind-root-label {
+      fill: #ffffff;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .form-fields {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    .form-fields label,
+    .record-fields label {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      color: var(--primary-dark);
+      font-weight: 600;
+    }
+
+    .extra-card input,
+    .extra-card select,
+    .extra-card textarea {
+      width: 100%;
+      padding: 0.6rem;
+      border: 1px solid #cbd5d1;
+      border-radius: 6px;
+      font: inherit;
+      color: var(--text-main);
+    }
+
+    .extra-card textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .table-wrapper { overflow-x: auto; }
+
+    .record-table {
+      width: 100%;
+      min-width: 700px;
+      border-collapse: collapse;
+    }
+
+    .record-table th,
+    .record-table td {
+      padding: 0.65rem;
+      border: 1px solid var(--border);
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    .record-table th {
+      background-color: var(--accent);
+      color: var(--primary-dark);
+    }
+
+    .record-table input { min-width: 100px; }
+
+    .record-fields {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    .record-fields textarea { min-height: 90px; }
+
+    .checkbox-cell { text-align: center !important; }
+    .checkbox-cell input { width: 1.1rem; height: 1.1rem; accent-color: var(--primary); }
+
+    .analysis-question { margin-top: 1rem; }
+    .analysis-question:first-of-type { margin-top: 0; }
+    .analysis-question h3 { margin-bottom: 0.5rem; font-size: 1rem; }
+
+    .back-to-top {
+      display: inline-block;
+      margin-top: 1rem;
+      color: var(--primary-dark);
+      font-weight: 600;
+    }
+
+    .extra-section section[id] { scroll-margin-top: 1rem; }
+
+    .questions-box {
+      background: #fdfaf3;
+      border: 1px solid var(--accent-warm);
+      padding: 1rem;
+      border-radius: 8px;
+      margin-top: 1rem;
+    }
+
+    .questions-box strong {
+      color: #9c6615;
+    }
+
+
+    /* Mejoras de Tipografía e Interfaz */
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    }
+    h1, h2, h3, h4 {
+      font-family: 'Outfit', sans-serif;
+    }
+
+    /* Barra de herramientas para el estudiante */
+    .student-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      background: #ffffff;
+      border: 1.5px solid var(--border);
+      padding: 12px 18px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 2rem;
+    }
+
+    .btn-tool {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-save {
+      background: var(--primary);
+      color: #ffffff;
+    }
+    .btn-save:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    .btn-print {
+      background: #0284c7;
+      color: #ffffff;
+    }
+    .btn-print:hover {
+      background: #0369a1;
+      transform: translateY(-2px);
+    }
+
+    .btn-reset {
+      background: #f1f5f9;
+      color: #64748b;
+      border: 1px solid #cbd5e1;
+    }
+    .btn-reset:hover {
+      background: #fee2e2;
+      color: #dc2626;
+      border-color: #fca5a5;
+    }
+
+    .save-status {
+      font-size: 0.85rem;
+      color: #16a34a;
+      font-weight: 700;
+      display: none;
+      align-items: center;
+      gap: 6px;
+    }
+    .save-status.visible {
+      display: inline-flex;
+    }
+
+    /* Indicador de desplazamiento para diagramas */
+    .scroll-hint {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      background: rgba(45, 106, 79, 0.08);
+      padding: 6px 12px;
+      border-radius: 6px;
+    }
+
+    /* Tarjetas Interactivas con Hover Suave */
+    .card {
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      border-color: var(--primary-light);
+    }
+
+    /* Estilos de Impresión */
+    @media print {
+      body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        padding: 0 !important;
+      }
+      .navigation, .student-toolbar, .back-to-top, .video-link, .bitacora-video-link, .scroll-hint {
+        display: none !important;
+      }
+      .card, .bitacora-section, .extra-card, .glossary-entry, .diagram-card {
+        box-shadow: none !important;
+        border: 1px solid #ccc !important;
+        break-inside: avoid;
+      }
+      .header {
+        background: none !important;
+        color: #000 !important;
+        border-bottom: 2px solid #2d6a4f !important;
+        border-radius: 0 !important;
+        padding: 10px 0 !important;
+      }
+    }
+  
+    /* Navegación por Subpáginas */
+    .navigation {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      margin: -1rem 0 2rem;
+    }
+
+    .navigation a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0.65rem 1.15rem;
+      background-color: #235d43;
+      color: #ffffff;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.92rem;
+      text-decoration: none;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+      transition: all 0.2s ease;
+      border: 2px solid transparent;
+    }
+
+    .navigation a:hover,
+    .navigation a:focus-visible {
+      background-color: #1b4332;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .navigation a.active {
+      background-color: #10b981;
+      color: #ffffff;
+      border-color: #ffffff;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+      font-weight: 700;
+    }
+
+    /* Footer de Navegación entre Subpáginas */
+    .subpage-nav-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 2px dashed var(--border);
+      flex-wrap: wrap;
+    }
+    .btn-subpage-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: var(--primary);
+      color: #ffffff;
+      border-radius: 8px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .btn-subpage-nav:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+    .btn-subpage-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 16px;
+      background: #f1f5f9;
+      color: #475569;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      border: 1px solid #cbd5e1;
+    }
+    .btn-subpage-home:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+  
+    /* Optimizacion para dispositivos moviles - Ancho Completo Ajustado */
+    @media (max-width: 768px) {
+      body {
+        padding: 0.5rem 0;
+        width: 100%;
+      }
+      .container {
+        padding: 0 0.6rem;
+        width: 100%;
+        max-width: 100%;
+      }
+      .header {
+        margin-bottom: 0.85rem;
+        padding: 0.85rem 0.75rem;
+        border-radius: 10px;
+        width: 100%;
+      }
+      .header h1 {
+        font-size: 1.25rem;
+        margin-bottom: 0.25rem;
+      }
+      .header p {
+        font-size: 0.82rem;
+        line-height: 1.35;
+        max-width: 100%;
+      }
+      .navigation {
+        margin: -0.25rem 0 1rem;
+        gap: 0.4rem;
+        display: flex;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        padding-bottom: 6px;
+        -webkit-overflow-scrolling: touch;
+        width: 100%;
+      }
+      .navigation a {
+        padding: 0.45rem 0.8rem;
+        font-size: 0.8rem;
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+      .highlight-card {
+        padding: 0.85rem 1rem;
+        margin-bottom: 1.25rem;
+        width: 100%;
+      }
+      .card, .semillero-hero-card, .bitacora-card-detail, .extra-card {
+        padding: 1.15rem 1rem !important;
+        width: 100% !important;
+      }
+      .card-body-row {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .card-header-block {
+        padding-right: 2.2rem;
+      }
+      .card-badge {
+        top: 0.75rem;
+        right: 0.75rem;
+        width: 26px;
+        height: 26px;
+        font-size: 0.8rem;
+      }
+      .btn-subpage-home, .btn-subpage-nav {
+        padding: 0.5rem 0.9rem;
+        font-size: 0.82rem;
+      }
+      .subpage-nav-footer {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+      }
+      .subpage-nav-footer a {
+        justify-content: center;
+        text-align: center;
+      }
+    }
+
+  
+    /* Reproductor de Video Integrado en la Misma Página */
+    .inline-video-card {
+      width: 100%;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      margin-bottom: 0.75rem;
+      background: #0d1f17;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .video-thumbnail {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      cursor: pointer;
+      user-select: none;
+      background-color: #0d1f17;
+      color: #ffffff;
+      text-align: center;
+    }
+
+    .video-thumbnail:hover .video-preview-img {
+      transform: scale(1.06);
+      filter: brightness(1.08);
+    }
+
+    .video-thumbnail:hover .video-overlay-gradient {
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.15) 50%, rgba(0, 0, 0, 0.45) 100%);
+    }
+
+    .video-thumbnail:hover .video-play-icon {
+      transform: scale(1.15);
+      background-color: #cc0000;
+      box-shadow: 0 6px 20px rgba(255, 0, 0, 0.55);
+    }
+
+    .video-player-frame {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #000000;
+    }
+
+    .video-player-frame iframe {
+      width: 100%;
+      height: 100%;
+      display: block;
+      border: none;
+    }
+
+    .video-player-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 8px 14px;
+      background: #11281e;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .btn-close-video {
+      background: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-close-video:hover {
+      background: #dc2626;
+      border-color: #dc2626;
+      transform: translateY(-1px);
+    }
+
+    .link-yt-fallback {
+      color: #ffffff;
+      background: rgba(220, 38, 38, 0.35);
+      border: 1px solid rgba(220, 38, 38, 0.55);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .link-yt-fallback:hover {
+      background: #dc2626;
+      border-color: #dc2626;
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+    .link-yt-fallback i {
+      color: #ff6b6b;
+      font-size: 0.95rem;
+    }
+    .link-yt-fallback:hover i {
+      color: #ffffff;
+    }
+</style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- BOTÓN PARA REGRESAR A ÁREA 3 (TEMA 1) -->
+    <div style="margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+      <a href="index.html#quinto-area3-tema1" target="_top" onclick="regresarArea3Tema1(event)" class="btn-subpage-home" style="background: var(--primary); color: #ffffff; text-decoration: none; padding: 8px 18px; border-radius: var(--radius-pill); font-weight: 700; font-size: 0.88rem; display: inline-flex; align-items: center; gap: 8px; box-shadow: var(--shadow);">
+        <i class="fa-solid fa-arrow-left"></i> Regresar al Área 3 (Tema 1)
+      </a>
+      <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">5.° Grado • Educación Agropecuaria</span>
+    </div>
+
+    <header class="header" id="inicio">
+      <h1>🌱 Métodos Modernos de Producción Agrícola</h1>
+      <p>Procesos organizados para planificar, establecer y optimizar el desarrollo y rendimiento de los cultivos antes de sembrar.</p>
+    </header>
+
+    <nav class="navigation" aria-label="Navegación de Subpáginas">
+      <a href="metodos-etapas.html" class=" active"><i class="fa-solid fa-seedling"></i> 7 Etapas Clave</a>
+      <a href="metodos-semillero.html" class=""><i class="fa-solid fa-clipboard-list"></i> Semillero y Bitácora</a>
+      <a href="metodos-mapa-conceptual.html" class=""><i class="fa-solid fa-diagram-project"></i> Mapa Conceptual</a>
+      <a href="metodos-mapa-mental.html" class=""><i class="fa-solid fa-brain"></i> Mapa Mental</a>
+      <a href="metodos-glosario.html" class=""><i class="fa-solid fa-book"></i> Glosario</a>
+      <a href="metodos-fichas-campo.html" class=""><i class="fa-solid fa-pen-to-square"></i> Fichas de Campo</a>
+    </nav>
+
+    <section class="highlight-card">
+      <div class="icon">💡</div>
+      <div>
+        <h3>Idea Principal</h3>
+        <p>La producción agrícola planificada comienza seleccionando correctamente las semillas, el terreno, el cultivo y la época; además requiere observación y registro constante durante su desarrollo.</p>
+      </div>
+    </section>
+
+    <!-- Fases y Decisiones -->
+    <h2 class="section-title" id="etapas">Decisiones y Etapas Clave</h2>
+    <main class="grid">
+
+      <!-- 1. Semillas -->
+      <article class="card">
+        <span class="card-badge">1</span>
+        <div class="card-header-block">
+          <h3>Selección de Semillas</h3>
+          <p>Escoger semillas certificadas o criollas vigorosas según las condiciones ecológicas del lugar.</p>
+        </div>
+        <div class="card-body-row">
+          <div class="card-media-col">
+            <div class="inline-video-card" data-video-id="JdrqJuW2Ato" data-video-start="75" data-video-title="Selección de semillas">
+              <div class="video-thumbnail" onclick="reproducirVideoInline(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();reproducirVideoInline(this);}" role="button" tabindex="0" aria-label="Reproducir video sobre selección de semillas aquí en la página">
+                <img src="assets/images/video_semillas.jpg" alt="Selección de semillas" class="video-preview-img" onerror="this.src='https://img.youtube.com/vi/JdrqJuW2Ato/maxresdefault.jpg'">
+                <div class="video-overlay-gradient"></div>
+                <span class="video-thumbnail-title">Selección de semillas</span>
+                <span class="video-play-icon"><i class="fa-solid fa-play"></i></span>
+                <span class="video-badge-yt"><i class="fa-solid fa-circle-play"></i> Ver video aquí</span>
+              </div>
+              <div class="video-player-frame" style="display: none;"></div>
+              <div class="video-player-controls" style="display: none;">
+                <button type="button" class="btn-close-video" onclick="cerrarVideoInline(this)">
+                  <i class="fa-solid fa-xmark"></i> Cerrar reproductor
+                </button>
+                <a href="https://www.youtube.com/watch?v=JdrqJuW2Ato&t=75s" target="_blank" rel="noopener noreferrer" class="link-yt-fallback">
+                  <i class="fa-brands fa-youtube"></i> Abrir en YouTube
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="card-info-col">
+            <h4 style="font-size: 0.95rem; color: var(--primary-dark); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 8px;">
+              <i class="fa-solid fa-clipboard-check" style="color: var(--primary-light);"></i> Criterios clave para la selección:
+            </h4>
+            <ul>
+              <li><strong>Especie definida:</strong> Adaptada a la zona y con alta demanda nutricional.</li>
+              <li><strong>Estado y vigor:</strong> Semillas con alto porcentaje de germinación y pureza.</li>
+              <li><strong>Ausencia de daños:</strong> Libres de picaduras de insectos, moho o roturas.</li>
+              <li><strong>Procedencia confiable:</strong> Semilleristas certificados o cosechas limpias.</li>
+              <li><strong>Condiciones del lugar:</strong> Requerimientos de suelo, luz y agua.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- 2. Germinación -->
+      <article class="card">
+        <span class="card-badge">2</span>
+        <div class="card-header-block">
+          <h3>Germinación</h3>
+          <p>Proceso biológico mediante el cual la semilla despierta del letargo y origina una plántula vigorosa bajo condiciones óptimas.</p>
+        </div>
+        <div class="card-body-row">
+          <div class="card-media-col">
+            <div class="inline-video-card" data-video-id="fCRA6i1fTRA" data-video-start="0" data-video-title="Germinación">
+              <div class="video-thumbnail" onclick="reproducirVideoInline(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();reproducirVideoInline(this);}" role="button" tabindex="0" aria-label="Reproducir video sobre germinación aquí en la página">
+                <img src="assets/images/video_germinacion.jpg" alt="Germinación" class="video-preview-img" onerror="this.src='https://img.youtube.com/vi/fCRA6i1fTRA/maxresdefault.jpg'">
+                <div class="video-overlay-gradient"></div>
+                <span class="video-thumbnail-title">Germinación</span>
+                <span class="video-play-icon"><i class="fa-solid fa-play"></i></span>
+                <span class="video-badge-yt"><i class="fa-solid fa-circle-play"></i> Ver video aquí</span>
+              </div>
+              <div class="video-player-frame" style="display: none;"></div>
+              <div class="video-player-controls" style="display: none;">
+                <button type="button" class="btn-close-video" onclick="cerrarVideoInline(this)">
+                  <i class="fa-solid fa-xmark"></i> Cerrar reproductor
+                </button>
+                <a href="https://www.youtube.com/watch?v=fCRA6i1fTRA" target="_blank" rel="noopener noreferrer" class="link-yt-fallback">
+                  <i class="fa-brands fa-youtube"></i> Abrir en YouTube
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="card-info-col">
+            <h4 style="font-size: 0.95rem; color: var(--primary-dark); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 8px;">
+              <i class="fa-solid fa-seedling" style="color: var(--primary-light);"></i> Factores determinantes para el éxito:
+            </h4>
+            <ul>
+              <li><strong>Humedad constante:</strong> Sustrato húmedo como esponja escurrida, sin encharcamientos.</li>
+              <li><strong>Temperatura adecuada:</strong> Calor suave para activar las enzimas internas.</li>
+              <li><strong>Oxigenación:</strong> Sustrato poroso que permita la respiración radicular.</li>
+              <li><strong>Prueba previa:</strong> Monitorear la tasa de brote antes de sembrar a gran escala.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3. Semillero -->
+      <article class="card">
+        <span class="card-badge">3</span>
+        <div class="card-header-block">
+          <h3>Semillero</h3>
+          <p>Espacio protegido para cuidar y monitorear las plántulas en sus primeras etapas antes de llevarlas al terreno definitivo.</p>
+        </div>
+        <div class="card-body-row">
+          <div class="card-media-col">
+            <div class="inline-video-card" data-video-id="g22DA12UIV4" data-video-start="0" data-video-title="Semillero en cartón de huevos">
+              <div class="video-thumbnail" onclick="reproducirVideoInline(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();reproducirVideoInline(this);}" role="button" tabindex="0" aria-label="Reproducir video sobre semillero en cartón de huevos aquí en la página">
+                <img src="assets/images/video_semillero.jpg" alt="Semillero en cartón de huevos" class="video-preview-img" onerror="this.src='https://img.youtube.com/vi/g22DA12UIV4/maxresdefault.jpg'">
+                <div class="video-overlay-gradient"></div>
+                <span class="video-thumbnail-title">Semillero en cartón de huevos</span>
+                <span class="video-play-icon"><i class="fa-solid fa-play"></i></span>
+                <span class="video-badge-yt"><i class="fa-solid fa-circle-play"></i> Ver video aquí</span>
+              </div>
+              <div class="video-player-frame" style="display: none;"></div>
+              <div class="video-player-controls" style="display: none;">
+                <button type="button" class="btn-close-video" onclick="cerrarVideoInline(this)">
+                  <i class="fa-solid fa-xmark"></i> Cerrar reproductor
+                </button>
+                <a href="https://www.youtube.com/watch?v=g22DA12UIV4" target="_blank" rel="noopener noreferrer" class="link-yt-fallback">
+                  <i class="fa-brands fa-youtube"></i> Abrir en YouTube
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="card-info-col">
+            <h4 style="font-size: 0.95rem; color: var(--primary-dark); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 8px;">
+              <i class="fa-solid fa-clipboard-list" style="color: var(--primary-light);"></i> Cuidados y registro en bitácora:
+            </h4>
+            <ul>
+              <li><strong>Fecha y rotulación:</strong> Identificar la especie sembrada y el día exacto de siembra.</li>
+              <li><strong>Porcentaje de germinación:</strong> Contar brotes para evaluar la calidad de la semilla.</li>
+              <li><strong>Desarrollo foliar y radicular:</strong> Crecimiento del tallo y aparición de hojas verdaderas.</li>
+              <li><strong>Aclimatación:</strong> Exponer gradualmente a la luz antes del trasplante final.</li>
+            </ul>
+            <div style="margin-top: 12px;">
+              <a href="metodos-semillero.html" style="background: var(--primary); color: white; text-decoration: none; padding: 7px 16px; border-radius: var(--radius-pill); font-size: 0.85rem; font-weight: 700; display: inline-flex; align-items: center; gap: 6px;">
+                <i class="fa-solid fa-clipboard-list"></i> Ver Guía Práctica de Semillero y Bitácora <i class="fa-solid fa-arrow-right" style="font-size: 0.75rem;"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 4. Terreno -->
+      <article class="card">
+        <span class="card-badge">4</span>
+        <div class="card-header-block">
+          <h3>Selección del Terreno</h3>
+          <p>Evaluación minuciosa de las características físicas, geográficas y edafológicas del área de cultivo.</p>
+        </div>
+        <div class="card-body-row">
+          <div class="card-info-col" style="grid-column: 1 / -1;">
+            <h4 style="font-size: 0.95rem; color: var(--primary-dark); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 8px;">
+              <i class="fa-solid fa-map-location-dot" style="color: var(--primary-light);"></i> Aspectos fundamentales a evaluar:
+            </h4>
+            <ul class="checklist-grid">
+              <li><strong>Luz solar directa:</strong> Mínimo 6 horas de exposición diaria.</li>
+              <li><strong>Fuente de agua:</strong> Acceso permanente y de buena calidad para riego.</li>
+              <li><strong>Calidad del suelo:</strong> Textura franco-arenosa o franco-arcillosa rica en materia orgánica.</li>
+              <li><strong>Capacidad de drenaje:</strong> Evitar zonas bajas propensas a inundaciones.</li>
+              <li><strong>Vías y accesibilidad:</strong> Fácil tránsito para herramientas y estudiantes.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- 5. Preparación -->
+      <article class="card">
+        <span class="card-badge">5</span>
+        <div class="card-header-block">
+          <h3>Preparación del Terreno</h3>
+          <p>Acondicionamiento del suelo antes del trasplante o siembra definitiva para garantizar un enraizamiento profundo.</p>
+        </div>
+        <div class="card-body-row">
+          <div class="card-media-col">
+            <div class="inline-video-card" data-video-id="pCpUWrY6QIw" data-video-start="0" data-video-title="Preparación del terreno">
+              <div class="video-thumbnail" onclick="reproducirVideoInline(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();reproducirVideoInline(this);}" role="button" tabindex="0" aria-label="Reproducir video sobre preparación del terreno aquí en la página">
+                <img src="assets/images/video_terreno.jpg" alt="Preparación del terreno" class="video-preview-img" onerror="this.src='https://img.youtube.com/vi/pCpUWrY6QIw/maxresdefault.jpg'">
+                <div class="video-overlay-gradient"></div>
+                <span class="video-thumbnail-title">Preparación del terreno</span>
+                <span class="video-play-icon"><i class="fa-solid fa-play"></i></span>
+                <span class="video-badge-yt"><i class="fa-solid fa-circle-play"></i> Ver video aquí</span>
+              </div>
+              <div class="video-player-frame" style="display: none;"></div>
+              <div class="video-player-controls" style="display: none;">
+                <button type="button" class="btn-close-video" onclick="cerrarVideoInline(this)">
+                  <i class="fa-solid fa-xmark"></i> Cerrar reproductor
+                </button>
+                <a href="https://www.youtube.com/watch?v=pCpUWrY6QIw" target="_blank" rel="noopener noreferrer" class="link-yt-fallback">
+                  <i class="fa-brands fa-youtube"></i> Abrir en YouTube
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="card-info-col">
+            <h4 style="font-size: 0.95rem; color: var(--primary-dark); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 8px;">
+              <i class="fa-solid fa-trowel" style="color: var(--primary-light);"></i> Pasos técnicos de acondicionamiento:
+            </h4>
+            <ul>
+              <li><strong>Limpieza de residuos:</strong> Retirar piedras, malezas y desechos inorgánicos.</li>
+              <li><strong>Descompactado y volteo:</strong> Remover la tierra a 25-30 cm para airear el suelo.</li>
+              <li><strong>Incorporación de abono:</strong> Mezclar compost, humus o gallinaza curada.</li>
+              <li><strong>Nivelación y camellones:</strong> Formar surcos o camas altas para facilitar el drenaje.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- 6. Selección de Cultivo -->
+      <article class="card">
+        <span class="card-badge">6</span>
+        <div class="card-header-block">
+          <h3>Selección del Cultivo</h3>
+          <p>Elegir la variedad vegetal adecuada para maximizar el rendimiento escolar, la nutrición del comedor y la resistencia local.</p>
+        </div>
+        <div class="card-body-row">
+          <div class="card-info-col" style="grid-column: 1 / -1;">
+            <h4 style="font-size: 0.95rem; color: var(--primary-dark); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 8px;">
+              <i class="fa-solid fa-wheat-awn" style="color: var(--primary-light);"></i> Variables agronómicas a considerar:
+            </h4>
+            <ul class="checklist-grid">
+              <li><strong>Adaptación bioclimática:</strong> Hortalizas resistentes a las temperaturas de la región.</li>
+              <li><strong>Ciclo vegetativo:</strong> Preferir cultivos de ciclo corto (ají, tomate, culantro, habichuela).</li>
+              <li><strong>Demanda del comedor:</strong> Variedades ricas en vitaminas para la merienda escolar.</li>
+              <li><strong>Espacio requerido:</strong> Distanciamiento óptimo entre hileras y plantas.</li>
+              <li><strong>Resistencia natural:</strong> Variedades criollas con menor vulnerabilidad a plagas.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- 7. Época de Siembra y Cosecha -->
+      <article class="card">
+        <span class="card-badge">7</span>
+        <div class="card-header-block">
+          <h3>Épocas de Siembra y Cosecha</h3>
+          <p>Planificación temporal rigurosa para sincronizar los ciclos productivos con los calendarios agrícolas estacionales y el calendario lectivo.</p>
+        </div>
+        <div class="card-body-row">
+          <div class="card-info-col" style="grid-column: 1 / -1;">
+            <div class="questions-box" style="margin: 0; background: var(--warm-bg); border-left: 4px solid var(--accent-warm); padding: 1.25rem; border-radius: 8px;">
+              <strong style="color: var(--primary-dark); font-size: 1rem; display: flex; align-items: center; gap: 8px;">
+                <i class="fa-solid fa-calendar-days" style="color: #d97706;"></i> Preguntas rectoras de planificación estacional:
+              </strong>
+              <ul class="checklist-grid" style="border: none; padding-top: 0.75rem; margin-top: 0.5rem;">
+                <li><strong>¿Qué sembramos?</strong> Variedad adecuada para la temporada lluviosa o seca.</li>
+                <li><strong>¿Cuándo sembramos?</strong> Inicio de lluvias o fechas con disponibilidad de riego.</li>
+                <li><strong>¿Cuándo cosechamos?</strong> Tiempo exacto para recolectar antes del receso escolar.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </main>
+
+    <div class="subpage-nav-footer">
+  <div></div>
+    <a href="index.html#quinto-area3-tema1" target="_top" class="btn-subpage-home" onclick="regresarArea3Tema1(event)" style="background: var(--primary-dark); color: #ffffff;">
+    <i class="fa-solid fa-arrow-left"></i> Regresar al Área 3 (Tema 1)
+  </a>
+  <a href="metodos-etapas.html" class="btn-subpage-home"><i class="fa-solid fa-house"></i> Inicio del Módulo</a>
+  <a href="metodos-semillero.html" class="btn-subpage-nav">Siguiente: Semillero y Bitácora <i class="fa-solid fa-arrow-right"></i></a>
+</div>
+  </div>
+
+  
+
+  <script>
+    function regresarArea3Tema1(e) {
+      if (e) e.preventDefault();
+      if (window.parent && window.parent !== window && typeof window.parent.regresarQuintoTema1 === 'function') {
+        window.parent.regresarQuintoTema1();
+      } else {
+        window.top.location.href = "index.html#quinto-area3-tema1";
+      }
+    }
+  </script>
+
+
+  <!-- Script para Reproducción de Videos Integrados en la Misma Página -->
+  <script>
+    function reproducirVideoInline(thumbEl) {
+      const card = thumbEl.closest('.inline-video-card');
+      if (!card) return;
+
+      // Cerrar cualquier otro video activo en la página para no mezclar audios
+      document.querySelectorAll('.inline-video-card').forEach(function(otherCard) {
+        if (otherCard !== card) {
+          cerrarVideoCard(otherCard);
+        }
+      });
+
+      const videoId = card.getAttribute('data-video-id');
+      const videoStart = card.getAttribute('data-video-start') || '0';
+      const videoTitle = card.getAttribute('data-video-title') || 'Video explicativo';
+
+      const frameContainer = card.querySelector('.video-player-frame');
+      const controlsContainer = card.querySelector('.video-player-controls');
+
+      // URL de incrustación oficial estándar de YouTube
+      let embedUrl = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0&enablejsapi=1';
+      const startSec = parseInt(videoStart, 10);
+      if (startSec > 0) {
+        embedUrl += '&start=' + startSec;
+      }
+      if (window.location.protocol === 'http:' || window.location.protocol === 'https:') {
+        if (window.location.origin && window.location.origin !== 'null') {
+          embedUrl += '&origin=' + encodeURIComponent(window.location.origin);
+        }
+      }
+
+      frameContainer.innerHTML = '<iframe src="' + embedUrl + '" title="' + videoTitle + '" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="width: 100%; height: 100%; border: none;"></iframe>';
+
+      thumbEl.style.display = 'none';
+      frameContainer.style.display = 'block';
+      if (controlsContainer) {
+        controlsContainer.style.display = 'flex';
+        // En protocolo local file:// los navegadores bloquean el referrer HTTP requerido por YouTube (Error 153).
+        // Se añade un aviso discreto orientativo para que el usuario conozca la alternativa inmediata.
+        if (window.location.protocol === 'file:' && !card.querySelector('.video-file-hint')) {
+          const hint = document.createElement('div');
+          hint.className = 'video-file-hint';
+          hint.innerHTML = '<i class="fa-solid fa-circle-info"></i> Modo local (file://): si tu navegador bloquea la reproducción de YouTube (Error 153), usa <strong>"Abrir en YouTube"</strong> o abre el proyecto con Live Server (localhost).';
+          hint.style.cssText = 'background: rgba(234, 179, 8, 0.15); color: #fef08a; font-size: 0.76rem; padding: 6px 12px; border-top: 1px solid rgba(234, 179, 8, 0.3); text-align: center; line-height: 1.35; width: 100%;';
+          controlsContainer.after(hint);
+        }
+      }
+    }
+
+    function cerrarVideoInline(btnEl) {
+      const card = btnEl.closest('.inline-video-card');
+      if (card) cerrarVideoCard(card);
+    }
+
+    function cerrarVideoCard(card) {
+      const thumbEl = card.querySelector('.video-thumbnail');
+      const frameContainer = card.querySelector('.video-player-frame');
+      const controlsContainer = card.querySelector('.video-player-controls');
+      const hint = card.querySelector('.video-file-hint');
+      if (hint) hint.remove();
+
+      if (frameContainer) {
+        frameContainer.innerHTML = ''; // Detiene la reproducción y el audio inmediatamente
+        frameContainer.style.display = 'none';
+      }
+      if (controlsContainer) controlsContainer.style.display = 'none';
+      if (thumbEl) thumbEl.style.display = 'flex';
+    }
+  </script>
+</body>
 </html>
