@@ -10,9 +10,11 @@ const ASSETS_TO_CACHE = [
   './app.js',
   './visitas.js',
 
-  './calculadoraEmprendimiento.js',
+  './calculadoraEmprendimiento.js',
+
   './laboratorioSuelo.js',
   './assets/images/hero.webp',
+  './assets/images/infografia-nutricion-suelo.svg',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
 ];
 

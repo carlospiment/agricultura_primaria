@@ -1,0 +1,309 @@
+def get_svg_content(is_inline=False):
+    style_block = '''<style>
+    @keyframes sunPulse { 0%, 100% { transform: scale(1); opacity: 0.95; } 50% { transform: scale(1.08); opacity: 1; } }
+    @keyframes rainSlide { 0% { transform: translateY(-8px); opacity: 0; } 30% { opacity: 1; } 100% { transform: translateY(16px); opacity: 0.1; } }
+    @keyframes dashFlowUp { from { stroke-dashoffset: 40; } to { stroke-dashoffset: 0; } }
+    @keyframes dashFlowDown { from { stroke-dashoffset: 0; } to { stroke-dashoffset: 40; } }
+    @keyframes ionFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+    @keyframes wavePulse { 0% { r: 5; opacity: 0.9; stroke-width: 2; } 100% { r: 26; opacity: 0; stroke-width: 0.5; } }
+    @keyframes vaporRise { 0% { transform: translate(0, 0); opacity: 0.9; } 100% { transform: translate(-10px, -20px); opacity: 0; } }
+    
+    .anim-sun-core { transform-origin: 80px 115px; animation: sunPulse 3.5s ease-in-out infinite; }
+    .anim-rain-drop { animation: rainSlide 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
+    .anim-xylem-dash { stroke-dasharray: 6, 6; animation: dashFlowUp 1.2s linear infinite; }
+    .anim-phloem-dash { stroke-dasharray: 6, 6; animation: dashFlowDown 1.8s linear infinite; }
+    .anim-ion-float { animation: ionFloat 2.8s ease-in-out infinite; }
+    .anim-diffusion-wave { animation: wavePulse 2.2s cubic-bezier(0.2, 0.8, 0.4, 1) infinite; }
+    .anim-vapor-stomata { animation: vaporRise 2.4s ease-out infinite; }
+    
+    .svg-infografia-dinamica.anim-paused * { animation-play-state: paused !important; }
+    .svg-infografia-dinamica.modo-masas .zona-difusion,
+    .svg-infografia-dinamica.modo-masas .zona-roca,
+    .svg-infografia-dinamica.modo-masas .zona-hojas { opacity: 0.22; transition: opacity 0.3s ease; }
+    .svg-infografia-dinamica.modo-difusion .zona-masas,
+    .svg-infografia-dinamica.modo-difusion .zona-roca,
+    .svg-infografia-dinamica.modo-difusion .zona-hojas { opacity: 0.22; transition: opacity 0.3s ease; }
+    .svg-infografia-dinamica.modo-roca .zona-masas,
+    .svg-infografia-dinamica.modo-roca .zona-difusion,
+    .svg-infografia-dinamica.modo-roca .zona-hojas { opacity: 0.22; transition: opacity 0.3s ease; }
+    .svg-infografia-dinamica.modo-hojas .zona-masas,
+    .svg-infografia-dinamica.modo-hojas .zona-difusion,
+    .svg-infografia-dinamica.modo-hojas .zona-roca { opacity: 0.22; transition: opacity 0.3s ease; }
+  </style>'''
+
+    svg_id = 'id="infografiaCicloDinamico"' if is_inline else ''
+    svg_class = 'class="svg-infografia-dinamica"' if is_inline else ''
+
+    return f'''<svg {svg_id} {svg_class} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" width="100%" height="100%" style="font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; display: block; background: #f0fdf4;">
+  <defs>
+    {style_block}
+    <!-- Gradientes de fondo -->
+    <linearGradient id="skyGradDyn" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#bae6fd" />
+      <stop offset="45%" stop-color="#e0f2fe" />
+      <stop offset="100%" stop-color="#f0fdf4" />
+    </linearGradient>
+    <linearGradient id="soilGradDyn" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#78350f" />
+      <stop offset="15%" stop-color="#92400e" />
+      <stop offset="50%" stop-color="#b45309" />
+      <stop offset="80%" stop-color="#713f12" />
+      <stop offset="100%" stop-color="#451a03" />
+    </linearGradient>
+    <linearGradient id="rockGradDyn" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#475569" />
+      <stop offset="50%" stop-color="#64748b" />
+      <stop offset="100%" stop-color="#334155" />
+    </linearGradient>
+    <linearGradient id="sunGradDyn" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fef08a" />
+      <stop offset="60%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+    <linearGradient id="stemGradDyn" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#16a34a" />
+      <stop offset="50%" stop-color="#22c55e" />
+      <stop offset="100%" stop-color="#15803d" />
+    </linearGradient>
+    <linearGradient id="leafGradDyn" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#4ade80" />
+      <stop offset="100%" stop-color="#15803d" />
+    </linearGradient>
+    <filter id="shadowDyn" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-opacity="0.15" />
+    </filter>
+  </defs>
+
+  <!-- CIELO Y ATMÓSFERA -->
+  <rect x="0" y="0" width="1000" height="310" fill="url(#skyGradDyn)" />
+  
+  <!-- SUELO Y HORIZONTES -->
+  <rect x="0" y="310" width="1000" height="310" fill="url(#soilGradDyn)" />
+
+  <!-- BANNER SUPERIOR DEL DIAGRAMA -->
+  <rect x="0" y="0" width="1000" height="48" fill="#1e3a8a" />
+  <text x="24" y="28" font-size="16" font-weight="900" fill="#ffffff" letter-spacing="0.5">
+    CICLO CIENTÍFICO DE NUTRICIÓN VEGETAL Y ABSORCIÓN RADICULAR
+  </text>
+  <text x="24" y="42" font-size="11" font-weight="600" fill="#93c5fd">
+    Vías Fisiológicas (Flujo de Masas &amp; Difusión) • Origen Geológico en Rocas Madre • Fotosíntesis (FAO • Marschner)
+  </text>
+
+  <!-- ==========================================
+       ZONA ATMÓSFERA: SOL Y LLUVIA
+       ========================================== -->
+  <g class="zona-sol">
+    <!-- Sol con animación de pulsación -->
+    <g class="anim-sun-core">
+      <circle cx="80" cy="115" r="40" fill="url(#sunGradDyn)" filter="url(#shadowDyn)" />
+      <path d="M80 65 L80 48 M80 165 L80 182 M30 115 L13 115 M130 115 L147 115 M44 79 L32 67 M116 151 L128 163 M44 151 L32 163 M116 79 L128 67" stroke="#f59e0b" stroke-width="3" stroke-linecap="round" />
+    </g>
+    <text x="80" y="118" font-size="11.5" font-weight="900" fill="#78350f" text-anchor="middle">SOL (hν)</text>
+    <text x="80" y="130" font-size="8.5" font-weight="700" fill="#78350f" text-anchor="middle">Fotones Fotosíntesis</text>
+
+    <!-- Rayos dirigidos a la copa -->
+    <path d="M125 125 C185 140, 235 150, 285 165" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-dasharray="4,4" />
+    <polygon points="285,165 275,160 279,168" fill="#f59e0b" />
+    <rect x="145" y="132" width="130" height="20" rx="10" fill="rgba(254,240,138,0.92)" />
+    <text x="210" y="146" font-size="9" font-weight="800" fill="#b45309" text-anchor="middle">☀️ Luz para Cloroplastos</text>
+  </g>
+
+  <!-- Nube y Precipitación con animación de gotas -->
+  <g class="zona-lluvia" transform="translate(680, 60)">
+    <path d="M25 40 A20 20 0 0 1 65 40 A25 25 0 0 1 115 40 A20 20 0 0 1 145 45 A15 15 0 0 1 140 70 L20 70 A15 15 0 0 1 25 40 Z" fill="#ffffff" filter="url(#shadowDyn)" />
+    <!-- Gotas animadas -->
+    <line class="anim-rain-drop" x1="40" y1="78" x2="35" y2="94" stroke="#0284c7" stroke-width="2.2" stroke-linecap="round" />
+    <line class="anim-rain-drop" x1="65" y1="76" x2="60" y2="92" stroke="#0284c7" stroke-width="2.2" stroke-linecap="round" style="animation-delay: 0.3s;" />
+    <line class="anim-rain-drop" x1="90" y1="80" x2="85" y2="96" stroke="#0284c7" stroke-width="2.2" stroke-linecap="round" style="animation-delay: 0.6s;" />
+    <line class="anim-rain-drop" x1="115" y1="77" x2="110" y2="93" stroke="#0284c7" stroke-width="2.2" stroke-linecap="round" style="animation-delay: 0.9s;" />
+    
+    <!-- Rayo de fijación de N2 -->
+    <path d="M75 70 L65 92 L78 92 L68 114" fill="none" stroke="#eab308" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" />
+    
+    <rect x="-10" y="112" width="165" height="34" rx="6" fill="#ffffff" stroke="#0284c7" stroke-width="1.2" />
+    <text x="72" y="125" font-size="9" font-weight="800" fill="#0369a1" text-anchor="middle">Agua de Lluvia (H₂O)</text>
+    <text x="72" y="138" font-size="8" font-weight="600" fill="#0284c7" text-anchor="middle">+ Nitratos por Rayos (NO₃⁻)</text>
+  </g>
+
+  <!-- ==========================================
+       ZONA PLANTA: HOJAS, TALLO Y VASCULAR
+       ========================================== -->
+  <!-- Entrada de CO2 y Transpiración en Hojas -->
+  <g class="zona-hojas">
+    <g transform="translate(485, 75)">
+      <rect x="0" y="0" width="168" height="46" rx="8" fill="#ffffff" stroke="#059669" stroke-width="1.5" filter="url(#shadowDyn)" />
+      <text x="12" y="18" font-size="10.5" font-weight="800" fill="#065f46">🍃 Entrada de CO₂ Atmosférico</text>
+      <text x="12" y="31" font-size="8.5" font-weight="600" fill="#047857">Absorbido por estomas foliares</text>
+      <text x="12" y="42" font-size="8" font-weight="700" fill="#059669">45% de la Biomasa = Carbono (C)</text>
+      
+      <!-- Flecha hacia las hojas -->
+      <path d="M40 46 C30 80, -30 115, -80 140" fill="none" stroke="#059669" stroke-width="2.5" stroke-dasharray="3,3" />
+      <polygon points="-80,140 -70,137 -74,146" fill="#059669" />
+    </g>
+
+    <!-- Vapor de agua transpirado saliendo de hojas -->
+    <g class="anim-vapor-stomata" transform="translate(230, 140)">
+      <circle cx="0" cy="0" r="3" fill="#38bdf8" />
+      <circle cx="-6" cy="-8" r="2.5" fill="#38bdf8" />
+      <circle cx="5" cy="-14" r="2" fill="#38bdf8" />
+      <text x="10" y="-8" font-size="7" font-weight="700" fill="#0284c7">Vapor H₂O</text>
+    </g>
+  </g>
+
+  <!-- Tallo Principal -->
+  <g class="zona-tallo">
+    <path d="M345 315 L345 125 Q345 105 365 92" fill="none" stroke="url(#stemGradDyn)" stroke-width="18" stroke-linecap="round" />
+
+    <!-- Hojas Grandes con Nervaduras -->
+    <path d="M345 145 C280 115, 200 125, 180 145 C210 175, 290 180, 345 155 Z" fill="url(#leafGradDyn)" stroke="#15803d" stroke-width="1.5" filter="url(#shadowDyn)" />
+    <path d="M345 150 Q260 145 180 145" fill="none" stroke="#86efac" stroke-width="2" />
+
+    <path d="M345 185 C420 155, 490 165, 510 190 C470 220, 410 220, 345 195 Z" fill="url(#leafGradDyn)" stroke="#15803d" stroke-width="1.5" filter="url(#shadowDyn)" />
+    <path d="M345 190 Q430 185 510 190" fill="none" stroke="#86efac" stroke-width="2" />
+
+    <path d="M345 235 C270 215, 210 230, 190 255 C230 280, 300 270, 345 245 Z" fill="url(#leafGradDyn)" stroke="#15803d" stroke-width="1.5" filter="url(#shadowDyn)" />
+
+    <!-- Fruto / Flor (Demanda de Potasio y Fósforo) -->
+    <circle cx="370" cy="92" r="16" fill="#ef4444" stroke="#b91c1c" stroke-width="2" filter="url(#shadowDyn)" />
+    <circle cx="365" cy="87" r="4" fill="#fca5a5" />
+    <rect x="395" y="82" width="115" height="26" rx="6" fill="#ffffff" stroke="#ef4444" stroke-width="1" />
+    <text x="402" y="95" font-size="9" font-weight="800" fill="#b91c1c">Fruto / Flor (Sumidero)</text>
+    <text x="402" y="104" font-size="7.8" font-weight="600" fill="#7f1d1d">Demanda K, P y Ca</text>
+
+    <!-- Animación Vascular en el Tallo: Xilema (Azul Arriba) y Floema (Ámbar Abajo) -->
+    <!-- Xilema animado subiendo -->
+    <line class="anim-xylem-dash" x1="340" y1="310" x2="340" y2="135" stroke="#38bdf8" stroke-width="3" stroke-linecap="round" />
+    <!-- Floema animado bajando -->
+    <line class="anim-phloem-dash" x1="350" y1="135" x2="350" y2="310" stroke="#f59e0b" stroke-width="3" stroke-linecap="round" />
+
+    <!-- Zoom de los Vasos Conductores -->
+    <g transform="translate(180, 195)">
+      <circle cx="50" cy="50" r="46" fill="#ffffff" stroke="#0284c7" stroke-width="2.5" filter="url(#shadowDyn)" />
+      
+      <!-- Corte Xilema (Azul con flechas animadas) -->
+      <rect x="26" y="24" width="20" height="52" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.2" />
+      <line class="anim-xylem-dash" x1="36" y1="72" x2="36" y2="28" stroke="#0284c7" stroke-width="2.5" />
+      <text x="36" y="86" font-size="7.5" font-weight="900" fill="#0369a1" text-anchor="middle">XILEMA</text>
+      
+      <!-- Corte Floema (Naranja con flechas animadas) -->
+      <rect x="54" y="24" width="20" height="52" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.2" />
+      <line class="anim-phloem-dash" x1="64" y1="28" x2="64" y2="72" stroke="#d97706" stroke-width="2.5" />
+      <text x="64" y="86" font-size="7.5" font-weight="900" fill="#b45309" text-anchor="middle">FLOEMA</text>
+      
+      <!-- Cartel explicativo -->
+      <rect x="-82" y="15" width="78" height="42" rx="4" fill="#ffffff" stroke="#64748b" stroke-width="1" />
+      <text x="-77" y="28" font-size="7.5" font-weight="800" fill="#0369a1">▲ Savia Bruta</text>
+      <text x="-77" y="38" font-size="7" font-weight="600" fill="#475569">Agua + Iones (N,P,K)</text>
+      <text x="-77" y="50" font-size="7.5" font-weight="800" fill="#b45309">▼ Savia Elaborada</text>
+    </g>
+  </g>
+
+  <!-- ==========================================
+       ZONA SUELO, RIZOSFERA Y ROCA MADRE
+       ========================================== -->
+  <!-- Línea de Superficie -->
+  <line x1="0" y1="310" x2="1000" y2="310" stroke="#15803d" stroke-width="4" />
+  <path d="M0 310 Q20 300 40 310 Q60 300 80 310 Q120 300 160 310 Q220 300 280 310 Q340 300 400 310 Q480 300 560 310 Q640 300 720 310 Q800 300 880 310 Q940 300 1000 310" fill="none" stroke="#22c55e" stroke-width="2.5" />
+
+  <!-- Etiqueta Capa Orgánica -->
+  <rect x="20" y="320" width="185" height="24" rx="4" fill="rgba(0,0,0,0.45)" />
+  <text x="28" y="336" font-size="10.5" font-weight="800" fill="#fef08a">🌱 HORIZONTE A: Humus y Compost</text>
+
+  <!-- Raíces Principales -->
+  <g class="zona-raices">
+    <path d="M345 315 Q340 390 350 480 Q352 520 355 560" fill="none" stroke="#fef3c7" stroke-width="9" stroke-linecap="round" />
+    <path d="M345 340 Q390 370 430 400 Q460 420 500 430" fill="none" stroke="#fde68a" stroke-width="4.5" stroke-linecap="round" />
+    <path d="M345 365 Q290 390 260 430 Q230 460 210 490" fill="none" stroke="#fde68a" stroke-width="4" stroke-linecap="round" />
+    <path d="M350 420 Q400 450 450 470 Q480 490 520 500" fill="none" stroke="#fef08a" stroke-width="3" stroke-linecap="round" />
+    <path d="M350 460 Q310 490 280 520 Q260 540 240 560" fill="none" stroke="#fef08a" stroke-width="2.5" stroke-linecap="round" />
+  </g>
+
+  <!-- Nódulos de Fijación Simbiótica (Rhizobium con Co) -->
+  <g class="zona-simbiosis">
+    <circle cx="280" cy="408" r="6" fill="#f472b6" stroke="#db2777" stroke-width="1.5" />
+    <circle cx="295" cy="422" r="5" fill="#f472b6" stroke="#db2777" stroke-width="1.5" />
+    <rect x="145" y="390" width="125" height="30" rx="4" fill="#ffffff" stroke="#db2777" stroke-width="1" />
+    <text x="152" y="402" font-size="8" font-weight="800" fill="#9d174d">Nódulos Simbióticos</text>
+    <text x="152" y="413" font-size="7.5" font-weight="600" fill="#be185d">Rhizobium fija N₂ (Usa Co)</text>
+  </g>
+
+  <!-- VÍA 1: FLUJO DE MASAS (Animado) -->
+  <g class="zona-masas" transform="translate(560, 330)">
+    <rect x="0" y="0" width="225" height="74" rx="8" fill="#ffffff" stroke="#0284c7" stroke-width="2" filter="url(#shadowDyn)" />
+    <rect x="0" y="0" width="225" height="24" rx="8" fill="#0284c7" />
+    <text x="10" y="16" font-size="10.5" font-weight="900" fill="#ffffff">🌊 1. FLUJO DE MASAS (Mass Flow)</text>
+    <text x="10" y="38" font-size="8.5" font-weight="700" fill="#0369a1">Arrastrados con el agua transpirada</text>
+    <text x="10" y="51" font-size="8.5" font-weight="800" fill="#1e293b">Iones: NO₃⁻, Ca²⁺, Mg²⁺, SO₄²⁻, Boro</text>
+    <text x="10" y="64" font-size="7.5" font-weight="600" fill="#64748b">Cubre más del 80% de Nitrógeno y Calcio</text>
+
+    <!-- Corriente de agua animada hacia la raíz -->
+    <path class="anim-xylem-dash" d="M-10 40 C-40 45, -70 55, -110 70" fill="none" stroke="#0284c7" stroke-width="3" />
+    <polygon points="-110,70 -98,67 -102,76" fill="#0284c7" />
+  </g>
+
+  <!-- VÍA 2: DIFUSIÓN QUÍMICA (Animada) -->
+  <g class="zona-difusion" transform="translate(560, 415)">
+    <rect x="0" y="0" width="225" height="74" rx="8" fill="#ffffff" stroke="#16a34a" stroke-width="2" filter="url(#shadowDyn)" />
+    <rect x="0" y="0" width="225" height="24" rx="8" fill="#16a34a" />
+    <text x="10" y="16" font-size="10.5" font-weight="900" fill="#ffffff">🧲 2. DIFUSIÓN (Diffusion)</text>
+    <text x="10" y="38" font-size="8.5" font-weight="700" fill="#15803d">Viajan por gradiente [Alta] → [Baja]</text>
+    <text x="10" y="51" font-size="8.5" font-weight="800" fill="#1e293b">Iones: H₂PO₄⁻ (Fósforo), K⁺, Fe²⁺, Zn²⁺</text>
+    <text x="10" y="64" font-size="7.5" font-weight="600" fill="#64748b">Vital para Fósforo (>90%) y Potasio (~80%)</text>
+
+    <!-- Ondas concéntricas de difusión animadas -->
+    <circle class="anim-diffusion-wave" cx="-60" cy="55" r="10" fill="none" stroke="#16a34a" />
+    <circle class="anim-diffusion-wave" cx="-60" cy="55" r="18" fill="none" stroke="#16a34a" style="animation-delay: 0.7s;" />
+    <path d="M-10 38 Q-35 45 -60 55" fill="none" stroke="#16a34a" stroke-width="2" stroke-dasharray="2,3" />
+  </g>
+
+  <!-- VÍA 3: INTERCEPCIÓN RADICULAR -->
+  <g class="zona-masas" transform="translate(560, 500)">
+    <rect x="0" y="0" width="225" height="70" rx="8" fill="#ffffff" stroke="#ea580c" stroke-width="2" filter="url(#shadowDyn)" />
+    <rect x="0" y="0" width="225" height="24" rx="8" fill="#ea580c" />
+    <text x="10" y="16" font-size="10.5" font-weight="900" fill="#ffffff">🌱 3. INTERCEPCIÓN RADICULAR</text>
+    <text x="10" y="38" font-size="8.5" font-weight="700" fill="#c2410c">Contacto directo con arcillas y humus</text>
+    <text x="10" y="50" font-size="8.5" font-weight="800" fill="#1e293b">Intercambio catiónico en pelos radiculares</text>
+    <text x="10" y="62" font-size="7.5" font-weight="600" fill="#64748b">La raíz crece activamente hacia el poro</text>
+  </g>
+
+  <!-- ROCA MADRE Y METEORIZACIÓN GEOLÓGICA (Animada) -->
+  <g class="zona-roca" transform="translate(20, 475)">
+    <rect x="0" y="0" width="230" height="125" rx="6" fill="url(#rockGradDyn)" stroke="#1e293b" stroke-width="2" filter="url(#shadowDyn)" />
+    <text x="12" y="20" font-size="10.5" font-weight="900" fill="#f8fafc">🏔️ ROCA MADRE (Meteorización)</text>
+    <text x="12" y="34" font-size="8" font-weight="600" fill="#cbd5e1">Origen geológico de los minerales en miles de años:</text>
+    
+    <rect x="10" y="42" width="210" height="18" rx="3" fill="rgba(255,255,255,0.12)" />
+    <text x="15" y="54" font-size="8" font-weight="700" fill="#fde68a">• Apatitas [Ca₅(PO₄)₃] ➔ Fósforo (P)</text>
+    
+    <rect x="10" y="63" width="210" height="18" rx="3" fill="rgba(255,255,255,0.12)" />
+    <text x="15" y="75" font-size="8" font-weight="700" fill="#bfdbfe">• Feldespatos / Micas ➔ Potasio (K)</text>
+    
+    <rect x="10" y="84" width="210" height="18" rx="3" fill="rgba(255,255,255,0.12)" />
+    <text x="15" y="96" font-size="8" font-weight="700" fill="#fed7aa">• Calizas y Dolomita ➔ Calcio (Ca) y Mg</text>
+    
+    <text x="12" y="114" font-size="7.5" font-weight="600" fill="#94a3b8">• Yeso natural ➔ Azufre (S) | Cuarzo ➔ Silicio (Si)</text>
+
+    <!-- Flecha animada de meteorización -->
+    <path class="anim-xylem-dash" d="M230 60 C260 60, 280 50, 310 40" fill="none" stroke="#fde68a" stroke-width="2.5" />
+    <polygon points="310,40 300,43 303,34" fill="#fde68a" />
+  </g>
+
+  <!-- Iones Flotantes en la Solución del Suelo (Animados) -->
+  <g class="zona-iones" font-size="8" font-weight="800">
+    <g class="anim-ion-float"><circle cx="480" cy="350" r="8" fill="#16a34a" /><text x="480" y="353" fill="#fff" text-anchor="middle">K⁺</text></g>
+    <g class="anim-ion-float" style="animation-delay: 0.5s;"><circle cx="435" cy="380" r="10" fill="#0284c7" /><text x="435" y="383" fill="#fff" text-anchor="middle" font-size="7">NO₃⁻</text></g>
+    <g class="anim-ion-float" style="animation-delay: 1s;"><circle cx="510" cy="400" r="9" fill="#d97706" /><text x="510" y="403" fill="#fff" text-anchor="middle" font-size="7">H₂PO₄⁻</text></g>
+    <g class="anim-ion-float" style="animation-delay: 1.5s;"><circle cx="420" cy="430" r="8" fill="#ea580c" /><text x="420" y="433" fill="#fff" text-anchor="middle">Ca²⁺</text></g>
+    <g class="anim-ion-float" style="animation-delay: 0.8s;"><circle cx="470" cy="460" r="8" fill="#ca8a04" /><text x="470" y="463" fill="#fff" text-anchor="middle">Mg²⁺</text></g>
+    <g class="anim-ion-float" style="animation-delay: 1.2s;"><circle cx="390" cy="490" r="8" fill="#7c3aed" /><text x="390" y="493" fill="#fff" text-anchor="middle">Fe²⁺</text></g>
+    <g class="anim-ion-float" style="animation-delay: 0.3s;"><circle cx="430" cy="520" r="8" fill="#0891b2" /><text x="430" y="523" fill="#fff" text-anchor="middle">SO₄²⁻</text></g>
+    <g class="anim-ion-float" style="animation-delay: 1.7s;"><circle cx="490" cy="530" r="8" fill="#db2777" /><text x="490" y="533" fill="#fff" text-anchor="middle">Zn²⁺</text></g>
+  </g>
+</svg>'''
+
+# Guardar en archivo SVG independiente
+standalone_svg = get_svg_content(is_inline=False)
+with open('assets/images/infografia-nutricion-suelo.svg', 'w', encoding='utf-8') as f:
+    f.write(standalone_svg)
+
+print("assets/images/infografia-nutricion-suelo.svg updated with full animations!")
