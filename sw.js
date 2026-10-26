@@ -8,6 +8,7 @@ const ASSETS_TO_CACHE = [
   './styles.css',
   './wordSearchEngine.js',
   './app.js',
+  './visitas.js',
   './assets/images/hero.webp',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
 ];

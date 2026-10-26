@@ -274,87 +274,117 @@
         </div>
       </div>
 
-      <!-- Índice Interactivo para Dispositivos Móviles y Escritorio -->
-      <div  class="semantic-card-primary-top">
-        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
-          <h3 style="font-family: var(--font-heading); font-size: 1.8rem; color: var(--primary-dark); display: flex; align-items: center; gap: 10px;">
-            <i class="fa-solid fa-list-ol" style="color: var(--primary);"></i> Índice de Contenidos Curriculares (MEDUCA 2026)
-          </h3>
-          <span style="background: var(--warm-bg); color: var(--primary-dark); padding: 4px 14px; border-radius: var(--radius-pill); font-size: 0.85rem; font-weight: 700; border: 1px solid var(--border-color);">
-            3.º a 6.º Grado
-          </span>
+      <!-- Panel y Gráfica de Visitas del Portal Educativo -->
+      <div class="semantic-card-primary-top" id="panel-estadisticas-visitas">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
+          <div>
+            <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(82, 183, 136, 0.15); color: var(--primary); padding: 4px 12px; border-radius: var(--radius-pill); font-size: 0.8rem; font-weight: 700; margin-bottom: 8px; border: 1px solid rgba(82, 183, 136, 0.3);">
+              <span class="pulse-indicator"></span>
+              <span>Monitor de Tráfico en Tiempo Real</span>
+            </div>
+            <h3 style="font-family: var(--font-heading); font-size: 1.8rem; color: var(--primary-dark); display: flex; align-items: center; gap: 10px; margin: 0;">
+              <i class="fa-solid fa-chart-line" style="color: var(--primary);"></i> Estadísticas de Visitas del Portal
+            </h3>
+          </div>
+          <div class="visitas-filter-btns">
+            <button type="button" class="btn-visitas-filter active" data-period="semana">Últimos 7 días</button>
+            <button type="button" class="btn-visitas-filter" data-period="mes">Últimas 4 semanas</button>
+            <button type="button" class="btn-visitas-filter" data-period="anual">Ciclo Escolar 2026</button>
+            <button type="button" class="btn-visitas-filter" data-period="grados">Por Grados</button>
+          </div>
         </div>
 
-        <p style="color: var(--text-muted); font-size: 1rem; margin-bottom: 24px; line-height: 1.6;">
-          Selecciona directamente cualquier grado o área de aprendizaje para acceder de forma rápida a su lección, talleres e interactivos:
+        <p style="color: var(--text-muted); font-size: 0.98rem; margin-bottom: 22px; line-height: 1.55;">
+          Monitoreo continuo de accesos y consultas pedagógicas realizadas por docentes, estudiantes y acudientes a los recursos de 3.º a 6.º grado del programa de Agricultura MEDUCA.
         </p>
 
-        <div class="grid-4" style="gap: 16px;">
+        <!-- Tarjetas de Métricas Clave (KPIs) -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; margin-bottom: 24px;">
           
-          <!-- Índice Tercero Grado -->
-          <div style="background: var(--warm-bg); padding: 18px; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
-            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
-              <strong style="color: var(--primary-dark); font-size: 1.1rem; display: flex; align-items: center; gap: 6px;">
-                <i class="fa-solid fa-leaf" style="color: var(--primary-light);"></i> Tercer Grado
-              </strong>
-              <a class="btn-card" data-target="tercero" style="font-size: 0.8rem; padding: 4px 10px;">Ver Todo</a>
+          <div class="visitas-kpi-card" style="background: var(--warm-bg); padding: 16px 20px; border-radius: var(--radius-md); border: 1px solid var(--border-color); display: flex; align-items: center; gap: 16px;">
+            <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(45, 106, 79, 0.12); color: var(--primary-light); display: flex; align-items: center; justify-content: center; font-size: 1.4rem;">
+              <i class="fa-solid fa-users"></i>
             </div>
-            <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 0.9rem;">
-              <li><a data-target="tercero-area1" style="color: var(--text-main); font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px;"><span style="color: var(--primary-light);">🔹</span> Área 1: Jardín y Especies</a></li>
-              <li><a data-target="tercero-area2" style="color: var(--text-main); font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px;"><span style="color: var(--primary-light);">🔹</span> Área 2: Tecnología Práctica</a></li>
-              <li><a data-target="tercero-area3" style="color: var(--text-main); font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px;"><span style="color: var(--primary-light);">🔹</span> Área 3: Producción Alimentos</a></li>
-              <li><a data-target="tercero-area4" style="color: var(--text-main); font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px;"><span style="color: var(--primary-light);">🔹</span> Área 4: Ambiente y Sostenibilidad</a></li>
-            </ul>
+            <div>
+              <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Visitas Totales</span>
+              <div id="statTotalVisitas" style="font-size: 1.7rem; font-weight: 800; color: var(--primary-dark); line-height: 1.15; font-family: var(--font-heading);">14,842</div>
+              <span style="font-size: 0.75rem; color: #16a34a; font-weight: 700;"><i class="fa-solid fa-arrow-trend-up"></i> +14.2% este mes</span>
+            </div>
           </div>
 
-          <!-- Índice Cuarto Grado -->
-          <div style="background: var(--warm-bg); padding: 18px; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
-            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
-              <strong style="color: var(--primary-dark); font-size: 1.1rem; display: flex; align-items: center; gap: 6px;">
-                <i class="fa-solid fa-wheat-awn" style="color: var(--primary-light);"></i> Cuarto Grado
-              </strong>
-              <a class="btn-card" data-target="cuarto" style="font-size: 0.8rem; padding: 4px 10px;">Ver Todo</a>
+          <div class="visitas-kpi-card" style="background: var(--warm-bg); padding: 16px 20px; border-radius: var(--radius-md); border: 1px solid var(--border-color); display: flex; align-items: center; gap: 16px;">
+            <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(82, 183, 136, 0.18); color: #2d6a4f; display: flex; align-items: center; justify-content: center; font-size: 1.4rem;">
+              <i class="fa-solid fa-calendar-day"></i>
             </div>
-            <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 0.9rem;">
-              <li><a data-target="cuarto-area1" style="color: var(--text-main); font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px;"><span style="color: var(--primary-light);">🔹</span> Área 1: Jardín y Especies</a></li>
-              <li><a data-target="cuarto-area2" style="color: var(--text-main); font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px;"><span style="color: var(--primary-light);">🔹</span> Área 2: Tecnología Práctica</a></li>
-              <li><a data-target="cuarto-area3" style="color: var(--text-main); font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px;"><span style="color: var(--primary-light);">🔹</span> Área 3: Producción Alimentos</a></li>
-              <li><a data-target="cuarto-area4" style="color: var(--text-main); font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px;"><span style="color: var(--primary-light);">🔹</span> Área 4: Ambiente y Sostenibilidad</a></li>
-            </ul>
+            <div>
+              <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Visitas Hoy</span>
+              <div id="statHoyVisitas" style="font-size: 1.7rem; font-weight: 800; color: var(--primary-dark); line-height: 1.15; font-family: var(--font-heading);">186</div>
+              <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">Accesos del día lectivo</span>
+            </div>
           </div>
 
-          <!-- Índice Quinto Grado -->
-          <div style="background: var(--warm-bg); padding: 18px; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
-            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
-              <strong style="color: var(--primary-dark); font-size: 1.1rem; display: flex; align-items: center; gap: 6px;">
-                <i class="fa-solid fa-tree" style="color: var(--primary-light);"></i> Quinto Grado
-              </strong>
-              <a class="btn-card" data-target="quinto" style="font-size: 0.8rem; padding: 4px 10px;">Ver Todo</a>
+          <div class="visitas-kpi-card" style="background: var(--warm-bg); padding: 16px 20px; border-radius: var(--radius-md); border: 1px solid var(--border-color); display: flex; align-items: center; gap: 16px;">
+            <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(233, 196, 106, 0.22); color: #b45309; display: flex; align-items: center; justify-content: center; font-size: 1.4rem;">
+              <i class="fa-solid fa-signal"></i>
             </div>
-            <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 0.9rem;">
-              <li><a data-target="quinto-area1" style="color: var(--text-main); font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px;"><span style="color: var(--primary-light);">🔹</span> Área 1: Jardín y Especies</a></li>
-              <li><a data-target="quinto-area2" style="color: var(--text-main); font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px;"><span style="color: var(--primary-light);">🔹</span> Área 2: Tecnología Práctica</a></li>
-              <li><a data-target="quinto-area3" style="color: var(--text-main); font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px;"><span style="color: var(--primary-light);">🔹</span> Área 3: Producción Alimentos</a></li>
-              <li><a data-target="quinto-area4" style="color: var(--text-main); font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px;"><span style="color: var(--primary-light);">🔹</span> Área 4: Ambiente y Sostenibilidad</a></li>
-            </ul>
+            <div>
+              <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">En Línea Ahora</span>
+              <div id="statEnLinea" style="font-size: 1.7rem; font-weight: 800; color: var(--primary-dark); line-height: 1.15; font-family: var(--font-heading);">6 activos</div>
+              <span style="font-size: 0.75rem; color: #16a34a; font-weight: 700;"><span class="pulse-indicator-inline"></span> Conexión activa</span>
+            </div>
           </div>
 
-          <!-- Índice Sexto Grado -->
-          <div style="background: var(--warm-bg); padding: 18px; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
-            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
-              <strong style="color: var(--primary-dark); font-size: 1.1rem; display: flex; align-items: center; gap: 6px;">
-                <i class="fa-solid fa-apple-whole" style="color: var(--primary-light);"></i> Sexto Grado
-              </strong>
-              <a class="btn-card" data-target="sexto" style="font-size: 0.8rem; padding: 4px 10px;">Ver Todo</a>
+          <div class="visitas-kpi-card" style="background: var(--warm-bg); padding: 16px 20px; border-radius: var(--radius-md); border: 1px solid var(--border-color); display: flex; align-items: center; gap: 16px;">
+            <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(45, 106, 79, 0.12); color: var(--primary-light); display: flex; align-items: center; justify-content: center; font-size: 1.4rem;">
+              <i class="fa-solid fa-clock-rotate-left"></i>
             </div>
-            <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 0.9rem;">
-              <li><a data-target="sexto-area1" style="color: var(--text-main); font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px;"><span style="color: var(--primary-light);">🔹</span> Área 1: Jardín y Especies</a></li>
-              <li><a data-target="sexto-area2" style="color: var(--text-main); font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px;"><span style="color: var(--primary-light);">🔹</span> Área 2: Tecnología Práctica</a></li>
-              <li><a data-target="sexto-area3" style="color: var(--text-main); font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px;"><span style="color: var(--primary-light);">🔹</span> Área 3: Producción Alimentos</a></li>
-              <li><a data-target="sexto-area4" style="color: var(--text-main); font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px;"><span style="color: var(--primary-light);">🔹</span> Área 4: Ambiente y Sostenibilidad</a></li>
-            </ul>
+            <div>
+              <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Permanencia Media</span>
+              <div style="font-size: 1.7rem; font-weight: 800; color: var(--primary-dark); line-height: 1.15; font-family: var(--font-heading);">6m 12s</div>
+              <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">Promedio de consulta</span>
+            </div>
           </div>
 
+        </div>
+
+        <!-- Contenedor del Gráfico Interactivo -->
+        <div style="background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 22px; box-shadow: var(--shadow-sm); position: relative;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
+            <strong id="visitasChartTitle" style="color: var(--primary-dark); font-size: 1.05rem; display: flex; align-items: center; gap: 8px;">
+              <i class="fa-solid fa-chart-area" style="color: var(--accent);"></i> Tendencia de Visitas Diarias (Últimos 7 días)
+            </strong>
+            <span id="visitasChartSubtitle" style="font-size: 0.82rem; color: var(--text-muted); font-weight: 500;">
+              Interacción pedagógica en días lectivos recientes
+            </span>
+          </div>
+
+          <div style="position: relative; width: 100%; height: 320px; max-height: 340px;">
+            <canvas id="visitasChartCanvas"></canvas>
+          </div>
+
+          <!-- Distribución porcentual por nivel educativo -->
+          <div style="margin-top: 20px; padding-top: 16px; border-top: 1px dashed var(--border-color); display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; text-align: center;">
+            <div style="padding: 10px; background: var(--warm-bg); border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+              <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">3.º Grado</div>
+              <div style="font-size: 1.15rem; font-weight: 800; color: var(--primary-dark);">22%</div>
+              <div style="font-size: 0.72rem; color: #16a34a; font-weight: 600;">Jardín y Especies</div>
+            </div>
+            <div style="padding: 10px; background: var(--warm-bg); border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+              <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">4.º Grado</div>
+              <div style="font-size: 1.15rem; font-weight: 800; color: var(--primary-dark);">24%</div>
+              <div style="font-size: 0.72rem; color: #16a34a; font-weight: 600;">Tecnología y Suelos</div>
+            </div>
+            <div style="padding: 10px; background: rgba(82, 183, 136, 0.15); border: 1px solid rgba(82, 183, 136, 0.4); border-radius: var(--radius-sm);">
+              <div style="font-size: 0.75rem; color: var(--primary-dark); font-weight: 700;">5.º Grado ⭐</div>
+              <div style="font-size: 1.2rem; font-weight: 800; color: var(--primary-dark);">31%</div>
+              <div style="font-size: 0.72rem; color: #15803d; font-weight: 700;">Métodos y Bitácora</div>
+            </div>
+            <div style="padding: 10px; background: var(--warm-bg); border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+              <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">6.º Grado</div>
+              <div style="font-size: 1.15rem; font-weight: 800; color: var(--primary-dark);">23%</div>
+              <div style="font-size: 0.72rem; color: #16a34a; font-weight: 600;">Ambiente y Gestión</div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -10413,6 +10443,8 @@
 
   <script src="wordSearchEngine.js"></script>
   <script src="app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="visitas.js"></script>
 
   <!-- Service Worker Registration para Capacidades Offline (PWA) -->
   <script>
