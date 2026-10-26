@@ -474,30 +474,229 @@
       margin-bottom: 0.75rem;
     }
 
+    .glossary-search-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      background: #ffffff;
+      border: 1.5px solid var(--border);
+      padding: 12px 18px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 1.75rem;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .glossary-search-input-wrap {
+      flex: 1;
+      min-width: 240px;
+      position: relative;
+    }
+
+    .glossary-search-input-wrap i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--primary);
+      font-size: 0.95rem;
+    }
+
+    .glossary-search-input-wrap input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px 14px 10px 38px;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .glossary-search-input-wrap input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.15);
+    }
+
+    .glossary-filter-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .glossary-chip {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+      outline: none;
+    }
+
+    .glossary-chip:hover {
+      background: var(--accent);
+      color: var(--primary-dark);
+      border-color: var(--primary-light);
+    }
+
+    .glossary-chip.active {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary-dark);
+      box-shadow: 0 2px 8px rgba(45, 106, 79, 0.25);
+    }
+
     .glossary-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 1.5rem;
+      width: 100%;
+      box-sizing: border-box;
+      margin-bottom: 2.5rem;
     }
 
     .glossary-entry {
       background-color: var(--surface);
-      border: 1px solid var(--border);
-      border-left: 4px solid var(--primary-light);
-      border-radius: 8px;
-      padding: 1rem 1.25rem;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
       box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .glossary-entry:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      border-color: var(--primary-light);
+    }
+
+    .glossary-img-wrap {
+      position: relative;
+      width: 100%;
+      height: 190px;
+      background: #0d1f17;
+      overflow: hidden;
+    }
+
+    .glossary-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease, filter 0.4s ease;
+    }
+
+    .glossary-entry:hover .glossary-img-wrap img {
+      transform: scale(1.06);
+    }
+
+    .glossary-badge-cat {
+      position: absolute;
+      top: 10px;
+      left: 12px;
+      background: rgba(27, 67, 50, 0.90);
+      color: #ffffff;
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 12px;
+      backdrop-filter: blur(4px);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+      z-index: 2;
+    }
+
+    .glossary-badge-num {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      background: #ffffff;
+      color: var(--primary-dark);
+      font-size: 0.78rem;
+      font-weight: 800;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      z-index: 2;
+    }
+
+    .glossary-card-body {
+      padding: 1.25rem 1.35rem 1.35rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      gap: 0.75rem;
     }
 
     .glossary-entry h3 {
       color: var(--primary-dark);
-      font-size: 1rem;
-      margin-bottom: 0.35rem;
+      font-size: 1.15rem;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      line-height: 1.3;
     }
 
-    .glossary-entry p {
+    .glossary-def {
+      color: var(--text-main);
+      font-size: 0.93rem;
+      line-height: 1.55;
+    }
+
+    .glossary-explain-box {
+      background: #f8faf9;
+      border-left: 3.5px solid var(--primary-light);
+      padding: 0.65rem 0.85rem;
+      border-radius: 4px;
+      font-size: 0.88rem;
       color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .glossary-explain-box strong {
+      color: var(--primary-dark);
+      display: block;
+      margin-bottom: 3px;
+      font-size: 0.85rem;
+    }
+
+    .glossary-tip {
+      background: #fefce8;
+      border: 1px solid #fef08a;
+      border-radius: 6px;
+      padding: 0.55rem 0.8rem;
+      font-size: 0.84rem;
+      color: #854d0e;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-top: auto;
+      line-height: 1.45;
+    }
+
+    .glossary-tip i {
+      color: #ca8a04;
       font-size: 0.95rem;
+      margin-top: 2px;
+      flex-shrink: 0;
     }
 
     .diagram-card {
@@ -952,7 +1151,20 @@
         margin-bottom: 1.25rem;
         width: 100%;
       }
-      .card, .semillero-hero-card, .bitacora-card-detail, .extra-card {
+            .glossary-grid {
+        grid-template-columns: 1fr;
+        gap: 1.15rem;
+      }
+      .glossary-img-wrap {
+        height: 160px;
+      }
+      .glossary-card-body {
+        padding: 1rem;
+      }
+      .glossary-entry h3 {
+        font-size: 1.05rem;
+      }
+.card, .semillero-hero-card, .bitacora-card-detail, .extra-card {
         padding: 1.15rem 1rem !important;
         width: 100% !important;
       }
@@ -1013,54 +1225,327 @@
     </nav>
 
     <section class="extra-section" id="glosario" aria-labelledby="glosario-title">
-      <h2 class="section-title" id="glosario-title">VII. Vocabulario</h2>
-      <div class="glossary-grid">
-        <article class="glossary-entry">
-          <h3>Método moderno de producción agrícola</h3>
-          <p>Forma organizada de producción que utiliza planificación, selección de materiales y técnicas apropiadas para desarrollar cultivos.</p>
-        </article>
-        <article class="glossary-entry">
-          <h3>Selección de semillas</h3>
-          <p>Proceso de escoger semillas apropiadas para establecer un cultivo.</p>
-        </article>
-        <article class="glossary-entry">
-          <h3>Germinación</h3>
-          <p>Proceso mediante el cual una semilla inicia su crecimiento cuando encuentra condiciones apropiadas.</p>
-        </article>
-        <article class="glossary-entry">
-          <h3>Semillero</h3>
-          <p>Espacio preparado para sembrar y cuidar determinadas plantas durante sus primeras etapas.</p>
-        </article>
-        <article class="glossary-entry">
-          <h3>Plántula</h3>
-          <p>Planta joven que se encuentra en sus primeras etapas de desarrollo.</p>
-        </article>
-        <article class="glossary-entry">
-          <h3>Selección del terreno</h3>
-          <p>Proceso de escoger un área apropiada para establecer un cultivo.</p>
-        </article>
-        <article class="glossary-entry">
-          <h3>Preparación del terreno</h3>
-          <p>Conjunto de labores realizadas para acondicionar el espacio antes del establecimiento de un cultivo.</p>
-        </article>
-        <article class="glossary-entry">
-          <h3>Selección de cultivos</h3>
-          <p>Proceso de decidir qué especie agrícola producir considerando las condiciones disponibles.</p>
-        </article>
-        <article class="glossary-entry">
-          <h3>Época de siembra</h3>
-          <p>Período apropiado para establecer un determinado cultivo.</p>
-        </article>
-        <article class="glossary-entry">
-          <h3>Época de cosecha</h3>
-          <p>Período en que un producto agrícola alcanza las condiciones necesarias para recolectarlo.</p>
-        </article>
-        <article class="glossary-entry">
-          <h3>Bitácora agrícola</h3>
-          <p>Registro organizado de las actividades, observaciones y cambios que ocurren durante un proceso agrícola.</p>
-        </article>
+      <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 1.25rem;">
+        <div>
+          <h2 class="section-title" id="glosario-title" style="margin-bottom: 4px;">
+            <i class="fa-solid fa-book-open-reader" style="color: var(--primary);"></i> Glosario Agrícola Ilustrado
+          </h2>
+          <p style="color: var(--text-muted); font-size: 0.95rem; margin: 0;">
+            Conceptos clave, explicaciones prácticas para el huerto escolar y recomendaciones técnicas explicadas para estudiantes de 5.° grado.
+          </p>
+        </div>
+        <span style="background: var(--accent); color: var(--primary-dark); font-weight: 700; font-size: 0.85rem; padding: 5px 12px; border-radius: 20px;">
+          11 Conceptos Clave
+        </span>
       </div>
-      
+
+      <!-- Barra de Búsqueda y Filtros de Categoría -->
+      <div class="glossary-search-bar">
+        <div class="glossary-search-input-wrap">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="glossarySearch" placeholder="Buscar concepto o palabra clave (ej: semilla, riego, sustrato)..." oninput="filtrarGlosario()">
+        </div>
+        <div class="glossary-filter-chips">
+          <button type="button" class="glossary-chip active" onclick="filtrarCategoria('todas', this)">Todos</button>
+          <button type="button" class="glossary-chip" onclick="filtrarCategoria('semillas', this)">Semillas y Siembra</button>
+          <button type="button" class="glossary-chip" onclick="filtrarCategoria('suelo', this)">Suelo y Terreno</button>
+          <button type="button" class="glossary-chip" onclick="filtrarCategoria('gestion', this)">Gestión y Registro</button>
+        </div>
+      </div>
+
+      <div class="glossary-grid" id="glossaryContainer">
+
+        <!-- 1. Método moderno de producción agrícola -->
+        <article class="glossary-entry" data-category="gestion" data-keywords="metodo moderno planificacion tecnologia produccion huerto escolar">
+          <div class="glossary-img-wrap">
+            <img src="assets/images/glosario_metodo_moderno.jpg" alt="Método moderno de producción agrícola" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=600&auto=format&fit=crop&q=80'">
+            <span class="glossary-badge-cat"><i class="fa-solid fa-tractor"></i> Tecnología Agrícola</span>
+            <span class="glossary-badge-num">1</span>
+          </div>
+          <div class="glossary-card-body">
+            <h3><span>🚜</span> Método moderno de producción</h3>
+            <p class="glossary-def">
+              Sistema integral de cultivo que reemplaza la improvisación por una <strong>planificación científica rigurosa</strong>. Combina el uso ordenado de recursos (agua, luz, sustrato orgánico), herramientas adecuadas y técnicas sostenibles para obtener cosechas saludables, abundantes y de alta calidad sin agotar la tierra.
+            </p>
+            <div class="glossary-explain-box">
+              <strong><i class="fa-solid fa-circle-info"></i> ¿Cómo se aplica en el huerto escolar?</strong>
+              En lugar de sembrar al azar, los estudiantes investigan las condiciones del clima, seleccionan semillas vigorosas, calculan las distancias de siembra y monitorean el crecimiento día a día en un semillero protegido.
+            </div>
+            <div class="glossary-tip">
+              <i class="fa-solid fa-lightbulb"></i>
+              <div><strong>Tip Agronómico:</strong> La planificación anticipada reduce en más del 50% las pérdidas por plagas y sequía en el huerto escolar.</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2. Selección de semillas -->
+        <article class="glossary-entry" data-category="semillas" data-keywords="seleccion semillas pureza vigor germinacion descarte">
+          <div class="glossary-img-wrap">
+            <img src="assets/images/glosario_seleccion_semillas.jpg" alt="Selección de semillas de calidad" loading="lazy" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/5/53/Seed_variety.jpg'">
+            <span class="glossary-badge-cat"><i class="fa-solid fa-seedling"></i> Material Genético</span>
+            <span class="glossary-badge-num">2</span>
+          </div>
+          <div class="glossary-card-body">
+            <h3><span>🔍</span> Selección de semillas</h3>
+            <p class="glossary-def">
+              Proceso técnico de <strong>inspección, descarte y clasificación</strong> para escoger únicamente aquellas semillas que cuentan con alto vigor fisiológico, pureza varietal, tamaño uniforme y completa sanidad biológica.
+            </p>
+            <div class="glossary-explain-box">
+              <strong><i class="fa-solid fa-circle-info"></i> ¿Cómo se aplica en el huerto escolar?</strong>
+              Los estudiantes examinan las semillas de ají o tomate bajo buena luz, retirando aquellas que tengan orificios de insectos, moho, grietas o tamaño raquítico. Solo las semillas maduras y limpias aseguran brotes sanos.
+            </div>
+            <div class="glossary-tip">
+              <i class="fa-solid fa-lightbulb"></i>
+              <div><strong>Prueba Casera:</strong> Al sumergir semillas en agua, las que van al fondo son densas y fértiles; las que flotan suelen estar vacías o dañadas y deben descartarse.</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 3. Germinación -->
+        <article class="glossary-entry" data-category="semillas" data-keywords="germinacion embrion brote humedad cotiledones radicula">
+          <div class="glossary-img-wrap">
+            <img src="assets/images/glosario_germinacion.jpg" alt="Germinación de una semilla" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?w=600&auto=format&fit=crop&q=80'">
+            <span class="glossary-badge-cat"><i class="fa-solid fa-spa"></i> Fisiología Vegetal</span>
+            <span class="glossary-badge-num">3</span>
+          </div>
+          <div class="glossary-card-body">
+            <h3><span>🌿</span> Germinación</h3>
+            <p class="glossary-def">
+              Proceso biológico en el cual el embrión dentro de la semilla <strong>despierta de su letargo</strong>. Al absorber agua (imbibición), reactiva su metabolismo, rompe la cáscara exterior y emite la <em>radícula</em> (raíz primaria) y los <em>cotiledones</em> (hojitas embrionarias).
+            </p>
+            <div class="glossary-explain-box">
+              <strong><i class="fa-solid fa-circle-info"></i> ¿Cómo se aplica en el huerto escolar?</strong>
+              Para germinar con éxito en el semillero, las semillas exigen tres condiciones constantes: humedad sin encharcamiento, aireación en el sustrato y temperatura cálida tropical (22 °C a 30 °C).
+            </div>
+            <div class="glossary-tip">
+              <i class="fa-solid fa-lightbulb"></i>
+              <div><strong>Dato Científico:</strong> El Porcentaje de Germinación (%G) indica cuántas semillas nacieron de cada 100 sembradas. Un resultado superior al 85% se considera excelente.</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 4. Semillero -->
+        <article class="glossary-entry" data-category="semillas" data-keywords="semillero alviolos carton de huevos cuidados almacigo">
+          <div class="glossary-img-wrap">
+            <img src="assets/images/glosario_semillero.jpg" alt="Semillero pedagógico" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1591857177580-dc82b9ac4e1e?w=600&auto=format&fit=crop&q=80'">
+            <span class="glossary-badge-cat"><i class="fa-solid fa-box-archive"></i> Área de Cuidado</span>
+            <span class="glossary-badge-num">4</span>
+          </div>
+          <div class="glossary-card-body">
+            <h3><span>📦</span> Semillero</h3>
+            <p class="glossary-def">
+              Espacio o estructura protegida diseñado para sembrar semillas bajo <strong>condiciones ambientales controladas</strong> y brindarles cuidados intensivos durante sus primeras 3 a 4 semanas, antes de llevarlas a su lugar definitivo.
+            </p>
+            <div class="glossary-explain-box">
+              <strong><i class="fa-solid fa-circle-info"></i> ¿Cómo se aplica en el huerto escolar?</strong>
+              Se emplean cartones de huevos reciclados o bandejas alveolares. Este entorno protegido resguarda a las frágiles plántulas de lluvias torrenciales, pájaros, vientos secos y calor extremo.
+            </div>
+            <div class="glossary-tip">
+              <i class="fa-solid fa-lightbulb"></i>
+              <div><strong>Regla de Oro:</strong> Los cartones de huevos deben tener agujeros en la base de cada celda para asegurar un drenaje perfecto y evitar hongos en la raíz.</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 5. Plántula -->
+        <article class="glossary-entry" data-category="semillas" data-keywords="plantula brote hojas verdaderas tallo trasplante">
+          <div class="glossary-img-wrap">
+            <img src="assets/images/glosario_plantula.jpg" alt="Plántula lista para trasplante" loading="lazy" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/1/15/Tomato_seedling.jpg'">
+            <span class="glossary-badge-cat"><i class="fa-solid fa-leaf"></i> Desarrollo Inicial</span>
+            <span class="glossary-badge-num">5</span>
+          </div>
+          <div class="glossary-card-body">
+            <h3><span>🌱</span> Plántula</h3>
+            <p class="glossary-def">
+              Planta joven en su primera etapa de desarrollo independiente, que ya ha desarrollado su <strong>primer par de hojas verdaderas</strong>, un tallo erguido y raíces blancas capaces de absorber nutrientes directamente del sustrato.
+            </p>
+            <div class="glossary-explain-box">
+              <strong><i class="fa-solid fa-circle-info"></i> ¿Cómo se aplica en el huerto escolar?</strong>
+              Las plántulas requieren aclimatación paulatina: se sacan poco a poco al sol matutino para que sus tejidos se endurezcan antes de ser trasplantadas a la tierra definitiva.
+            </div>
+            <div class="glossary-tip">
+              <i class="fa-solid fa-lightbulb"></i>
+              <div><strong>Momento del Trasplante:</strong> La plántula de ají está lista cuando mide entre 10 y 15 cm de altura y tiene de 4 a 6 hojas verdaderas con tallo firme.</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 6. Selección del terreno -->
+        <article class="glossary-entry" data-category="suelo" data-keywords="seleccion terreno luz solar pendiente agua drenaje">
+          <div class="glossary-img-wrap">
+            <img src="assets/images/glosario_seleccion_terreno.jpg" alt="Selección de terreno agrícola" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=600&auto=format&fit=crop&q=80'">
+            <span class="glossary-badge-cat"><i class="fa-solid fa-map-location-dot"></i> Topografía y Ubicación</span>
+            <span class="glossary-badge-num">6</span>
+          </div>
+          <div class="glossary-card-body">
+            <h3><span>🗺️</span> Selección del terreno</h3>
+            <p class="glossary-def">
+              Evaluación exhaustiva de las condiciones geográficas, climáticas y de suelo de un área para verificar su <strong>viabilidad para sostener un huerto productivo</strong> sin riesgos de anegamiento o sombra excesiva.
+            </p>
+            <div class="glossary-explain-box">
+              <strong><i class="fa-solid fa-circle-info"></i> ¿Cómo se aplica en el huerto escolar?</strong>
+              Los estudiantes miden las horas de sol directo (mínimo 6 horas diarias), la cercanía a una toma de agua limpia, la inclinación del suelo y que esté a salvo del tránsito de animales domésticos.
+            </div>
+            <div class="glossary-tip">
+              <i class="fa-solid fa-lightbulb"></i>
+              <div><strong>Criterio Clave:</strong> Nunca elijas zonas bajas donde se acumule agua de escorrentía, ya que el exceso de agua asfixia las raíces en menos de 48 horas.</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 7. Preparación del terreno -->
+        <article class="glossary-entry" data-category="suelo" data-keywords="preparacion terreno arado abono compost descompactar camas camellones">
+          <div class="glossary-img-wrap">
+            <img src="assets/images/glosario_preparacion_terreno.jpg" alt="Preparación y labranza del terreno" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1628352081506-83c43123ed6d?w=600&auto=format&fit=crop&q=80'">
+            <span class="glossary-badge-cat"><i class="fa-solid fa-trowel"></i> Acondicionamiento Físico</span>
+            <span class="glossary-badge-num">7</span>
+          </div>
+          <div class="glossary-card-body">
+            <h3><span>⛏️</span> Preparación del terreno</h3>
+            <p class="glossary-def">
+              Labor agronómica de <strong>limpieza, remoción, mullido y enmienda orgánica</strong> del suelo para aflojarlo hasta unos 25 a 30 cm de profundidad, facilitando que las raíces penetren sin obstáculos y absorban aire y nutrientes.
+            </p>
+            <div class="glossary-explain-box">
+              <strong><i class="fa-solid fa-circle-info"></i> ¿Cómo se aplica en el huerto escolar?</strong>
+              Con palas, azadones y rastrillos se extraen piedras y malezas, se voltea la tierra y se incorpora abono orgánico maduro (compost o gallinaza curada), formando camellones o bancales elevados.
+            </div>
+            <div class="glossary-tip">
+              <i class="fa-solid fa-lightbulb"></i>
+              <div><strong>Textura Ideal:</strong> La tierra bien preparada debe sentirse suave como miga de pan, desmoronándose con facilidad al apretarla con la mano.</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 8. Selección de cultivos -->
+        <article class="glossary-entry" data-category="gestion" data-keywords="seleccion cultivos hortalizas aji tomate culantro ciclo corto">
+          <div class="glossary-img-wrap">
+            <img src="assets/images/glosario_seleccion_cultivos.jpg" alt="Variedad de cultivos agrícolas" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1540420773420-3366772f4999?w=600&auto=format&fit=crop&q=80'">
+            <span class="glossary-badge-cat"><i class="fa-solid fa-wheat-awn"></i> Planificación Productiva</span>
+            <span class="glossary-badge-num">8</span>
+          </div>
+          <div class="glossary-card-body">
+            <h3><span>🍅</span> Selección de cultivos</h3>
+            <p class="glossary-def">
+              Decisión agronómica y pedagógica sobre <strong>cuáles especies o variedades vegetales cultivar</strong>, evaluando la resistencia al clima local, el espacio requerido, el ciclo de crecimiento y su valor nutricional para el comedor escolar.
+            </p>
+            <div class="glossary-explain-box">
+              <strong><i class="fa-solid fa-circle-info"></i> ¿Cómo se aplica en el huerto escolar?</strong>
+              Se seleccionan especies de ciclo corto y rápida cosecha como el ají dulce, culantro, tomate perita, habichuela y maíz tierno, que permiten a los estudiantes ver el resultado completo dentro del año escolar.
+            </div>
+            <div class="glossary-tip">
+              <i class="fa-solid fa-lightbulb"></i>
+              <div><strong>Asociación Benéfica:</strong> Sembrar maíz junto a habichuelas y ajíes aprovecha mejor el espacio: el maíz da soporte a la habichuela y esta fija nitrógeno natural en el suelo.</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 9. Época de siembra -->
+        <article class="glossary-entry" data-category="gestion" data-keywords="epoca siembra calendario lluvias estacion seca clima">
+          <div class="glossary-img-wrap">
+            <img src="assets/images/glosario_epoca_siembra.jpg" alt="Época propicia de siembra" loading="lazy" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/8/81/Sowing_seeds.jpg'">
+            <span class="glossary-badge-cat"><i class="fa-solid fa-cloud-sun-rain"></i> Calendario Bioclimático</span>
+            <span class="glossary-badge-num">9</span>
+          </div>
+          <div class="glossary-card-body">
+            <h3><span>🗓️</span> Época de siembra</h3>
+            <p class="glossary-def">
+              Período del año en que las <strong>temperaturas, la humedad ambiental y el régimen hídrico</strong> son los más favorables para que las semillas depositadas en el suelo nazcan y prosperen con el menor estrés ambiental posible.
+            </p>
+            <div class="glossary-explain-box">
+              <strong><i class="fa-solid fa-circle-info"></i> ¿Cómo se aplica en el huerto escolar?</strong>
+              En Panamá se coordina con la estación lluviosa (mayo a noviembre) si no se cuenta con riego automático, asegurando agua constante sin depender exclusivamente del acarreo manual de agua.
+            </div>
+            <div class="glossary-tip">
+              <i class="fa-solid fa-lightbulb"></i>
+              <div><strong>Evita el Estrés:</strong> Siembra siempre a primera hora de la mañana o al atardecer para que el sol abrasador del mediodía no deshidrate las semillas ni las plántulas recién trasplantadas.</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 10. Época de cosecha -->
+        <article class="glossary-entry" data-category="gestion" data-keywords="epoca cosecha recoleccion madurez nutricion frutos">
+          <div class="glossary-img-wrap">
+            <img src="assets/images/glosario_epoca_cosecha.jpg" alt="Época de cosecha y recolección" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1595974482597-4b8da8879bc5?w=600&auto=format&fit=crop&q=80'">
+            <span class="glossary-badge-cat"><i class="fa-solid fa-basket-shopping"></i> Cosecha y Rendimiento</span>
+            <span class="glossary-badge-num">10</span>
+          </div>
+          <div class="glossary-card-body">
+            <h3><span>🧺</span> Época de cosecha</h3>
+            <p class="glossary-def">
+              Momento culminante del ciclo agrícola en que las partes comestibles de la planta (frutos, vainas, hojas o raíces) alcanzan su <strong>madurez fisiológica y organoléptica óptima</strong>: color brillante, tamaño adecuado, firmeza y máxima concentración de nutrientes.
+            </p>
+            <div class="glossary-explain-box">
+              <strong><i class="fa-solid fa-circle-info"></i> ¿Cómo se aplica en el huerto escolar?</strong>
+              Los estudiantes aprenden a cortar los ajíes o tomates con tijeras limpias dejando 1 cm de pedúnculo, evitando halar la rama para no fracturar los tallos que continuarán floreciendo.
+            </div>
+            <div class="glossary-tip">
+              <i class="fa-solid fa-lightbulb"></i>
+              <div><strong>Momento Óptimo:</strong> Cosechar en horas tempranas de la mañana preserva la turgencia y frescura de los frutos, evitando que el calor del sol acelere su descomposición.</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 11. Bitácora agrícola -->
+        <article class="glossary-entry" data-category="gestion" data-keywords="bitacora agricola cuaderno registro medicion datos seguimiento">
+          <div class="glossary-img-wrap">
+            <img src="assets/images/glosario_bitacora_agricola.jpg" alt="Bitácora escolar de campo" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1455390582262-044cdead277a?w=600&auto=format&fit=crop&q=80'">
+            <span class="glossary-badge-cat"><i class="fa-solid fa-book-journal-whills"></i> Registro Científico</span>
+            <span class="glossary-badge-num">11</span>
+          </div>
+          <div class="glossary-card-body">
+            <h3><span>📓</span> Bitácora agrícola</h3>
+            <p class="glossary-def">
+              Documento o libreta de campo donde se asientan de forma <strong>cronológica, ordenada y sistemática</strong> todos los sucesos del cultivo: fechas de siembra, brotes, mediciones de altura, riegos, dosis de abono y detección de anomalías.
+            </p>
+            <div class="glossary-explain-box">
+              <strong><i class="fa-solid fa-circle-info"></i> ¿Cómo se aplica en el huerto escolar?</strong>
+              Fomenta el método científico en los alumnos: en lugar de adivinar qué salió bien o mal, consultan los datos anotados para aprender la relación causa-efecto entre sus cuidados y la calidad de la cosecha.
+            </div>
+            <div class="glossary-tip">
+              <i class="fa-solid fa-lightbulb"></i>
+              <div><strong>Lema del Buen Agricultor:</strong> "Lo que se anota se recuerda, lo que se mide se mejora." Registrar a tiempo es el secreto del éxito agrícola.</div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- Script de Búsqueda y Filtrado Dinámico -->
+      <script>
+        function filtrarGlosario() {
+          const input = document.getElementById('glossarySearch').value.toLowerCase().trim();
+          const activeChip = document.querySelector('.glossary-chip.active');
+          const cat = activeChip ? activeChip.getAttribute('onclick').match(/'([^']+)'/)[1] : 'todas';
+          aplicarFiltros(input, cat);
+        }
+
+        function filtrarCategoria(cat, btn) {
+          document.querySelectorAll('.glossary-chip').forEach(c => c.classList.remove('active'));
+          if (btn) btn.classList.add('active');
+          const input = document.getElementById('glossarySearch').value.toLowerCase().trim();
+          aplicarFiltros(input, cat);
+        }
+
+        function aplicarFiltros(query, cat) {
+          const cards = document.querySelectorAll('.glossary-entry');
+          let visibleCount = 0;
+
+          cards.forEach(card => {
+            const cardCat = card.getAttribute('data-category');
+            const keywords = (card.getAttribute('data-keywords') || '') + ' ' + card.innerText.toLowerCase();
+            const matchesCat = (cat === 'todas' || cardCat === cat);
+            const matchesQuery = !query || keywords.includes(query);
+
+            if (matchesCat && matchesQuery) {
+              card.style.display = 'flex';
+              visibleCount++;
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        }
+      </script>
+
     </section>
 
     <div class="subpage-nav-footer">
