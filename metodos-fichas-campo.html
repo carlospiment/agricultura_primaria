@@ -466,6 +466,10 @@
       border: 1px solid var(--border);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      overflow: hidden;
     }
 
     .extra-card h3 {
@@ -634,12 +638,25 @@
       resize: vertical;
     }
 
-    .table-wrapper { overflow-x: auto; }
+    .table-wrapper {
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 1rem 0;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #ffffff;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+      display: block;
+    }
 
     .record-table {
       width: 100%;
-      min-width: 700px;
+      min-width: 600px;
       border-collapse: collapse;
+      margin: 0;
     }
 
     .record-table th,
@@ -952,7 +969,24 @@
         margin-bottom: 1.25rem;
         width: 100%;
       }
-      .card, .semillero-hero-card, .bitacora-card-detail, .extra-card {
+            .table-wrapper {
+        margin: 0.75rem 0;
+        border-radius: 6px;
+      }
+      .record-table {
+        min-width: 520px;
+        font-size: 0.82rem;
+      }
+      .record-table th,
+      .record-table td {
+        padding: 6px 8px;
+      }
+      .record-table input {
+        min-width: 75px;
+        padding: 5px 8px;
+        font-size: 0.82rem;
+      }
+.card, .semillero-hero-card, .bitacora-card-detail, .extra-card {
         padding: 1.15rem 1rem !important;
         width: 100% !important;
       }
@@ -1032,6 +1066,7 @@
       <section class="extra-card" aria-labelledby="actividad-1">
         <h3 id="actividad-1">Actividad 1 — Observación de semillas</h3>
         <p>Completar la información de la semilla observada:</p>
+        <div class="scroll-hint"><i class="fa-solid fa-arrows-left-right"></i> Desliza horizontalmente para ver la tabla completa</div>
         <div class="table-wrapper">
           <table class="record-table">
             <thead>
@@ -1122,6 +1157,7 @@
       </section>
       <section class="extra-card" aria-labelledby="seguimiento-germinacion">
         <h3 id="seguimiento-germinacion">Seguimiento de germinación</h3>
+        <div class="scroll-hint"><i class="fa-solid fa-arrows-left-right"></i> Desliza horizontalmente para ver la tabla completa</div>
         <div class="table-wrapper">
           <table class="record-table">
             <thead>
@@ -1183,6 +1219,7 @@
       </section>
       <section class="extra-card" aria-labelledby="seguimiento-crecimiento">
         <h3 id="seguimiento-crecimiento">Seguimiento del crecimiento</h3>
+        <div class="scroll-hint"><i class="fa-solid fa-arrows-left-right"></i> Desliza horizontalmente para ver la tabla completa</div>
         <div class="table-wrapper">
           <table class="record-table">
             <thead>
@@ -1251,6 +1288,7 @@
       </section>
       <section class="extra-card" aria-labelledby="historial-cuidados">
         <h3 id="historial-cuidados">Historial de riego y cuidados</h3>
+        <div class="scroll-hint"><i class="fa-solid fa-arrows-left-right"></i> Desliza horizontalmente para ver la tabla completa</div>
         <div class="table-wrapper">
           <table class="record-table">
             <thead>
@@ -1304,6 +1342,7 @@
       </section>
       <section class="extra-card" aria-labelledby="registro-general">
         <h3 id="registro-general">Registro</h3>
+        <div class="scroll-hint"><i class="fa-solid fa-arrows-left-right"></i> Desliza horizontalmente para ver la tabla completa</div>
         <div class="table-wrapper">
           <table class="record-table">
             <thead>

@@ -1034,6 +1034,10 @@
       padding: 1.75rem;
       margin-bottom: 1.75rem;
       box-shadow: var(--shadow);
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      overflow: hidden;
       animation: tabFadeIn 0.3s ease forwards;
     }
 
@@ -1182,15 +1186,28 @@
       display: none;
     }
 
+    .table-wrapper {
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 1rem 0;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #ffffff;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+      display: block;
+    }
+
     .bitacora-example-table {
       width: 100%;
+      min-width: 520px;
       border-collapse: collapse;
-      margin: 1rem 0;
+      margin: 0;
       font-size: 0.9rem;
       background: #ffffff;
-      border-radius: 8px;
-      overflow: hidden;
-      border: 1px solid var(--border);
+      border: none;
     }
 
     .bitacora-example-table th {
@@ -1288,7 +1305,19 @@
         margin-bottom: 1.25rem;
         width: 100%;
       }
-      .card, .semillero-hero-card, .bitacora-card-detail, .extra-card {
+            .table-wrapper {
+        margin: 0.75rem 0;
+        border-radius: 6px;
+      }
+      .bitacora-example-table {
+        min-width: 460px;
+        font-size: 0.8rem;
+      }
+      .bitacora-example-table th,
+      .bitacora-example-table td {
+        padding: 7px 9px !important;
+      }
+.card, .semillero-hero-card, .bitacora-card-detail, .extra-card {
         padding: 1.15rem 1rem !important;
         width: 100% !important;
       }
@@ -1527,7 +1556,9 @@
           <h4 style="color: var(--primary-dark); font-size: 1rem; margin: 1.25rem 0 0.5rem 0;">
             <i class="fa-solid fa-table" style="color: var(--primary-light);"></i> Ejemplo modelo de registro en la bitácora escolar:
           </h4>
-          <table class="bitacora-example-table">
+          <div class="scroll-hint"><i class="fa-solid fa-arrows-left-right"></i> Desliza horizontalmente para ver la tabla completa</div>
+          <div class="table-wrapper">
+            <table class="bitacora-example-table">
             <thead>
               <tr>
                 <th>Evento</th>
@@ -1563,6 +1594,7 @@
               </tr>
             </tbody>
           </table>
+          </div>
 
           <a href="metodos-fichas-campo.html#actividades-bitacora" class="bitacora-btn-to-ficha">
             <i class="fa-solid fa-pen-to-square"></i> Abrir Ficha de Campo para registrar mis Fechas
@@ -1737,7 +1769,9 @@
           <h4 style="color: var(--primary-dark); font-size: 1rem; margin: 1.25rem 0 0.5rem 0;">
             <i class="fa-solid fa-chart-line" style="color: var(--primary-light);"></i> Guía semanal de desarrollo esperado del ají:
           </h4>
-          <table class="bitacora-example-table">
+          <div class="scroll-hint"><i class="fa-solid fa-arrows-left-right"></i> Desliza horizontalmente para ver la tabla completa</div>
+          <div class="table-wrapper">
+            <table class="bitacora-example-table">
             <thead>
               <tr>
                 <th>Semana</th>
@@ -1773,6 +1807,7 @@
               </tr>
             </tbody>
           </table>
+          </div>
 
           <a href="metodos-fichas-campo.html#registro-crecimiento" class="bitacora-btn-to-ficha">
             <i class="fa-solid fa-pen-to-square"></i> Abrir Ficha de Crecimiento para anotar mis Mediciones
@@ -1866,7 +1901,9 @@
           <h4 style="color: var(--primary-dark); font-size: 1rem; margin: 1.25rem 0 0.5rem 0;">
             <i class="fa-solid fa-stethoscope" style="color: var(--primary-light);"></i> Guía de Autodiagnóstico Agrícola Escolar:
           </h4>
-          <table class="bitacora-example-table">
+          <div class="scroll-hint"><i class="fa-solid fa-arrows-left-right"></i> Desliza horizontalmente para ver la tabla completa</div>
+          <div class="table-wrapper">
+            <table class="bitacora-example-table">
             <thead>
               <tr>
                 <th>Síntoma Visible</th>
@@ -1897,6 +1934,7 @@
               </tr>
             </tbody>
           </table>
+          </div>
 
           <div class="bitacora-grid-info">
             <div class="bitacora-info-card">

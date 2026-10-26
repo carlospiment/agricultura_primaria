@@ -1443,3 +1443,24 @@ div[id$="-word-list"] > div[data-word] span {
     outline: 3px solid var(--primary-light);
     outline-offset: 2px;
 }
+
+/* ==========================================================================
+   TABLAS Y ENVOLTORIOS RESPONSIVOS (CONTENCIÓN MÓVIL ESTRICTA)
+   ========================================================================== */
+.table-wrapper,
+.table-responsive,
+div[style*="overflow-x: auto"] {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+
+@media (max-width: 768px) {
+  .detail-section table {
+    font-size: 0.82rem !important;
+  }
+  .detail-section table th,
+  .detail-section table td {
+    padding: 8px 10px !important;
+  }
+}
